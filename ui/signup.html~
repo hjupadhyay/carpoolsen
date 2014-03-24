@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <title> First Step to CarPool </title>
@@ -14,11 +13,11 @@
 
 </style>
 </head>
-
 <body>
-<div class="container">    
-<div class="row">
-<form role="form">
+
+  <div class="container">    
+	<div class="row">
+	<!--div class="col-xs-4 col-sm-8 well well-sm">-->
       <form class="form-horizontal" action= "/signup_do/" method = "POST">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 c col-sm-5 col-sm-offset-2">               
             <div class="panel panel-info" >
@@ -29,16 +28,17 @@
 					</div>
 		
 		<br>
+
 		<div class="col-lg-6">
 		<div class="well well-sm"><strong> * Required Field</strong></div>
 		</div>
 		
 		<br>
-		
 <!-- GENDER-->
 		<div style="padding-top:30px" class="panel-body" >	
 		<div class="panel-body">
-						<div class="col-xs-4 col-md-8">		
+		<div class="form-group">
+				<div class="col-xs-4 col-md-8">		
 			<label class="control-label" for="radios">GENDER * </label>
 				<div class="controls">
 				<label class="radio-inline" for="radios-0">
@@ -51,10 +51,12 @@
 				</label>
 				</div>
 			</div>
+			</div>
 		
 <!-- NAME-->		
+                <form role="form">
 				<div class="col-xs-6 col-md-6">
-				<br>
+                    <div class="form-group">
                         <label for="first_name">
                             FIRST NAME * </label>
                         <div class="input-group">
@@ -63,11 +65,13 @@
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
 						</div>
 						</div>
+					</div>
 				
 			
 				
+				<form role="form">
 				<div class="col-xs-6 col-md-6">
-				<br>
+                    <div class="form-group">
                         <label for="last_name">
                             LAST NAME</label>
                         <div class="input-group">
@@ -76,9 +80,11 @@
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
 						</div>
 					</div>
-					
+					</div>
 	<!-- USERNAME PASSWORD -->			
 				<div class="col-xs-6 col-md-6">
+				<form role="form">
+                    <div class="form-group">
                         <label for="username">
                             USERNAME * </label>
                         <div class="input-group">
@@ -86,10 +92,12 @@
                                 required autofocus />
                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-log-in"></span></span>-->
 						</div>
+					</div>
 				</div>
 					
-	
+				<form role="form">
 				<div class="col-xs-6 col-md-6">
+                    <div class="form-group">
                         <label for="password">
                             PASSWORD * </label>
                         <div class="input-group">
@@ -98,10 +106,12 @@
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 						</div>
 					</div>
+					</div>
 
 	<!-- EMAIL ID-->	  
-
+                 <form role="form">
 				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
                         <label for="email">
                             EMAIL ID * </label>
                         <div class="input-group">
@@ -110,9 +120,12 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
 						</div>
 					</div>
+					</div>
              
 		<!--CAR NUMBER-->		
-				 <div class="col-xs-0 col-md-12">		 
+                 <form role="form">
+				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
                         <label for="car_number">
                             CAR NUMBER</label>
                         <div class="input-group">
@@ -121,10 +134,12 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
 						</div>
 					</div>
-		<br>
+					</div>
+					
 		<!-- CONTACT NUMBER -->		
-              
+                 <form role="form">
 				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
                         <label for="phone">
                             CONTACT NUMBER * </label>
                         <div class="input-group">
@@ -133,10 +148,10 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
 						</div>
 					</div>
+					</div>
 		<!-- AUTHENTICATION -->		
-		<!--
-					<div class="col-xs-0 col-md-12">
-					<br>
+					<div class="form-group">
+					<div class="col-xs-0 col-md-12">	
 						<div class="input-group">
 						<div class="input-group-btn">
 						<button type="btn-default" class="btn dropdown-toggle.btn-default" data-toggle="authentication">Authentication<span class="caret"></span></button>
@@ -151,14 +166,19 @@
 							<input type="text" class="form-control" >
 						</div>
 					</div>
-				-->
-				<div class="col-xs-0 col-md-12">
-				<br>
+					</div>
+				
+						
+			
+				<div class="centered">
+				 <div class="form-group">
 				<button type="submit" class="btn btn-large btn-success"> Sign Up </button>
-				</div>
+				
+		</div>
 		</div>
 		</div>
 	</div>
+</div>
 </div>
 </div>
 </div>
