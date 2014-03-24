@@ -31,7 +31,7 @@ def search_page(request):
     pass
 
 
-def dashboad(request):
+def dashboard(request):
     #return  HttpResponse(request.user.username)
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render())
@@ -43,11 +43,17 @@ def dashboad(request):
     #results1 = Message.objects.filter(sender = rider)
     messages = Message.objects.filter(receiver = request.user.rider)
     
+    #generate list reserved objects for posts made by user.
+    posts = Post.objects.filter(owner=request.user.rider)
+    post_list = []
+    for x in posts:
+        for reserved in x.reserved_set.filter(status = 1):
+            post_list.append(reserved)
     #create jinja template values
     
     template_values = {'rider' : request.user.rider,
                     'messages' : messages,
-                    'post_list' : Post.objects.filter(owner=request.user.rider),
+                    'post_list' : post_list,
                     'reserved_list' : Reserved.objects.filter(reserver=request.user.rider),
                     }
     return HttpResponse(jinja_environ.get_template('dashboard.html').render(template_values))
@@ -122,6 +128,9 @@ def signup_do(request):
     gender = 'a'
     
     car_number = request.REQUEST['car_number']
+    
+    if first_name == "":
+        first_name = username
     
     try:
         user = User.objects.create_user(username, email, password)

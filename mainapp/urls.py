@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^delete_message/', views.delete_message, name='delete_message'),
     url(r'^verify/', views.verify, name='verify'),
     
+    
     #Pages
     url(r'^signup_page/', views.signup_page, name='signup_page'),
     url(r'^post_form/', views.post_form, name='post_form'),

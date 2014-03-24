@@ -105,38 +105,32 @@
                     <div class="modal-body">
                     <div class="well">
                       <ul class="nav nav-tabs">
-                        <li class="active"><a href="#post" data-toggle="tab">Post Updates</a></li>
-                        <li><a href="#reserve" data-toggle="tab">Reserve Updates</a></li>
-                        <li><a href="#inbox" data-toggle="tab">Inbox(3)</a></li>
+                        <li class="active"><a href="#post" data-toggle="tab">Post Updates ({{ post_list|length }})</a></li>
+                        <li><a href="#reserve" data-toggle="tab">Reserve Updates ({{ reserved_list|length }})</a></li>
+                        <li><a href="#inbox" data-toggle="tab">Inbox ({{ messages|length }})</a></li>
                       </ul>
                       <div id="myTabContent" class="tab-content">
                         <div class="tab-pane active in" id="post">
                         <ul>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
-                        <li><p><h5>Robin asked to share a ride with you from Gandhinagar to Ahmedabad for March 10.</h5></p></li>
+                        {% for reserved in post_list %}
+                            <li><p><h5>{{ reserved.reserver.user.first_name }} asked to share a ride with you from {{ reserved.post.fro }} to {{ reserved.post.to }} at {{ reserved.post.date_time }}</h5></p></li>
+                        {% endfor %}
                         </ul>       
                         </div>
                         <div class="tab-pane fade" id="reserve">
-                         <ul>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is awating approval</h5></p></li>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is approved</h5></p></li>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is awating approval</h5></p></li>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is approved</h5></p></li>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is awating approval</h5></p></li>
-                        <li><p><h5>Your reservation from Ahmedabad to Gandhinagar with Robin on March 20 is approved</h5></p></li>                                  </ul>  
+                        <ul>
+                        {% for reserved in reserved_list %}
+                            <li><p><h5>Your reservation from {{ reserved.post.fro }} to {{ reserved.post.to }} with {{ reserved.post.owner.user.first_name }} on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
+                        {% endfor %}
+                        </ul>  
 
                         </div>
                         <div class="tab-pane fade" id="inbox">
-                         <ol>
-                        <li><p><h5>New message from {{messages[0].sender.user.first_name}} </h5></p></li>
-                        <li><p><h5>New message from Natasha Garg</h5></p></li>
-                        <li><p><h5>New message from Tanmay Jindal</h5></p></li>
-                         </ol>  
+                        <ol>
+                        {% for message in messages %}
+                            <li><p><h5>{{message.sender.first_name}} says "{{message.message}}"</h5></p></li>
+                        {% endfor %}
+                        </ol>  
                          <div>
                                                                              <button type="button" class="btn btn-primary btn-sm center-block">Go To Inbox</button>
                                                                     </div>
