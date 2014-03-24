@@ -1,2 +1,4 @@
 *.pyc
+mainapp/*.pyc
+carpoolsen/*.pyc
 database.sqlite
