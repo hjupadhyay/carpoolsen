@@ -21,6 +21,8 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 #pages
 
+def index(request):
+    return HttpResponse(jinja_environ.get_template('index.html').render())
 def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render())
 def login_page(request):

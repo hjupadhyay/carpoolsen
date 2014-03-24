@@ -26,4 +26,5 @@ urlpatterns = patterns('',
     url(r'^post_form/', views.post_form, name='post_form'),
     url(r'^post_page/', views.post_page, name='post_page'),
     url(r'^login_page/', views.login_page, name='login_page'),
+    url(r'^index/', views.index, name='index'),
 )
