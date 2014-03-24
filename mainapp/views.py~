@@ -24,7 +24,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render())
 def login_page(request):
-    pass
+    return HttpResponse(jinja_environ.get_template('login.html').render())
 def search_page(request):
     pass
 
@@ -89,7 +89,7 @@ def post_page(request):
       template_values={'post':postobj, 
 		       'minus':postobj[0].total_seats,
 		       'time':time,
-		       'date':date
+		       'date':date,
 	              }
     
     #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
