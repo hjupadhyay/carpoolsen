@@ -31,22 +31,30 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CarPool</a>
+          <a class="navbar-brand" href="/index/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
+          <form class="navbar-form navbar-right" action="/login_do/" role="form">
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
+              <input type="text" name="username" placeholder="username" class="form-control">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+              <input type="password" name="password" placeholder="password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success">Log in</button>
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <button type="submit" class="btn btn-success" >Log in</button>
+<!--             <button class="btn btn-primary" href="/signup_do/">Sign up</button> -->
           </form>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
+    
+    <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" action="/signup_page/" role="form">
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Signup</button>
+            </div>
+            </form>
+            </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -60,7 +68,7 @@
           								<p>To develop a platform where one can either post about the vacancy one has in their car or can reserve a spot in a car making a trip based on the postings in the app.  </p>
           								 									
 
-          							 <h2>Tutotial</h2>
+          							 <h2>Tutorial</h2>
 															 <img src="images/video.jpg" class="img-responsive" alt="Responsive image">
 
           							 	</div>
