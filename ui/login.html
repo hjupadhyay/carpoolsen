@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Post New Trip</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+
+<style>
+    {% include "bootstrap/css/bootstrap.min.css" %}
+    {% include "bootstrap/css/style.css" %}
+    {% include "bootstrap/css/bootstrap.min.css" %}
+</style>
+    
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="container">
+        <br>
+
+  
+    <div class="row">
+        <div class="col-md-4 well well-sm">
+            <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> LOGIN</legend>
+            <form action="/login_do/" method="post" class="form" role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" name="username" placeholder="username" type="text"
+                        required autofocus />
+                </div>
+            </div>
+<br>
+                <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" name="password" placeholder="password" type="text">
+                </div>
+                </div>
+                
+                <div class="col-md-6">
+  <label class="control-label" for="singlebutton"></label>
+  <div class="controls">
+    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</span></button>
+  </div>
+</div>
+       
+</fieldset>
+</form>
+</body>
+</html>

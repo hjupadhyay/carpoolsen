@@ -9,17 +9,14 @@
         <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
         <title>Dashboard</title>
-        
-        <style>
-            {% include "bootstrap/css/bootstrap.min.css" %}
-            {% include "bootstrap/css/style.css" %}
-        </style>
+
         <!-- Bootstrap core CSS -->
-            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-            <link href="bootstrap/css/style.css" rel="stylesheet">
-            <!-- Custom styles for this template -->
-            <link href="jumbotron.css" rel="stylesheet">
-            <link href="sticky-footer.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/style.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="jumbotron.css" rel="stylesheet">
+        <link href="sticky-footer.css" rel="stylesheet">
+
 
       </head>
 
@@ -75,7 +72,7 @@
                                 <h4>Traveling alone in your car and want to earn money ?</h4> 
                             </p>
                             <div class="more">
-                                <a href="/post_form/" title="Title Link">
+                                <a href="#" title="Title Link">
                                     <button type="button" class="btn btn-default center-block">Post</button>
                                 </a>
                             </div>
@@ -241,12 +238,7 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        
-        {% block javascript %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-            <script>
-            {% include "bootstrap/js/bootstrap.min.js" %}
-            </script>
-        {% endblock %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
       </body>
     </html>
