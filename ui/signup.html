@@ -1,0 +1,188 @@
+<html>
+<head>
+<title> First Step to CarPool </title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
+<style>
+{% include "bootstrap/css/bootstrap.min.css" %}
+{% include "bootstrap/css/style.css" %}
+{% include "bootstrap/css/bootstrap.min.css" %}
+
+</style>
+</head>
+<body>
+
+  <div class="container">    
+	<div class="row">
+	<!--div class="col-xs-4 col-sm-8 well well-sm">-->
+      <form class="form-horizontal" action= "/signup_do/" method = "POST">
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 c col-sm-5 col-sm-offset-2">               
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+					<div class="centered">
+                        <div  class="panel-title" style="text-align: center; font style: bold; font-size: 175%;">New to CarPool? Sign Up!</div>
+                    </div>
+					</div>
+		
+		<br>
+
+		<div class="col-lg-6">
+		<div class="well well-sm"><strong> * Required Field</strong></div>
+		</div>
+		
+		<br>
+<!-- GENDER-->
+		<div style="padding-top:30px" class="panel-body" >	
+		<div class="panel-body">
+		<div class="form-group">
+				<div class="col-xs-4 col-md-8">		
+			<label class="control-label" for="radios">GENDER * </label>
+				<div class="controls">
+				<label class="radio-inline" for="radios-0">
+				<input type="radio" name="radios" id="radios-0" value="Male" checked="checked">
+					Male
+				</label>
+				<label class="radio-inline" for="radios-1">
+				<input type="radio" name="radios" id="radios-1" value="Female">
+				Female
+				</label>
+				</div>
+			</div>
+			</div>
+		
+<!-- NAME-->		
+                <form role="form">
+				<div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                        <label for="first_name">
+                            FIRST NAME * </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="first_name" placeholder="Your First Name"
+                                required autofocus />
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
+						</div>
+						</div>
+					</div>
+				
+			
+				
+				<form role="form">
+				<div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                        <label for="last_name">
+                            LAST NAME</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="last_name" placeholder="Your Last Name"
+                                required autofocus />
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
+						</div>
+					</div>
+					</div>
+	<!-- USERNAME PASSWORD -->			
+				<div class="col-xs-6 col-md-6">
+				<form role="form">
+                    <div class="form-group">
+                        <label for="username">
+                            USERNAME * </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="username" placeholder="Valid Username"
+                                required autofocus />
+                           <!--<span class="input-group-addon"><span class="glyphicon glyphicon-log-in"></span></span>-->
+						</div>
+					</div>
+				</div>
+					
+				<form role="form">
+				<div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                        <label for="password">
+                            PASSWORD * </label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" placeholder="Valid Password"
+                                required autofocus />
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
+						</div>
+					</div>
+					</div>
+
+	<!-- EMAIL ID-->	  
+                 <form role="form">
+				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
+                        <label for="email">
+                            EMAIL ID * </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="email" placeholder="Enter Valid ID"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+						</div>
+					</div>
+					</div>
+             
+		<!--CAR NUMBER-->		
+                 <form role="form">
+				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
+                        <label for="car_number">
+                            CAR NUMBER</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="car_number" placeholder="Enter Your Car Number"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
+						</div>
+					</div>
+					</div>
+					
+		<!-- CONTACT NUMBER -->		
+                 <form role="form">
+				 <div class="col-xs-0 col-md-12">	
+                    <div class="form-group">
+                        <label for="phone">
+                            CONTACT NUMBER * </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+						</div>
+					</div>
+					</div>
+		<!-- AUTHENTICATION -->		
+					<div class="form-group">
+					<div class="col-xs-0 col-md-12">	
+						<div class="input-group">
+						<div class="input-group-btn">
+						<button type="btn-default" class="btn dropdown-toggle.btn-default" data-toggle="authentication">Authentication<span class="caret"></span></button>
+						<ul class="dropdown-menu-right">
+							
+							<li>None</li>
+							<li>License Number</li>
+							<li>PAN Number</li> 
+							
+						</ul>
+						</div>
+							<input type="text" class="form-control" >
+						</div>
+					</div>
+					</div>
+				
+						
+			
+				<div class="centered">
+				 <div class="form-group">
+				<button type="submit" class="btn btn-large btn-success"> Sign Up </button>
+				
+		</div>
+		</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</body>
+</html>
