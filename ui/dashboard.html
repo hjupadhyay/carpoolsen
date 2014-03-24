@@ -128,7 +128,7 @@
                         <div class="tab-pane fade" id="inbox">
                         <ol>
                         {% for message in messages %}
-                            <li><p><h5>{{message.sender.first_name}} says "{{message.message}}"</h5></p></li>
+                            <li><p><h5>{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
                         {% endfor %}
                         </ol>  
                          <div>
