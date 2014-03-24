@@ -24,7 +24,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render())
 def login_page(request):
-    pass
+    return HttpResponse(jinja_environ.get_template('login.html').render())
 def search_page(request):
     pass
 
@@ -165,6 +165,7 @@ def logout_do(request):
     return HttpResponse("logged out")
     
 #Called when a user clicks login button. 
+@csrf_exempt
 def login_do(request):
     
     #if request.method == 'GET':
