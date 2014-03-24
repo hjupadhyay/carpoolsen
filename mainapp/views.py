@@ -31,7 +31,7 @@ def search_page(request):
     pass
 
 
-def dashboard(request):
+def dashboad(request):
     #return  HttpResponse(request.user.username)
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render())
