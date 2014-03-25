@@ -18,7 +18,7 @@
     <script type="text/javascript">
         function signup()
         {
-            window.location.assign("/signup_page/")
+            window.open("/signup_page/","Signup","height=450,widgth=200,resizable=1,scrollbars=1")
         }
     </script>
     
@@ -46,7 +46,7 @@
           <a class="navbar-brand" href="/index/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/login_do/" role="form">
+          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
             <div class="form-group">
               <input type="text" name="username" placeholder="username" class="form-control">
             </div>

@@ -147,8 +147,8 @@ def signup_do(request):
         entry = Rider(user=user, phone=phone, gender=gender, car_number=car_number, verified = uuid.uuid4().hex[:5])
         entry.save()
         #send SMS to user
-    
-        return HttpResponse(entry.verified)
+        login_do(request)
+        return HttpResponse("Sign up successful. Verification Code: " + entry.verified + "\nYou can now close this window")
     except Exception as e:
         return HttpResponse(e)
     
@@ -197,6 +197,7 @@ def login_do(request):
         if user.is_active:
             login(request, user)
             # Logged in now. Redirect to a success page.
+            #return HttpResponse("<html><head></head><body>Login Done. <a href=\"/\">Click here to go to your Dashboard</a></body></html>")
             return dashboard(request)
         else:
             # Return a 'disabled account' error message

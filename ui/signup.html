@@ -7,6 +7,12 @@
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
+<script>
+        window.onunload = refreshParent;
+        function refreshParent() {
+            window.opener.location.reload();
+        }
+</script>
 <style>
 {% include "bootstrap/css/bootstrap.min.css" %}
 {% include "bootstrap/css/style.css" %}
