@@ -9,7 +9,19 @@
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
     <title>Welcome</title>
-
+    
+    <style>
+        {% include "bootstrap/css/bootstrap.min.css" %}
+        {% include "bootstrap/css/style.css" %}
+    </style>
+    
+    <script type="text/javascript">
+        function signup()
+        {
+            window.location.assign("/signup_page/")
+        }
+    </script>
+    
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -42,18 +54,18 @@
               <input type="password" name="password" placeholder="password" class="form-control">
             </div>
             <button type="submit" class="btn btn-success" >Log in</button>
-<!--             <button class="btn btn-primary" href="/signup_do/">Sign up</button> -->
+            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
     
     <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/signup_page/" role="form">
+          <!--<form class="navbar-form navbar-right" action="/signup_page/" role="form">
             <div class="form-group">
               <button type="submit" class="btn btn-success">Signup</button>
             </div>
-            </form>
+            </form>-->
             </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
