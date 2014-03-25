@@ -19,7 +19,7 @@ import jinja2
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 
-#pages
+#pages and forms
 
 def index(request):
     return HttpResponse(jinja_environ.get_template('index.html').render())
@@ -29,7 +29,14 @@ def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def search_page(request):
     pass
-
+def profile(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+    try:
+        request.user.rider
+    except:
+        return HttpResponse("no rider associated")
+    return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
 
 def dashboard(request):
     #return  HttpResponse(request.user.username)
@@ -190,7 +197,7 @@ def login_do(request):
         if user.is_active:
             login(request, user)
             # Logged in now. Redirect to a success page.
-            return HttpResponse("done")
+            return dashboard(request)
         else:
             # Return a 'disabled account' error message
             return HttpResponse("disabled account")

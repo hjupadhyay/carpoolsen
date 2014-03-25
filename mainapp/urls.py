@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^view_messages/', views.view_messages, name='view_messages'),
     url(r'^delete_message/', views.delete_message, name='delete_message'),
     url(r'^verify/', views.verify, name='verify'),
+    url(r'^profile/', views.profile, name='profile'),
     
     
     #Pages
