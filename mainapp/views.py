@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 from django.db.models import Count, Min, Sum, Avg
 import uuid
 import jinja2
-
+import smtplib
 
 #def index(request):
     #return HttpResponse("Hello, world. You're at the poll index.")
@@ -20,8 +20,26 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 
 #Function to send email
-def send_verification_email(value):
-    pass
+def send_verification_email(entry):
+    
+    gmailLogin = 'carpoolsen'
+    gmailPas = 'qwertqwert!'
+    fro = gmailLogin + "@gmail.com"
+    subject = 'CarPool SEN Verification Email'
+    
+    to = entry.user.email
+    msg = 'Subject: %s \n\nYour email has been registered on carpoolsen.com.\nPlease\
+    click on the following link to verify (or copy paste it in your browser if needed\n\n\
+    http://carpoolsen.com/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.verified)
+   
+    try:
+        server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
+        a = server.login( gmailLogin, gmailPas)
+        server.sendmail(fro, to,msg)
+    except:
+         return False
+   
+    return True
 
 
 #pages and forms
@@ -151,11 +169,14 @@ def signup_do(request):
         user.last_name = last_name
         user.save()
         entry = Rider(user=user, phone=phone, gender=gender, car_number=car_number, verified = uuid.uuid4().hex[:5])
+        
         entry.save()
         #send email to user
-        send_verification_email(entry.verified)
         login_do(request)
-        return HttpResponse("Sign up successful. Verification Code: " + entry.verified + "\nYou can now close this window")
+        if send_verification_email(entry):
+            return HttpResponse("Sign up successful. Please check your email and verify before continuing")
+        else:
+            return HttpResponse("Verification email could not be sent.")
     except Exception as e:
         return HttpResponse(e)
     
