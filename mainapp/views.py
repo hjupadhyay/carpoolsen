@@ -59,7 +59,8 @@ def profile(request):
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        #return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
 
 def dashboard(request):
@@ -69,7 +70,7 @@ def dashboard(request):
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #results1 = Message.objects.filter(sender = rider)
     messages = Message.objects.filter(receiver = request.user.rider)
@@ -98,7 +99,7 @@ def post_form(request):
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     return HttpResponse(jinja_environ.get_template('post.html').render({'owner':request.user.rider}))
 
@@ -108,7 +109,7 @@ def post_page(request):
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     postobj=Post.objects.filter(pk=request.REQUEST['key'])
     reserved=postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']
@@ -188,27 +189,27 @@ def verify(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     code = request.REQUEST['code']
     rider = request.user.rider
     if rider.verified == '1':
-        return HttpResponse("Already verified")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Already Verified. Please go back or click <a href="/">here</a> to go to the homepage'}))
     elif code == rider.verified:
         rider.verified = '1'
         rider.save()
-        return HttpResponse('done')
-    return HttpResponse('verification failed')
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Verification Failed. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
-    return HttpResponse("logged out")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -229,10 +230,10 @@ def login_do(request):
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
-            return HttpResponse("disabled account")
+            return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Disabled Account. Please go back or click <a href="/">here</a> to go to the homepage'}))
     else:
         # Return an 'invalid login' error message.
-        return HttpResponse("invalid login")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Invalid Login. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 #Called when a user cancels his post
 def cancel_post(request):
@@ -242,7 +243,7 @@ def cancel_post(request):
     
     #Not allowed to delete if user is not logged in. Not called, but to take edge cases into consideration.
     if not user.is_authenticated:
-        return HttpResponse("Need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     postid = request.REQUEST['postid']
     #return HttpResponse(postid)
@@ -256,11 +257,11 @@ def cancel_post(request):
                 y.delete()
             entry.delete()
         else:
-            return HttpResponse("not authenticated to delete this post")
+            return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Not enough permissions. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
         return HttpResponse(e)
     
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 @csrf_exempt
 def post_new(request):
@@ -270,11 +271,11 @@ def post_new(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #New Post
     owner = request.user.rider
@@ -338,7 +339,7 @@ def post_new(request):
                  )
     
     entry.save()
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 def reserve(request):
     #if request.method == 'GET':
@@ -346,12 +347,12 @@ def reserve(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         reserver = request.user.rider
         postid = request.REQUEST['postid']
@@ -367,7 +368,7 @@ def reserve(request):
         entry.save()
     except Exception as e:
         return HttpResponse(e)
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
     
 def accept(request):
@@ -376,11 +377,11 @@ def accept(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         owner = request.user.rider
         resid = request.REQUEST['resid']
@@ -395,10 +396,10 @@ def accept(request):
             resobj.status = 1
             resobj.save()
         else:
-            return HttpResponse("seats full")
+            return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Seats full. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
         return HttpResponse(e)
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 def revoke(request):
     #if request.method == 'GET':
@@ -406,11 +407,11 @@ def revoke(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         owner = request.user.rider
         resid = request.REQUEST['resid']
@@ -428,10 +429,10 @@ def revoke(request):
             resobj.status = 0
             resobj.save()
         else:
-            return HttpResponse("Already revoked/pending.")
+            return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Request already revoked/pending. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
         return HttpResponse(e)
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 def cancel_res(request):
     #if request.method == 'GET':
@@ -439,12 +440,12 @@ def cancel_res(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     try:
         request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
     try:
         reserver = request.user.rider
@@ -454,12 +455,12 @@ def cancel_res(request):
         if resobj.reserver.pk == reserver.pk:
             resobj.delete()
         else:
-            return HttpResponse("invalid user")
+            return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Invalid User. Please go back or click <a href="/">here</a> to go to the homepage'}))
         #entry = Reserved(post = postobj, reserver = reserver)
         
     except Exception as e:
         return HttpResponse(e)
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 
 def search_do(request):
@@ -468,12 +469,12 @@ def search_do(request):
         
     #check for user login
     #if not request.user.is_authenticated():
-        #return HttpResponse("need to log in")
+        #return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #try:
         #request.user.rider
     #except:
-        #return HttpResponse("no rider associated")
+        #return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
@@ -500,7 +501,7 @@ def edit_post(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #Get Post
     owner = request.user.rider
@@ -514,7 +515,7 @@ def edit_post(request):
     #Get new details.
     
     if postobj.owner.user.username <> owner.user.username:
-        return HttpResponse("You can't edit others posts!!")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Invalid User. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #owner = request.user.rider
     car_number = request.REQUEST['car_number']
@@ -548,7 +549,7 @@ def edit_post(request):
                  #men_women=men_women,
                  #available_to=available_to)
     if total_seats < postobj.reserved_set.aggregate(Sum('status'))['status__sum']:
-        return HttpResponse("You already have more reserved users than seats.")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'You already have more reserved users than seats. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     postobj.car_number = car_number
     postobj.total_seats = total_seats
@@ -562,7 +563,7 @@ def edit_post(request):
     postobj.autoaccept = autoaccept
     
     postobj.save()
-    return HttpResponse("Post edited successfully. Contrary to what people say, Change is NOT good. Please keep edits as minimal as possible")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post edited successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 
 def send_message(request):
@@ -571,12 +572,12 @@ def send_message(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     sender = None
     try:
         sender = request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     try:
         receiver = User.objects.get(username=request.REQUEST['to']).rider
         message = request.REQUEST['message']
@@ -585,7 +586,7 @@ def send_message(request):
         entry.save()
     except Exception as e:
         return HttpResponse(e)
-    return HttpResponse("sent")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Message Sent. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 def view_messages(request):
     #if request.method == 'GET':
@@ -593,13 +594,13 @@ def view_messages(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     rider = None
     
     try:
         rider = request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     results1 = Message.objects.filter(sender = rider)
     results2 = Message.objects.filter(receiver = rider)
@@ -612,20 +613,20 @@ def delete_message(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse("need to log in")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Need to log-in. Please go back or click <a href="/">here</a> to go to the homepage'}))
     rider = None
     
     try:
         rider = request.user.rider
     except:
-        return HttpResponse("no rider associated")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     mid = request.REQUEST['mid']
     message = None
     try:
         message = Message.objects.get(pk=mid)
     except:
-        return HttpResponse("No such message exists")
+        return HttpResponse(jinja_environ.get_template('done.html').render({"text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     if message.sender.pk == rider.pk:
         message.smailbox = 0
@@ -642,4 +643,4 @@ def delete_message(request):
         message.delete()
     else:
         message.save()
-    return HttpResponse("done")
+    return HttpResponse(jinja_environ.get_template('done.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
