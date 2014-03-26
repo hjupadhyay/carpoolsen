@@ -33,6 +33,7 @@ def signup_page(request):
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def search_results(request):
+    #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
 def profile(request):
     if not request.user.is_authenticated():
@@ -116,8 +117,8 @@ def post_page(request):
     return HttpResponse(jinja_environ.get_template('postpage.html').render(template_values))
 
     
-def results_page(request):
-    pass
+def reserve_page(request):
+    return HttpResponse(jinja_environ.get_template('reservepage.html').render({'post':Post.objects.get(pk=3)}))
 
 
 ##############################################################################

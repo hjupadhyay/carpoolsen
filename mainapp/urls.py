@@ -30,4 +30,5 @@ urlpatterns = patterns('',
     url(r'^login_page/', views.login_page, name='login_page'),
     url(r'^index/', views.index, name='index'),
     url(r'^search_results/', views.search_results, name='search_results'),
+    url(r'^reserve_page/', views.reserve_page, name='reserve_page'),
 )
