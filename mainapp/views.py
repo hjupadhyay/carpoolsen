@@ -19,6 +19,11 @@ import jinja2
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 
+#Function to send email
+def send_verification_email(value):
+    pass
+
+
 #pages and forms
 
 def index(request):
@@ -27,7 +32,7 @@ def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render())
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
-def search_page(request):
+def search_results(request):
     pass
 def profile(request):
     if not request.user.is_authenticated():
@@ -146,7 +151,8 @@ def signup_do(request):
         user.save()
         entry = Rider(user=user, phone=phone, gender=gender, car_number=car_number, verified = uuid.uuid4().hex[:5])
         entry.save()
-        #send SMS to user
+        #send email to user
+        send_verification_email(entry.verified)
         login_do(request)
         return HttpResponse("Sign up successful. Verification Code: " + entry.verified + "\nYou can now close this window")
     except Exception as e:
@@ -457,7 +463,13 @@ def search_do(request):
     dtend = datetime.datetime(year=int(dtend[0]), month=int(dtend[1]), day=int(dtend[2]), hour=int(dtend[3]),
                                 minute=int(dtend[4]), second=0, microsecond=0)
     results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=men_women)
-    return HttpResponse(len(results))
+    
+    template_values = {
+        'results':results,
+        }
+    
+    return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
+    #return HttpResponse(len(results))
     
 
 def edit_post(request):
