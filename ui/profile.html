@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--     <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+	<meta charset="UTF-8"/>
+        <title>profile</title>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+<!--         <link href="bootstrap/css/star-rating.css" media="all" rel="stylesheet" type="text/css" /> -->
+        
+<!--         </script> -->
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--         <script src="bootstrap/js/star-rating.js" type="text/javascript"></script> -->
+        
+        <style>
+            {% include "bootstrap/css/star-rating.css" %}
+            {% include "bootstrap/css/bootstrap.min.css" %}
+            {% include "bootstrap/css/profile.css" %}
+/*             drop-shadow.css */
+/*             include "jumbotron-narrow.css" */
+            
+            
+        </style>
+    
+
+    <title>Profile</title>
+
+    <!-- Bootstrap core CSS -->
+<!--     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- 	<link href="bootstrap/css/profile.css" rel="stylesheet"> -->
+<!-- 	<link href="bootstrap/css/drop-shadow.css" rel="stylesheet"> -->
+	
+    <!-- Custom styles for this template -->
+<!--     <link href="jumbotron-narrow.css" rel="stylesheet"> -->
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+
+              <a class="navbar-brand" href="#">CarPool</a>
+                                        <a class="navbar-brand" href="#">DashBoard</a>
+
+            </div>
+
+
+
+                                <div class="nav navbar-nav navbar-right">
+              <a class="navbar-brand" href="#">Welcome, Karan&nbspSingh&nbspSisodia!</a>
+              <a class="navbar-brand" href="#">Log Out</a>							
+                                </div>
+
+
+
+
+            </div><!--/.navbar-collapse -->
+          </div>
+        </div> 
+		<br><br>
+		
+		
+	<div class="jumbotron">
+    <div class="container">
+        <div class="col-lg-6"><div class="conatiner drop-shadow">
+		<div class="jumbotron extra">
+		<div class="row marketing">
+        <h3 style="font-family:arial;font-size:45px;" class="text-center" >My Profile</h3><br></br>
+			<div id="inner" class="user-image">
+                <img src="http://www.gravatar.com/avatar/2ab7b2009d27ec37bffee791819a090c?s=100&d=mm&r=g" alt="Karan Singh Sisodia" title="Karan Singh Sisodia"  height="200" width="200">
+            
+			</div>
+			<br></br>
+			<form>
+			<input id="input-5" type="number" class="rating" min="1" max="5" step="1">
+			</form>
+        
+			<!-- <div style="height:400px; width:100%; clear:both;"></div> -->
+			<a class="navbar-brand" href="#"><font size="1" color="red">YOU ARE UNTRUSTED USER, PLEASE AUTHENTICATE TO BECOME TRUSTED</font></a><br></br>
+                                        
+			<div class="user-info-block">
+                <div class="user-heading">
+                    <h3>Karan Singh Sisodia</h3>
+					<TABLE>
+					<TR>
+						<TD>Gender: </TD>
+						<TD>Male</TD>
+					</TR>
+					<TR>
+						<TD>Email: </TD>
+						<TD><a href="mailto:#"> name@domain.com</a></TD>
+					</TR>
+					<TR>
+						<TD>Phone: </TD>
+						<TD>(555)123-4567</TD>
+					</TR>
+					<TR>
+						<TD>Location: </TD>
+						<TD>Chandigarh, IN</TD>
+					</TR>
+					<TR>
+						<TD>Vehicle No.: </TD>
+						<TD>XYZ123</TD>
+					</TR>
+					<TR>
+						<TD>Type: </TD>
+						<TD> A.C.</TD>
+					</TR>
+				</TABLE>
+                    </div>
+				<div class="span4">
+				<h3>Profile complete<span class="pull-right"><div>
+        	    <button class="btn btn-primary">Edit</button>
+        	</div></span></h3>
+				40% Completed 
+				
+				<div id="progress">
+					<span id="percent"></span>
+					<div id="bar"></div>
+				</div>
+				</div>
+            </div>
+        </div>
+		</div>
+		</div></div>
+		
+        <div class="col-lg-6"><div class="conatiner drop-shadow">
+		<div class="jumbotron extra">
+			<div class="row">
+			<!-- <div class="span12"> -->
+    		<div class="" id="loginModal">
+                <div class="modal-body">
+                <!-- <div class="well"> -->
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#post" data-toggle="tab">Post Updates</a></li>
+                    <li><a href="#reserve" data-toggle="tab">Reserve Updates</a></li>
+                    <li><a href="#inbox" data-toggle="tab">Inbox(3)</a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="post">
+                    <ul>
+                    <li><p><h5>Vandit posted a trip from Gandhinagar to Ahmedabad for March 10 at Rs.200.</h5></p></li>
+                    <li><p><h5>Abhishek posted a trip from Ahmedabad  to Jaipur for March 15 at Rs.100.</h5></p></li>
+                    <li><p><h5>Rishav posted a trip from Ahmedabad to Banglore for March 14 at Rs.300.</h5></p></li>
+                    <li><p><h5>Natasha posted a trip from Ahmedabad to Jaipur for March 11 at Rs.150.</h5></p></li>
+                    </ul>       
+                    </div>
+                    <div class="tab-pane fade" id="reserve">
+                     <ul>
+                    <li><p><h5>Vandit reserved a trip from Gandhinagar to Ahmedabad for March 10 at Rs.200.</h5></p></li>
+                    <li><p><h5>Abhishek reserved a trip from Ahmedabad  to Jaipur for March 15 at Rs.100.</h5></p></li>
+                    <li><p><h5>Rishav reserved a trip from Ahmedabad to Banglore for March 14 at Rs.300.</h5></p></li>
+                    <li><p><h5>Natasha reserved a trip from Ahmedabad to Jaipur for March 11 at Rs.150.</h5></p></li>
+                    </ul>  
+                       
+                    </div>
+                    <div class="tab-pane fade" id="inbox">
+                     <ol>
+                    <li><p><h5>New message from Meghna Tolani </h5></p></li>
+                    <li><p><h5>New message from Natasha Garg</h5></p></li>
+                    <li><p><h5>New message from Tanmay Jindal</h5></p></li>
+                     </ol>  
+                     <div>
+					<button type="button" class="btn btn-primary btn-sm center-block">Go To Inbox</button>
+					</div>
+                
+                                  
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+	</div>
+</div>																	 
+	</div></div>
+    </div>
+        </div>
+         
+     <!-- /container -->
+
+	</div> 
+	<div id="footer">
+          <div class="container">
+            <p class="text-muted">&copy; Company 2014</p>
+          </div>
+        </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+       <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

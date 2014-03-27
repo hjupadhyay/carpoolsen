@@ -31,6 +31,9 @@ class Rider(models.Model):
     gender = models.CharField(max_length=1)
     car_number = models.CharField(max_length=20)
     
+    #path to image
+    image = models.CharField(max_length=300)
+    
     #1 - unverified
     #any other number = verification code
     verified = models.CharField(max_length=5)

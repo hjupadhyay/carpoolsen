@@ -86,7 +86,8 @@ def profile(request):
     retval = check(request)
     if retval <> None:
         return retval
-    return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
+    #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
+    return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider}))
 
 def dashboard(request):
     
