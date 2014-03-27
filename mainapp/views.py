@@ -37,7 +37,7 @@ def check(request):
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
                                                                                   <p>Your account has not been verified. Please check your email and click on the verification link.</p>
                                                                                   <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                                  <p>Click <a href="/">here</a> to go to the homepage and log-in again</p>"""}))
+                                                                                  <p>Click <a href="/logout_do/?direct_home=1">here</a> to go to the homepage and log-in again</p>"""}))
         #return HttpResponse(request.user.rider.verified)
     return None
     
@@ -53,7 +53,7 @@ def send_verification_email(request):
     to = entry.email
     msg = 'Subject: %s \n\nYour email has been registered on carpoolsen.com.\nPlease\
     click on the following link to verify (or copy paste it in your browser if needed\n\n\
-    http://carpoolsen.com/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
+    http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
    
     try:
         server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
@@ -212,13 +212,15 @@ def verify(request):
     elif code == rider.verified:
         rider.verified = '1'
         rider.save()
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Verification successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Verification Failed. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
+    if request.REQUEST['direct_home']=='1':
+        return HttpResponse(jinja_environ.get_template('index.html').render())
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 #Called when a user clicks login button. 
