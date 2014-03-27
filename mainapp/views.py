@@ -43,6 +43,14 @@ def check(request):
     
 #Function to send email
 def send_verification_email(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     entry = request.user
     gmailLogin = 'carpoolsen'

@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^delete_message/', views.delete_message, name='delete_message'),
     url(r'^verify/', views.verify, name='verify'),
     url(r'^profile/', views.profile, name='profile'),
+    url(r'^send_verification_email/', views.send_verification_email, name='send_verification_email'),
     
     
     #Pages
@@ -31,4 +32,5 @@ urlpatterns = patterns('',
     url(r'^index/', views.index, name='index'),
     url(r'^search_results/', views.search_results, name='search_results'),
     url(r'^reserve_page/', views.reserve_page, name='reserve_page'),
+    
 )

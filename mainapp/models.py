@@ -41,7 +41,7 @@ class Rider(models.Model):
     #0 - PAN
     #1 - Driving License
     #2 - Voter Card
-    auth_type = models.IntegerField(default=0)
+    auth_type = models.CharField(max_length="20", default="None")
     auth_token = models.CharField(max_length=200, default = "")
     
     
