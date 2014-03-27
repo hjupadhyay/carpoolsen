@@ -91,7 +91,16 @@ def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
 def edit_profile_page(request):
-    pass
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!.\
+                                                                                  Please go back or click <a href="/">here</a> to go to the homepage'}))
+    return HttpResponse(jinja_environ.get_template('profileedit.html').render())
 def profile(request):
     retval = check(request)
     if retval <> None:
@@ -204,7 +213,16 @@ def signup_do(request):
     phone = request.REQUEST['phone']
     email = request.REQUEST['email']
     gender = request.REQUEST['gender']
+    
+    if len(User.objects.get(email=email))<>0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                  <p>Someone has already registered using this email.</p>
+                                                                                  <p>If you have forgotten your password, click <a href="/forgot_pass/</p>
+                                                                                  <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
     #gender = 'a'
+    
+    if '@' not in email:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid email, please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
     car_number = request.REQUEST['car_number']
     
@@ -233,7 +251,7 @@ def verify(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"url":"/verify?code=" + request.REQUEST['code']}))
+        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"code":request.REQUEST['code']}))
     try:
         request.user.rider
     except:
@@ -275,6 +293,11 @@ def login_do(request):
             login(request, user)
             # Logged in now. Redirect to a success page.
             #return HttpResponse("<html><head></head><body>Login Done. <a href=\"/\">Click here to go to your Dashboard</a></body></html>")
+            try:
+                if request.REQUEST['code'] == user.rider.verified:
+                    user.rider.verified=1
+                    user.save()
+                    user.rider.save()
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
