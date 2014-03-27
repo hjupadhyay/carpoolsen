@@ -16,10 +16,14 @@
         </style>
         <!-- Bootstrap core CSS -->
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
             <link href="bootstrap/css/style.css" rel="stylesheet">
+			
             <!-- Custom styles for this template -->
             <link href="jumbotron.css" rel="stylesheet">
             <link href="sticky-footer.css" rel="stylesheet">
+			<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
       </head>
 
@@ -37,8 +41,19 @@
 
 
                                 <div class="nav navbar-nav navbar-right">
-              <a class="navbar-brand" href="/profile/">Welcome, {{ rider.user.first_name }} !</a>
-              <a class="navbar-brand" href="/logout_do/">Log Out</a>							
+             
+			  
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ rider.user.first_name }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/preferences"><span type="input-group-addon" class= "glyphicon glyphicon-cog"></span> &nbsp Preferences  </a></li>
+							<li><a href="/profile"><span type="input-group-addon" class= "glyphicon glyphicon-user"></span> &nbsp Profile  </a></li>
+                            <li><a href="/faq"><span type="input-group-addon" class= "glyphicon glyphicon-question-sign"></span> &nbsp FAQ </a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout_do"><span type="input-group-addon" class= "glyphicon glyphicon-off"></span>&nbsp Logout</a></li>
+                        </ul>
+                    </li>
+                
+           					
                                 </div>
 
 
@@ -203,7 +218,6 @@
             </div>
         </div>
 
-        <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         
@@ -213,6 +227,8 @@
             {% include "bootstrap/js/bootstrap.min.js" %}
             </script>
         {% endblock %}
+		
+		
       </body>
 	  
     </html>
