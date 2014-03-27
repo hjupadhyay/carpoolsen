@@ -86,8 +86,17 @@ def profile(request):
     retval = check(request)
     if retval <> None:
         return retval
+    
+    try:
+        riderid = int(request.REQUEST['id'])
+        if riderid == request.user.rider.pk:
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+        else:
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":Rider.objects.get(pk=riderid), "check":"0"}))
+    except:
+        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
-    return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider}))
+    
 
 def dashboard(request):
     
