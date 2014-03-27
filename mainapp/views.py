@@ -170,8 +170,8 @@ def signup_do(request):
     password = request.REQUEST['password']
     confirmpassword = request.REQUEST['confirmpassword']
     
-    if password != confirmpassword:
-      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click here to go back to <a href="/">SIGNUP</a> page.'}))
+    if password <> confirmpassword:
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
     first_name = request.REQUEST['first_name']
     last_name = request.REQUEST['last_name']
