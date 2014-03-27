@@ -219,9 +219,11 @@ def verify(request):
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
-    if request.REQUEST['direct_home']=='1':
-        return HttpResponse(jinja_environ.get_template('index.html').render())
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    try:
+        if request.REQUEST['direct_home']=='1':
+            return HttpResponse(jinja_environ.get_template('index.html').render())
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
