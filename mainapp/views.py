@@ -20,7 +20,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 
 #Perform basic checks on user
-def check():
+def check(request):
     
     #Check if user is logged in
     if not request.user.is_authenticated():
@@ -33,12 +33,12 @@ def check():
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     #Check if user has been verified
-    if request.user.verified <> 1:
+    if request.user.rider.verified <> '1':
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
-                                                                                  "<p>Your account has not been verified. Please check your email and click on the verification link.</p>
+                                                                                  <p>Your account has not been verified. Please check your email and click on the verification link.</p>
                                                                                   <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                                  <p>Click <a href="/">here</a> to go to the homepage and log-in again</p>"""
-                                                                                  })
+                                                                                  <p>Click <a href="/">here</a> to go to the homepage and log-in again</p>"""}))
+        #return HttpResponse(request.user.rider.verified)
     return None
     
 #Function to send email
@@ -77,14 +77,14 @@ def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
 def profile(request):
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
 
 def dashboard(request):
     
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     #results1 = Message.objects.filter(sender = rider)
@@ -109,13 +109,13 @@ def dashboard(request):
 
 
 def post_form(request):
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     return HttpResponse(jinja_environ.get_template('post.html').render({'owner':request.user.rider}))
 
 def post_page(request):
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     postobj=Post.objects.filter(pk=request.REQUEST['key'])
@@ -144,7 +144,7 @@ def post_page(request):
 
     
 def reserve_page(request):
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     return HttpResponse(jinja_environ.get_template('reservepage.html').render({'post':Post.objects.get(pk=3)}))
@@ -199,7 +199,7 @@ def verify(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"url":"/verify?code=" + request.REQUEST['code']})
+        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"url":"/verify?code=" + request.REQUEST['code']}))
     try:
         request.user.rider
     except:
@@ -247,7 +247,7 @@ def login_do(request):
 
 #Called when a user cancels his post
 def cancel_post(request):
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     #using get for now.
@@ -280,7 +280,7 @@ def post_new(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     #New Post
@@ -352,7 +352,7 @@ def reserve(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -379,7 +379,7 @@ def accept(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -407,7 +407,7 @@ def revoke(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -439,7 +439,7 @@ def cancel_res(request):
         
     #check for user login
     
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
 
@@ -495,7 +495,7 @@ def edit_post(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
         
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -568,7 +568,7 @@ def send_message(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -582,7 +582,7 @@ def send_message(request):
     except Exception as e:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>505 Internal Error</p>
                                                                                   <p>""" + e + """</p>
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage""")
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Message Sent. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 def view_messages(request):
@@ -590,7 +590,7 @@ def view_messages(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
@@ -605,7 +605,7 @@ def delete_message(request):
         #return HttpResponse('invalid request')
         
     #check for user login
-    retval = check()
+    retval = check(request)
     if retval <> None:
         return retval
     
