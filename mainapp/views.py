@@ -68,9 +68,9 @@ def send_verification_email(request):
         a = server.login( gmailLogin, gmailPas)
         server.sendmail(fro, to,msg)
     except:
-         return False
+         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Could not send verification email. Please try again later.</p><p>click <a href="/">here</a> to go to the homepage</p>'}))
    
-    return True
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Verification Email sent!. Please Check your email inbox.</p><p> Click <a href="/">here</a> to go to the homepage</p>'}))
 
 
 #pages and forms
@@ -89,6 +89,8 @@ def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
 def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
+    pass
+def edit_profile_page(request):
     pass
 def profile(request):
     retval = check(request)
@@ -178,7 +180,13 @@ def reserve_page(request):
 ##############################################################################
 ##############################################################################
 
+
 #Actions
+@csrf_exempt
+def edit_profile(request):
+    return HttpResponse("")
+    pass
+
 @csrf_exempt
 def signup_do(request):
     #if request.method == 'GET':
@@ -213,10 +221,7 @@ def signup_do(request):
         entry.save()
         #send email to user
         login_do(request)
-        if send_verification_email(entry):
-            return HttpResponse("Sign up successful. Please check your email and verify before continuing")
-        else:
-            return HttpResponse("Verification email could not be sent.")
+        return send_verification_email(request)
     except Exception as e:
         return HttpResponse(e)
     

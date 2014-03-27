@@ -72,3 +72,5 @@
 .starRate div b {left:0px; bottom:0px; background-position:left top;}
 .starRate a span {position:absolute; left:-300px;}
 .starRate a:hover span {left:90px; width:100%;}
+
+.body {background-image:url("http://wstaw.org/m/2014/03/27/volkswagen-volkswagen-bus-wallpaper.jpg");} 
