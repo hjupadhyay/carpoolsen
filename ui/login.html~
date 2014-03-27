@@ -41,11 +41,20 @@
                 <div class="col-md-6">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-ok-sign"></span>Login</span></button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</span></button>
   </div>
 </div>
+
+<div id="footer">
+          <div class="container">
+            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
+            <p class="text-muted">&copy; Carpool 2014</p>
+            </div>
+        </div>
        
-</fieldset>
 </form>
+</div>
+</div>
+</div>
 </body>
 </html>
