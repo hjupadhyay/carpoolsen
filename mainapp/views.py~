@@ -43,6 +43,14 @@ def check(request):
     
 #Function to send email
 def send_verification_email(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
     entry = request.user
     gmailLogin = 'carpoolsen'
@@ -60,9 +68,9 @@ def send_verification_email(request):
         a = server.login( gmailLogin, gmailPas)
         server.sendmail(fro, to,msg)
     except:
-         return False
+         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Could not send verification email. Please try again later.</p><p>click <a href="/">here</a> to go to the homepage</p>'}))
    
-    return True
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Verification Email sent!. Please Check your email inbox.</p><p> Click <a href="/">here</a> to go to the homepage</p>'}))
 
 
 #pages and forms
@@ -77,16 +85,37 @@ def contactus(request):
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
 def faq(request):
     return HttpResponse(jinja_environ.get_template('FAQs.html').render())
-def contactus(request):
+def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
 def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
+def edit_profile_page(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!.\
+                                                                                  Please go back or click <a href="/">here</a> to go to the homepage'}))
+    return HttpResponse(jinja_environ.get_template('profileedit.html').render())
 def profile(request):
     retval = check(request)
     if retval <> None:
         return retval
-    return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
+    
+    try:
+        riderid = int(request.REQUEST['id'])
+        if riderid == request.user.rider.pk:
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+        else:
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":Rider.objects.get(pk=riderid), "check":"0"}))
+    except:
+        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+    #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
+    
 
 def dashboard(request):
     
@@ -160,7 +189,13 @@ def reserve_page(request):
 ##############################################################################
 ##############################################################################
 
+
 #Actions
+@csrf_exempt
+def edit_profile(request):
+    return HttpResponse("")
+    pass
+
 @csrf_exempt
 def signup_do(request):
     #if request.method == 'GET':
@@ -170,15 +205,27 @@ def signup_do(request):
     password = request.REQUEST['password']
     confirmpassword = request.REQUEST['confirmpassword']
     
-    if password != confirmpassword:
-      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click here to go back to <a href="/">SIGNUP</a> page.'}))
+    if password <> confirmpassword:
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
     first_name = request.REQUEST['first_name']
     last_name = request.REQUEST['last_name']
     phone = request.REQUEST['phone']
     email = request.REQUEST['email']
     gender = request.REQUEST['gender']
+    
+    try:
+        if len(User.objects.get(email=email))<>0:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                    <p>Someone has already registered using this email.</p>
+                                                                                    <p>If you have forgotten your password, click <a href="/forgot_pass/</p>
+                                                                                    <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
+    except:
+        pass
     #gender = 'a'
+    
+    if '@' not in email:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid email, please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
     car_number = request.REQUEST['car_number']
     
@@ -195,10 +242,7 @@ def signup_do(request):
         entry.save()
         #send email to user
         login_do(request)
-        if send_verification_email(entry):
-            return HttpResponse("Sign up successful. Please check your email and verify before continuing")
-        else:
-            return HttpResponse("Verification email could not be sent.")
+        return send_verification_email(request)
     except Exception as e:
         return HttpResponse(e)
     
@@ -210,7 +254,7 @@ def verify(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"url":"/verify?code=" + request.REQUEST['code']}))
+        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"code":request.REQUEST['code']}))
     try:
         request.user.rider
     except:
@@ -234,7 +278,7 @@ def logout_do(request):
         if request.REQUEST['direct_home']=='1':
             return HttpResponse(jinja_environ.get_template('index.html').render())
     except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Log out successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -252,6 +296,14 @@ def login_do(request):
             login(request, user)
             # Logged in now. Redirect to a success page.
             #return HttpResponse("<html><head></head><body>Login Done. <a href=\"/\">Click here to go to your Dashboard</a></body></html>")
+            try:
+                if request.REQUEST['code'] == user.rider.verified:
+                    user.rider.verified=1
+                    user.save()
+                    user.rider.save()
+                    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Successfully registered. Click <a href="/">here</a> to go to the homepage'}))
+            except:
+                pass
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
@@ -307,11 +359,22 @@ def post_new(request):
     to = request.REQUEST['to']
     
     #Date and time format: yyyy-mm-dd-hh-mm
-    date_time = datetime.datetime(year=int(request.REQUEST['year']),
-                                  month=int(request.REQUEST['month']), 
-                                  day=int(request.REQUEST['day']), 
-                                  hour=int(request.REQUEST['hour']),
-                                  minute=int(request.REQUEST['min']), 
+    date=request.REQUEST['date']
+    date=date.split('/')
+    time=request.REQUEST['time']
+    time=time.split(':')
+    #date_time = datetime.datetime(year=int(request.REQUEST['year']),
+                                  #month=int(request.REQUEST['month']), 
+                                  #day=int(request.REQUEST['day']), 
+                                  #hour=int(request.REQUEST['hour']),
+                                  #minute=int(request.REQUEST['min']), 
+                                  #second=0, 
+                                  #microsecond=0,)
+    date_time = datetime.datetime(year=date[0]),
+                                  month=date[1]), 
+                                  day=date[2]), 
+                                  hour=time[0]),
+                                  minute=time[1]), 
                                   second=0, 
                                   microsecond=0,)
     

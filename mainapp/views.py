@@ -83,7 +83,7 @@ def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def contactus(request):
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
-def faq(request):
+#def faq(request):
     return HttpResponse(jinja_environ.get_template('FAQs.html').render())
 def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
@@ -370,11 +370,11 @@ def post_new(request):
                                   #minute=int(request.REQUEST['min']), 
                                   #second=0, 
                                   #microsecond=0,)
-    date_time = datetime.datetime(year=date[0]),
-                                  month=date[1]), 
-                                  day=date[2]), 
-                                  hour=time[0]),
-                                  minute=time[1]), 
+    date_time = datetime.datetime(year=date[0],
+                                  month=date[1], 
+                                  day=date[2], 
+                                  hour=time[0],
+                                  minute=time[1], 
                                   second=0, 
                                   microsecond=0,)
     
