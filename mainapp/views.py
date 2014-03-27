@@ -83,7 +83,7 @@ def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def contactus(request):
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
-#def faq(request):
+def faq(request):
     return HttpResponse(jinja_environ.get_template('FAQs.html').render())
 def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
