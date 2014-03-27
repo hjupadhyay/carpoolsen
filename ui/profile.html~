@@ -121,7 +121,7 @@
                     </div>
 				<div class="span4">
 				<h3>Profile complete<span class="pull-right"><div>
-        	    <button class="btn btn-primary" onclick="window.location.href='/edit_profile_page/'">Edit Profile</a></button>
+        	    <button class="btn btn-primary" onclick="location.href='/edit_profile_page/'">Edit Profile</a></button>
         	</div></span></h3>
 				40% Completed 
 				
