@@ -298,6 +298,8 @@ def login_do(request):
                     user.rider.verified=1
                     user.save()
                     user.rider.save()
+            except:
+                pass
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
