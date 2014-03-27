@@ -126,6 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     #Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    #Django-social-auth
+    'social_auth',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -158,3 +160,11 @@ LOGGING = {
         },
     }
 }
+
+# Django Auth settings
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+FACEBOOK_APP_ID              = 'asdsafdfsg34554g'
+FACEBOOK_API_SECRET          = 'popopppopppop0992ruu'
