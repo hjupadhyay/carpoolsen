@@ -214,11 +214,14 @@ def signup_do(request):
     email = request.REQUEST['email']
     gender = request.REQUEST['gender']
     
-    if len(User.objects.get(email=email))<>0:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
-                                                                                  <p>Someone has already registered using this email.</p>
-                                                                                  <p>If you have forgotten your password, click <a href="/forgot_pass/</p>
-                                                                                  <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
+    try:
+        if len(User.objects.get(email=email))<>0:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                    <p>Someone has already registered using this email.</p>
+                                                                                    <p>If you have forgotten your password, click <a href="/forgot_pass/</p>
+                                                                                    <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
+    except:
+        pass
     #gender = 'a'
     
     if '@' not in email:
@@ -298,6 +301,7 @@ def login_do(request):
                     user.rider.verified=1
                     user.save()
                     user.rider.save()
+                    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Successfully registered. Click <a href="/">here</a> to go to the homepage'}))
             except:
                 pass
             return dashboard(request)
