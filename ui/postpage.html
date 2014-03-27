@@ -1,54 +1,90 @@
 <html>
 <head>
-<title>Welcome Driver! </title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
+<meta charset="utf-8">
+<title>My page</title>
+ <style>
+    {% include "bootstrap/css/bootstrap.min.css" %}
+    {% include "bootstrap/css/bootstrap.css" %}
+    {% include "bootstrap/css/star-rating.css" %}
+    {% include "bootstrap/css/star-rating.min.css" %}
+    {% include "bootstrap/css/extra.css" %}
+</style>
 <script src ="bootstrap/js/bootstrap.js">
-	{% include "bootstrap/js/bootstrap.js" %}
+    {% include "bootstrap/js/bootstrap.js" %}
 </script>
 <script src="bootstrap/js/jquery.min.js">
-	{% include "bootstrap/js/jquery.min.js" %}
+    {% include "bootstrap/js/jquery.min.js" %}
 </script>
 <script src="bootstrap/js/jquery.js">
-	{% include "bootstrap/js/jquery.js" %}
+    {% include "bootstrap/js/jquery.js" %}
 </script>
 <script src="bootstrap/js/star-rating.js" type="text/javascript">
-	{% include "bootstrap/js/star-rating.js" %}
-	</script>
+    {% include "bootstrap/js/star-rating.js" %}
+    </script>
 
-<link href="bootstrap/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/extra.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-
-
-
-<style>
-    {% include "bootstrap/css/bootstrap.min.css" %}
-  		 {% include "bootstrap/css/bootstrap.css" %}
-	   {% include "bootstrap/css/star-rating.css" %}
-	   {% include "bootstrap/css/star-rating.min.css" %}
-				{% include "bootstrap/css/extra.css" %}
-    
-</style>    
-</head>       
-        
+<!-- CSS dependencies -->
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+</head>
 <body>
-    <div class="row">
+<script>
+
+function onClick(){
+bootbox.confirm("<br>Are you sure to cancel?", function(result) {
+if (result === false) {
+document.getElementById("hr").innerHTML = "You pressed Cancel"
+} else {
+document.getElementById("hr").innerHTML = "Pressed O.K";
+}
+})
+};
+
+</script>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Log in</button>
+            <button type="submit" class="btn btn-primary">Sign up</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+<div class="jumbotron" style="width:100%; height:100%">
+      <div class="container">
+        
+        
+        <center>
+        
+        <div class="row">
 <div class="container drop-shadow">
 
-	<div class="centered">
+    <div class="centered">
         <h2>Post Details</h2>
-			<br>
-			<br>
-	</div>
-		
+            <br>
+            <br>
+    </div>
+        
         <div class="col-md-4 col xs-4">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
-				<span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
+                <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
                   
                 </div>
                 <h4>
@@ -65,7 +101,7 @@
                 <h4>
                     Date of Travel</h4>
                 <p>
-		    {{date}}
+            {{date}}
               <!--   21st January 2014 -->
                 </p>
             </div>
@@ -76,7 +112,7 @@
                 <h4>
                     Seats Available</h4>
                 <p>
-					{{minus}} Remaining
+                    {{minus}} Remaining
                 </p>
             </div>
         </div>
@@ -88,7 +124,7 @@
                 <h4>
                      To Location</h4>
                 <p>
-		     {{post[0].to}}
+             {{post[0].to}}
                      <!--DA-IICT, Gandhinagar-->
                 </p>
             </div>
@@ -99,7 +135,7 @@
                 <h4>
                     Time </h4>
                 <p>
-		    {{time}}
+            {{time}}
                     <!-- 11:00 AM -->
                 </p>
             </div>
@@ -114,9 +150,9 @@
                 </p>
             </div>
         </div>
-<div class="col-md-4 col-xs-4">	
+<div class="col-md-4 col-xs-4"> 
 <div class="contain">
-	
+    
 <div class="centered">
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
@@ -129,12 +165,12 @@
                     <h3>Username: {{post[0].owner.user.username}}</h3>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
-                <div class="centered">		
+                <div class="centered">      
  
 <input id="input-21" type="number" class="rating" min="1" max="5" step="1">
         <button class="btn btn-primary">Submit</button>
         <button class="btn btn-primary" type="reset">Message Me</button>
-</div>		
+</div>      
 </div>
 </div>
 </div>
@@ -148,6 +184,27 @@
             </div>
         </div>
 
-	
+					<br>
+<br>					
+<!--       				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick="onClick()">Cancel</button>							 -->
+      										
+    			</center>	
+				
+				<div id = "hr"></div>
+
+ 
+ </div>
+ </div>
+<!-- JS dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+ 
+<!-- bootbox code -->
+<script src="bootstrap/js/bootbox.js"></script>
+
+
+
+<script>
+</script>
 </body>
 </html>
