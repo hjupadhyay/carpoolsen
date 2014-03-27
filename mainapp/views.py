@@ -73,6 +73,12 @@ def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render())
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
+def contactus(request):
+    return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
+def faq(request):
+    return HttpResponse(jinja_environ.get_template('FAQs.html').render())
+def aboutus(request):
+    return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
 def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
@@ -162,12 +168,17 @@ def signup_do(request):
 
     username = request.REQUEST['username']
     password = request.REQUEST['password']
+    confirmpassword = request.REQUEST['confirmpassword']
+    
+    if password != confirmpassword:
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click here to go back to <a href="/">SIGNUP</a> page.'}))
+    
     first_name = request.REQUEST['first_name']
     last_name = request.REQUEST['last_name']
     phone = request.REQUEST['phone']
     email = request.REQUEST['email']
-    #gender = request.REQUEST['gender']
-    gender = 'a'
+    gender = request.REQUEST['gender']
+    #gender = 'a'
     
     car_number = request.REQUEST['car_number']
     
