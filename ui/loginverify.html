@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>My page</title>
+ 
+<!-- CSS dependencies -->
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+</head>
+<body>
+<script>
+
+function onClick(){
+bootbox.confirm("<br>Are you sure to cancel?", function(result) {
+if (result === false) {
+document.getElementById("hr").innerHTML = "You pressed Cancel"
+} else {
+document.getElementById("hr").innerHTML = "Pressed O.K";
+}
+})
+};
+
+</script>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+<!--               <input type="text" placeholder="Email" class="form-control"> -->
+            </div>
+            <div class="form-group">
+<!--               <input type="password" placeholder="Password" class="form-control"> -->
+            </div>
+<!--             <button type="submit" class="btn btn-success">Log in</button> -->
+<!--             <button type="submit" class="btn btn-primary">Sign up</button> -->
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+<div class="jumbotron" style="width:100%; height:100%">
+      <div class="container">
+        
+        
+        <center>
+					<br>
+<br>					
+      				<div class="container">
+        <br>
+
+  
+    <div class="row">
+        <div class="col-md-4 well well-sm">
+            <p> Please Log in to continue </p>
+            <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> LOGIN</legend>
+            <form action="/login_do/" method="post" class="form" role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" name="username" placeholder="username" type="text"
+                        required autofocus />
+                </div>
+            </div>
+<br>
+                <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" name="password" placeholder="password" type="text">
+                </div>
+                <div>
+                    <label class="checkbox"><input type="checkbox" value="verify" checked="{{ url }}" style="opacity:0; position:absolute; left:9999px;"></label>
+                </div>
+                
+                <div class="col-md-6">
+  <label class="control-label" for="singlebutton"></label>
+  <div class="controls">
+    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</span></button>
+  </div>
+</div>
+       
+</form>
+</div>
+</div>
+</div>						
+      										
+    			</center>	
+				
+				<div id = "hr"></div>
+
+ 
+ </div>
+ </div>
+<!-- JS dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+ 
+<!-- bootbox code -->
+<script src="bootstrap/js/bootbox.js"></script>
+
+
+
+<script>
+</script>
+</body>
+</html>
