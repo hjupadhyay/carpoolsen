@@ -1,0 +1,101 @@
+/*FAQ page*/
+<html>
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="admin" >
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>FAQs</title>
+    
+    <style>
+        {% include "bootstrap/css/bootstrap.min.css" %}
+        {% include "bootstrap/css/style.css" %}
+    </style>
+    
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="sticky-footer.css" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index/">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
+            <div class="form-group">
+              <input type="text" name="username" placeholder="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" placeholder="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" >Log in</button>
+            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+        		
+      		<div class="container">
+    
+				<h2>Frequently Asked Questions</h2>
+          		<p><b>Q1. Carpooling. Why should I?</b></p>
+				<p><font size="4">Well, for starters, there is the benefit of saving fuel. Plus, a surprising amount of people using personal vehicles to travel to a particular destination are open to the idea of sharing rides with acquaintances. A carpool might be the start of a good friendship!</font></p>
+				<p><b>Q2. I don't trust strangers. What then?</b></p>
+				<p><font size="4">Keeping obvious security concerns in mind, we have segregated users into different categories. Users who provide some sort of an authentication (like a driving licence) are classed as "authenticated" users. In the misfortunate circumstance that something goes wrong, we have all the details needed to get them!</font></p>
+				<p><b>Q3. What about unauthenticated users?</b></p>
+				<p><font size="4">Unauthenticated users are solely the risk of the user hitching a ride. We make our best efforts to keep our system clean, but cannot make any guarantees about them. We definitely insist that all users registering authenticate themselves ASAP!</p>
+				<p><b>Q4. Are there separate accounts for posting and reserving rides?</font></b></p>
+				<p><font size="4">No. Any user can be a poster of rides or be reserving rides at any given time. There are no separate accounts.</font></p>
+				<p><b>Q5. Is there a fee to use this system?</b></p>
+				<p><font size="4">Not an outright fee as such. This website is mainly supported by advertisements. Also, we charge a small percentage from whatever the users earn from the people sharing their vehicle. This helps us pay for servers and coffee that keeps us awake when we work on improving the website!</font></p>
+				<p><b>Q6. Is there a cost involved with hitching a ride?</b></p>
+				<p><font size="4">Users offering you a ride may or may not ask for a nominal fee. We suggest recommended prices to every user posting a ride based on the length of the trip and other parameters like vehicle quality (Air-Conditioned or not etc). It is up to the poster to follow these recommendations or not. Some may not charge anything at all. We as such don't charge anything from someone just making a reservation for a trip.</font></p>
+				<p><b>Q6. My question still remains unanswered..</b></p>
+				<p><font size="4">Head over to the <a href="ContactUs.html"><i>Contact Us</i></a> page and we have listed ways to contact us. We'll be happy to help in any way possible.</font></p>
+			</div>  
+          
+       </div>
+      </div>
+    </div>
+
+   
+    </div> <!-- /container -->
+				
+	<div id="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Carpool 2014</p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
