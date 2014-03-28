@@ -23,21 +23,27 @@ function showhide()
     var rep = document.getElementById("reply");
     rep.style.display = "block";
     var message = null;
+    var mid = 0;
     for(var i=1; i <= {{max_mid}};i++)
     {
         
         div = document.getElementById('div' + i)
-        if (div.style.display != 'none')
+        if (div.style.display == 'block')
         {
-            message = div;
+            mid = i;
+            message = document.getElementById('div' + i);
             div.style.display = 'none';
         }
     }
-    var reply_header= document.getElementById('reply_header');
+    var reply_title= document.getElementById('reply_title');
 //     console.log(mid);
 //     console.log(messages);
-//     reply_header.value = "Reply To: " + message.sender;
-    alert("Reply To: " + message.value);
+    reply_title.innerHTML = "Reply To: " + message.getAttribute('name');
+    
+    var reply_div = document.getElementById('reply_mid');
+    reply_div.innerHTML = "<input id='lol' name='mid' value='" + mid + "' style='display:none'></input>"
+//     console.log(message.getAttribute('name'));
+//     rep
     
 
 }

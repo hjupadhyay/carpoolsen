@@ -223,7 +223,7 @@
        <div class="jumbotron extra">
 	   <h3 id = "clicker" class="text-center">Click on a messages to view details</h3>
             {% for message in messages %}
-			<div class="modal-body" sender = "{{ message.sender }}" id="div{{ message.id }}" style="display:none">
+			<div class="modal-body" name="{{ message.sender }}" id="div{{ message.id }}" style="display:none">
                 <h3>From: {{ message.sender }}</h3>
                 <h3>Text:</h3>
 				<div class="well">				
@@ -239,7 +239,9 @@
 			<div class="panel panel-default" id ="reply" style="display:none">
 				<div class="panel-body">                
                     <h3 id = "reply_title"></h3>
-					<form accept-charset="UTF-8" action="" method="POST">
+                    
+					<form accept-charset="UTF-8" action="/reply/" method="POST">
+                        <div id = "reply_mid"></div>
 						<textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
 						<h6 class="pull-right" id="counter">320 characters remaining</h6>
 						<button class="btn btn-info" type="submit">Send Message</button>
