@@ -26,7 +26,7 @@ class Rider(models.Model):
     #username = models.CharField(max_length=200, unique=True)
     user = models.OneToOneField(User)
     #name = models.CharField(max_length=200)
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=15)
     #email = models.CharField(max_length=200)
     gender = models.CharField(max_length=1)
     car_number = models.CharField(max_length=20)
