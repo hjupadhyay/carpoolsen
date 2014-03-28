@@ -32,7 +32,7 @@ class Rider(models.Model):
     car_number = models.CharField(max_length=20)
     
     #path to image
-    image = models.CharField(max_length=300, default="")
+    image = models.CharField(max_length=300, default="/static/images/default_profile.jpg")
     
     #1 - unverified
     #any other number = verification code

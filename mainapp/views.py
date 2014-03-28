@@ -83,14 +83,20 @@ def signup_page(request):
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def contactus(request):
-    return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
+    rider = None
+    if request.user.is_authenticated():
+        rider = request.user.rider
+    return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
 def faq(request):
     rider = None
     if request.user.is_authenticated():
         rider = request.user.rider
-    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'check':str(check), 'rider':rider}))
+    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'rider':rider}))
 def aboutus(request):
-    return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
+    rider = None
+    if request.user.is_authenticated():
+        rider = request.user.rider
+    return HttpResponse(jinja_environ.get_template('AboutUs.html').render({"rider":rider}))
 def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
@@ -210,7 +216,7 @@ def reserve_page(request):
 #Actions
 @csrf_exempt
 def edit_profile(request):
-    return HttpResponse("")
+    x = request.REQUEST['lol']
     pass
 
 @csrf_exempt

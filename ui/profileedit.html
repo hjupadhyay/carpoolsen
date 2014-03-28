@@ -70,11 +70,7 @@
 
       <div class="row marketing">
 	  	<div class="user-image">
-			<form action="demo_form.asp">
-			<input type="file" name="pic" accept="image/*">
-			<input type="submit">
-			</form>
-
+            <img src= "{{ rider.image }}" alt="Profile Photo here">
                 </div>
 			<!-- <!-- <div style="height:400px; width:100%; clear:both;"></div> -->
 			<div class="user-info-block">
@@ -82,24 +78,37 @@
                     				
 					<div class="container">
 	<div class="row">
-		 <form class="form-horizontal">
-            <fieldset>
+		 <form class="form-horizontal" action="/edit_profile/" method="POST">
+<!--             <fieldset> -->
                 
-				<div class="control-group">
-                    <label class="control-label">Full Name</label>
+                <div class="control-group">
+                    <label class="control-label">Change Profile Photo:</label>
+                    <br>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">First Name</label>
                     <br/>
-                    <input id="full-name" name="full-name" type="text" placeholder="full name"class="input-xlarge">
+                    
+                    <input id="full-name" name="first_name" type="text" placeholder="full name"class="input-xlarge">
+                    
+                </div>
+				<div class="control-group">
+                    <label class="control-label">Last Name</label>
+                    <br/>
+                    
+                    <input id="full-name" name="last_name" type="text" placeholder="full name"class="input-xlarge">
                     
                 </div>
                 
                 <div class="control-group">
                     <label class="control-label">Gender</label>
                     <div class="controls">
-                        <select id="Gender" name="Gender" class="input-xlarge">
+                        <select id="Gender" name="gender" class="input-xlarge">
                             <option value="" selected="selected">(please select a Gender)</option>
-                            <option value="AF">Male</option>
-                            <option value="AL">Female</option>
-							<option value="AF">Other</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+							<option value="o">Other</option>
                         </select>
 					</div>
                 </div>
@@ -107,58 +116,40 @@
                 <div class="control-group">
                     <label class="control-label">Email</label>
                     <div class="controls">
-                        <input id="Email" name="Email" type="text" placeholder="Email"class="input-xlarge">
+                        <input id="Email" name="email" type="text" placeholder="Email"class="input-xlarge">
                     </div>
                 </div>
                 
 				<div class="control-group">
                     <label class="control-label">Phone No.</label>
                     <div class="controls">
-                        <input id="Phone No." name="Phone No." type="text" placeholder="Phone No."class="input-xlarge">
-                    </div>
-                </div>
-				
-                <div class="control-group">
-                    <label class="control-label">City / Town/ Location</label>
-                    <div class="controls">
-                        <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
+                        <input id="Phone No." name="phone" type="text" placeholder="Phone No."class="input-xlarge">
                     </div>
                 </div>
                 
                 <div class="control-group">
                     <label class="control-label">Vehicle No.</label>
                     <div class="controls">
-                        <input id="Vehicle no." name="Vehicle no." type="text" placeholder="vehicle no."class="input-xlarge">
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label class="control-label">Type</label>
-                    <div class="controls">
-                        <select id="Type" name="Type" class="input-xlarge">
-                            <option value="" selected="selected">(please select a type)</option>
-                            <option value="AF">A.C.</option>
-                            <option value="AL">Non A.C.</option>
-                        </select>
+                        <input id="Vehicle no." name="car_no" type="text" placeholder="vehicle no."class="input-xlarge">
                     </div>
                 </div>
 				
 				<div class="control-group">
                     <label class="control-label">Authentication</label>
                     <div class="controls">
-						<select id="Type" name="Type" class="input-xlarge">
+						<select id="Type" name="auth_type" class="input-xlarge">
                             <option value="" selected="selected">(please select a type)</option>
-                            <option value="AF">Pan card</option>
-                            <option value="AL">U.I.D</option>
-							<option value="AL">Voter ID</option>
-							<option value="AL">Other</option>
+                            <option value="PAN">PAN</option>
+                            <option value="UID">UID</option>
+							<option value="Voter ID">Voter ID</option>
+							<option value="Other">Other</option>
 							
                         </select>
-                        <input id="ID No." name="ID No." type="text" placeholder="ID No."class="input-xlarge">
+                        <input id="ID No." name="auth_token" type="text" placeholder="ID No."class="input-xlarge">
                     </div>
                 </div>
-				
-            </fieldset>
+            <button type = "submit" class="btn btn-primary center-block">Done</button>
+<!--             </fieldset> -->
         </form>
 	</div>
 	
@@ -166,7 +157,7 @@
 				</div>
 				</div>
 		</div><br>
-		<button class="btn btn-primary center-block">Done</button>
+		
 		</div>
 		</div></div>
 		
