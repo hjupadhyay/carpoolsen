@@ -69,7 +69,9 @@ def send_verification_email(request):
     except:
          return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Could not send verification email. Please try again later.</p><p>click <a href="/">here</a> to go to the homepage</p>'}))
    
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'<p>Verification Email sent!. Please Check your email inbox.</p><p> Click <a href="/">here</a> to go to the homepage</p>'}))
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Verification Email sent! Please Check your email inbox.</p>
+                                                                              <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
+                                                                              <p>Click <a href="/logout_do/?direct_home=1">here</a> to go to the homepage and log-in again</p>"""}))
 
 
 #pages and forms
@@ -83,7 +85,10 @@ def login_page(request):
 def contactus(request):
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
 def faq(request):
-    return HttpResponse(jinja_environ.get_template('FAQs.html').render())
+    check = 0
+    if request.user.is_authenticated():
+        check += 1
+    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'check':check}))
 def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
 def search_results(request):

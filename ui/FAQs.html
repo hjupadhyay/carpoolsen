@@ -40,7 +40,8 @@
           <a class="navbar-brand" href="/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
-          <!--<form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
+          {% if check == 1 %}
+          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
             <div class="form-group">
               <input type="text" name="username" placeholder="username" class="form-control">
             </div>
@@ -49,7 +50,8 @@
             </div>
             <button type="submit" class="btn btn-success" >Log in</button>
             <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
-          </form>-->
+          </form>
+          {% endif %}
         </div><!--/.navbar-collapse-->
       </div>
     </div>
