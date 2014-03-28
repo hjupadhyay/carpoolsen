@@ -87,6 +87,7 @@ def aboutus(request):
 def search_results(request):
     #return HttpResponse(jinja_environ.get_template('searchresult.html
     pass
+
 def edit_profile_page(request):
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render())
@@ -98,6 +99,7 @@ def edit_profile_page(request):
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!.\
                                                                                   Please go back or click <a href="/">here</a> to go to the homepage'}))
     return HttpResponse(jinja_environ.get_template('profileedit.html').render({"rider":request.user.rider}))
+
 def profile(request):
     retval = check(request)
     if retval <> None:
@@ -114,6 +116,17 @@ def profile(request):
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
 
+def inbox_page(request):    
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    try:
+	results = Message.objects.filter(receiver=request.user.rider)
+	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,"messages":results}))
+    except:
+	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider, "messages":None}))
+        
 def dashboard(request):
     
     retval = check(request)
