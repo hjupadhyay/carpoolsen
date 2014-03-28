@@ -705,7 +705,23 @@ def view_messages(request):
     results2 = Message.objects.filter(receiver = rider)
     
     return HttpResponse((len(results1) + len(results2)))
-
+    
+def read_message(request):
+  
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    key = request.REQUEST["mid"]
+    
+    try:
+	result = Message.objects.filter(pk=mid)
+	result.rmailbox=2
+	result.save();
+	return HttpResponse("1")
+    except Exception as e:
+        return HttpResponse("0"+str(e))
+        
 def delete_message(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
