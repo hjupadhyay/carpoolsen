@@ -60,7 +60,7 @@
             <div class="navbar-header">
 
               <a class="navbar-brand" href="#">CarPool</a>
-                                        <a class="navbar-brand" href="#">DashBoard</a>
+<!--                                         <a class="navbar-brand" href="#">DashBoard</a> -->
 
             </div>
 
@@ -100,12 +100,12 @@
                                         
 			<div class="user-info-block">
                 <div class="user-heading">
-                    <h3>{{rider.user.username}}</h3>
+                    <h3>&nbsp{{rider.user.first_name}}&nbsp{{rider.user.last_name}}</h3>
 					<TABLE>
 					<TR>
-						<TD><b><font color="black">Name</font></b></TD>
+						<TD><b><font color="black">Username</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.user.first_name}}&nbsp{{rider.user.last_name}}</TD>
+						<TD>&nbsp{{rider.user.username}}</TD>
 					</TR>
 					<TR>
 						<TD><b><font color="black">Gender</font></b></TD>
