@@ -1,3 +1,5 @@
+
+
 # Create your views here.
 from django.http import HttpResponse
 from django.utils import timezone
@@ -206,7 +208,8 @@ def signup_do(request):
     confirmpassword = request.REQUEST['confirmpassword']
     
     if password <> confirmpassword:
-      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Passwords don\'t match. Please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Passwords don\'t match. Please Enter again.</p>
+                                                                                <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
     
     first_name = request.REQUEST['first_name']
     last_name = request.REQUEST['last_name']
@@ -225,7 +228,8 @@ def signup_do(request):
     #gender = 'a'
     
     if '@' not in email or '.' not in email:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid email, please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Invalid email, please Enter again.</p>
+                                                                                  <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
     
     car_number = request.REQUEST['car_number']
     
@@ -244,7 +248,8 @@ def signup_do(request):
         login_do(request)
         return send_verification_email(request)
     except Exception as e:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Username already exists. Please enter some other username. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Username already exists. Please enter some other username.</p>
+                                                                                  <p>Click <a href="/signup_page/">here</a> to go back to signup page.</p>"""}))
     
 
 #Called when a user enters verification code and clicks on submit
@@ -258,17 +263,22 @@ def verify(request):
     try:
         request.user.rider
     except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>No Rider associated.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     
     code = request.REQUEST['code']
     rider = request.user.rider
     if rider.verified == '1':
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Already Verified. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Already Verified.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     elif code == rider.verified:
         rider.verified = '1'
         rider.save()
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Verification successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Verification Failed. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Verification successful.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Verification Failed.</p>
+                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
 
 
 #Called when a user clicks logout button.
@@ -278,7 +288,8 @@ def logout_do(request):
         if request.REQUEST['direct_home']=='1':
             return HttpResponse(jinja_environ.get_template('index.html').render())
     except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Log out successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -301,13 +312,15 @@ def login_do(request):
                     user.rider.verified=1
                     user.save()
                     user.rider.save()
-                    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Successfully registered. Click <a href="/">here</a> to go to the homepage'}))
+                    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Successfully registered.</p>
+                                                                                              <p>Click <a href="/">here</a> to go to the homepage</p>"""}))
             except:
                 pass
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
-            return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Disabled Account. Please go back or click <a href="/">here</a> to go to the homepage'}))
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Disabled Account.</p>
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     else:
         # Return an 'invalid login' error message.
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid Login. Please go back or click <a href="/">here</a> to go to the homepage'}))
