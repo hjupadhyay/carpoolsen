@@ -36,14 +36,20 @@ $(document).ready(function(){
 				top: pos.top+1,
 				left: pos.left+ele.outerWidth()+75
 			});
-
-			if(search_username(ele.val())) {
-				jVal.errors = true;
-					uname.removeClass('correct').addClass('error').html('&larr; already taken').show();
-					ele.removeClass('normal').addClass('wrong');
-			} else {
-					uname.removeClass('error').addClass('correct').html('&radic; available').show();
-					ele.removeClass('wrong').addClass('normal');
+			var xmlhttp = new XMLHttpRequest();
+			var data = new FormData();
+			data.append("username",ele.val());
+			xmlhttp.open("POST","/search_username/",true);
+			xmlhttp.send(data);
+			xmlhttp.onreadystatechange = function() {
+                if(xmlhttp.responseText=="1") {
+                    jVal.errors = true;
+                        uname.removeClass('correct').addClass('error').html('&larr; already taken').show();
+                        ele.removeClass('normal').addClass('wrong');
+                } else {
+                        uname.removeClass('error').addClass('correct').html('&radic; available').show();
+                        ele.removeClass('wrong').addClass('normal');
+                }
 			}
 		},
 		

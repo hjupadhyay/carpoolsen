@@ -4,16 +4,21 @@
 <!--<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
+<!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+<!-- <link href="bootstrap/css/style.css" rel="stylesheet" media="screen"> -->
 <!--<script>
         window.onunload = refreshParent;
         function refreshParent() {
             window.opener.location.reload();
         }
 </script>-->
-<script type="text/javascript" src="bootstrap/js/jquery.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="bootstrap/js/validate.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="bootstrap/js/jquery.min.js" charset="utf-8"></script> -->
+<!-- <script type="text/javascript" src="bootstrap/js/validate.js" charset="utf-8"></script> -->
+<script>
+  {% include "bootstrap/js/jquery.min.js" %}
+  {% include "bootstrap/js/validate.js" %}
+  
+</script>
 
 <style>
 {% include "bootstrap/css/bootstrap.min.css" %}
