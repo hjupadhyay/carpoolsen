@@ -605,7 +605,7 @@ def cancel_res(request):
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
-
+@csrf_exempt
 def search_do(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -797,6 +797,17 @@ def delete_message(request):
         message.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
+
+#Search for username
+def search_username(request):
+    if request.method == 'GET':
+        username = request.GET['username']
+        length = 0
+        try:
+            length = len(User.objects.get(username=username))
+        except Exception as e:
+            return HttpResponse(e)
+        return HttpResponse(str(length))
 
 
 #temp form checksdef upload_file(request):
