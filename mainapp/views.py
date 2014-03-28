@@ -181,7 +181,7 @@ def post_page(request):
     date=x.date()
     time=x.time()
     reserved_obj = None
-    for x in postobj.reserved_set.all():
+    for x in postobj[0].reserved_set.all():
         if x.reserver.user.username == request.user.username:
             reserved_obj = x
             break
@@ -193,7 +193,7 @@ def post_page(request):
 		       'time':time,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj.reserved_set.all(),
+		       'reserved_list': postobj[0].reserved_set.all(),
 	              }
 	              
     else: 
@@ -203,7 +203,7 @@ def post_page(request):
 		       'date':date,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj.reserved_set.all(),
+		       'reserved_list': postobj[0].reserved_set.all(),
 	              }
     
     #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
@@ -627,14 +627,17 @@ def search_do(request):
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
-    dtstart = request.REQUEST['dtstart'].split("-")
-    dtend = request.REQUEST['dtend'].split("-")
+    #dtstart = request.REQUEST['dtstart'].split("-")
+    #dtend = request.REQUEST['dtend'].split("-")
+    date = request.REQUEST['date'].split("/")
+    time_start = request.REQUEST['time_start'].split(":")
+    time_end = request.REQUEST['time_end'].split(":")
     men_women = request.REQUEST['men_women']
-    dtstart = datetime.datetime(year=int(dtstart[0]), month=int(dtstart[1]), day=int(dtstart[2]), hour=int(dtstart[3]),
-                                minute=int(dtstart[4]), second=0, microsecond=0)
-    dtend = datetime.datetime(year=int(dtend[0]), month=int(dtend[1]), day=int(dtend[2]), hour=int(dtend[3]),
-                                minute=int(dtend[4]), second=0, microsecond=0)
-    results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=men_women)
+    dtstart = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_start[0]),
+                                minute=int(time_start[1]), second=0, microsecond=0)
+    dtend = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_end[0]),
+                                minute=int(time_end[1]), second=0, microsecond=0)
+    results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=int(men_women))
     template_values = {
         'result_list':results,
         'searched':Post(to=to, fro=fro)
