@@ -37,7 +37,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/index/">CarPool</a>
+          <a class="navbar-brand" href="/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
@@ -87,10 +87,11 @@
     </div> <!-- /container -->
 				
 	<div id="footer">
-      <div class="container">
-        <p class="text-muted">&copy; Carpool 2014</p>
-      </div>
-    </div>
+          <div class="container">
+            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
+            <p class="text-muted">&copy; Carpool 2014</p>
+            </div>
+        </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -37,9 +37,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/index/">CarPool</a>
+          <a class="navbar-brand" href="/">CarPool</a>
         </div>
-        <div class="navbar-collapse collapse">
+        <!--<div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
             <div class="form-group">
               <input type="text" name="username" placeholder="username" class="form-control">
@@ -51,7 +51,7 @@
             <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
           </form>
         </div><!--/.navbar-collapse -->
-      </div>
+      </div>-->
     </div>
     
   <!--  <div class="navbar-collapse collapse">
@@ -67,11 +67,11 @@
 							
       											<div class="container">
     
-										<h2>About Us</h2>
-          								<p><font size="4">We are a group of students currently pursuing a B-Tech. degree in Information And Communication Technology at
-											Dhirubhai Ambani Insitute of Information and Communication Technology (DA-IICT) situated in Gandhinagar, Gujarat, India.</font></p>
-										<p><font size="4">Hello!</font></p>
-               							    	</div>
+			<h2>About Us</h2>
+          		<p><font size="4">We are a group of students currently pursuing a B-Tech. degree in Information And Communication Technology at
+			Dhirubhai Ambani Insitute of Information and Communication Technology (DA-IICT) situated in Gandhinagar, Gujarat, India.</font></p>
+			<p><font size="4">Hello!</font></p>
+               		</div>
   									        
         
           
@@ -84,10 +84,11 @@
     </div> <!-- /container -->
 				
 	<div id="footer">
-      <div class="container">
-        <p class="text-muted">&copy; Carpool 2014</p>
-      </div>
-    </div>
+          <div class="container">
+            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
+            <p class="text-muted">&copy; Carpool 2014</p>
+            </div>
+        </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

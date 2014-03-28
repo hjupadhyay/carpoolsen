@@ -224,7 +224,7 @@ def signup_do(request):
         pass
     #gender = 'a'
     
-    if '@' not in email:
+    if '@' not in email or '.' not in email:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid email, please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
     car_number = request.REQUEST['car_number']
