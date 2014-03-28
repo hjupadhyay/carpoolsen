@@ -12,12 +12,7 @@ import uuid
 import jinja2
 import smtplib
 
-#def index(request):
-    #return HttpResponse("Hello, world. You're at the poll index.")
-    
-
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
-
 
 #Perform basic checks on user
 def check(request):
@@ -25,8 +20,10 @@ def check(request):
     #Check if user is logged in
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render())
+
     #Check if user has an associated rider
     #(This will be false if the admin logs in)
+    
     try:
         request.user.rider
     except:
@@ -56,11 +53,11 @@ def send_verification_email(request):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
     fro = gmailLogin + "@gmail.com"
-    subject = 'CarPool SEN Verification Email'
+    subject = 'CarPool Verification Email'
     
     to = entry.email
     msg = 'Subject: %s \n\nYour email has been registered on carpoolsen.com.\nPlease\
-    click on the following link to verify (or copy paste it in your browser if needed\n\n\
+    click on the following link to verify (or copy paste it in your browser if needed)\n\n\
     http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
    
     try:
