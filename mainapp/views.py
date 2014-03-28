@@ -29,7 +29,9 @@ def check(request):
     try:
         request.user.rider
     except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     
     #Check if user has been verified
     if request.user.rider.verified <> '1':
@@ -97,9 +99,6 @@ def aboutus(request):
     if request.user.is_authenticated():
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render({"rider":rider}))
-def search_results(request):
-    #return HttpResponse(jinja_environ.get_template('searchresult.html
-    pass
 
 def edit_profile_page(request):
     if not request.user.is_authenticated():
@@ -188,6 +187,8 @@ def post_page(request):
 		       'minus':postobj[0].total_seats-reserved,
 		       'date':date,
 		       'time':time,
+		       'rider':request.user.rider,
+		       'rating':request.user.rider.user_rating
 	              }
 	              
     else: 
@@ -195,6 +196,8 @@ def post_page(request):
 		       'minus':postobj[0].total_seats,
 		       'time':time,
 		       'date':date,
+		       'rider':request.user.rider,
+		       'rating':request.user.rider.user_rating
 	              }
     
     #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
@@ -216,8 +219,40 @@ def reserve_page(request):
 #Actions
 @csrf_exempt
 def edit_profile(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
     
-    pass
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    
+    #image = request.FILES['image']
+    #image.save('/home/rishav/Desktop/x.jpg',image.readlines(),True)
+    #return HttpResponse('0')
+    
+    
+    request.user.first_name = request.REQUEST['first_name']
+    request.user.last_name = request.REQUEST['last_name']
+    request.user.email = request.REQUEST['email']
+    
+    request.user.save()
+    
+    request.user.rider.gender = request.REQUEST['gender']
+    
+    request.user.rider.phone = request.REQUEST['phone']
+    request.user.rider.car_number = request.REQUEST['car_number']
+    request.user.rider.auth_type = request.REQUEST['auth_type']
+    request.user.rider.auth_token = request.REQUEST['auth_token']
+    request.user.rider.save()
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
 
 @csrf_exempt
 def signup_do(request):
@@ -594,9 +629,9 @@ def search_do(request):
     dtend = datetime.datetime(year=int(dtend[0]), month=int(dtend[1]), day=int(dtend[2]), hour=int(dtend[3]),
                                 minute=int(dtend[4]), second=0, microsecond=0)
     results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=men_women)
-    
     template_values = {
-        'results':results,
+        'result_list':results,
+        'searched':Post(to=to, fro=fro)
         }
     
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
@@ -761,3 +796,16 @@ def delete_message(request):
     else:
         message.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+
+
+
+#temp form checksdef upload_file(request):
+@csrf_exempt
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            response = "Form is valid"
+        else:
+            response = "Failed to upload"
+    return HttpResponse(response)
