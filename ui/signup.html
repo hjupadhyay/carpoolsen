@@ -92,16 +92,16 @@ button>
 <div class="panel-body">
 <div class="col-xs-4 col-md-8"> 
 <label class="control-label" for="radios">GENDER * </label>
-<div class="controls">
-<label class="radio-inline">
-<input type="radio" name="gender" value="m">
-Male
-</label>
-<label class="radio-inline">
-<input type="radio" name="gender" value="f">
-Female
-</label>
-</div>
+
+	<div class="controls">
+
+	<label class="radio-inline">
+	<input type="radio" name="gender" id="m" value="m">Male</label>
+	
+	<label class="radio-inline">
+	<input type="radio" name="gender" id="f" value="f">Female</label>
+
+	</div>
 </div>
 <div class="col-xs-0 col-md-12">    
 <br>
@@ -119,7 +119,7 @@ Female
                         <label for="first_name">
                             FIRST NAME * </label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="first_name" placeholder="Your First Name"
+                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Your First Name"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
 </div>
@@ -130,7 +130,7 @@ Female
                         <label for="last_name">
                             LAST NAME</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="last_name" placeholder="Your Last Name"
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Your Last Name"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>-->
 </div>
@@ -142,7 +142,7 @@ Female
                         <label for="password">
                             PASSWORD * </label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="password" placeholder="Valid Password"
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Valid Password"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 </div>
@@ -151,7 +151,7 @@ Female
                         <label for="password">
                             PASSWORD * </label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password"
+                            <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 </div>
@@ -162,7 +162,7 @@ Female
                         <label for="email">
                             EMAIL ID * </label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="email" placeholder="Enter Valid ID"
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Valid ID"
                                 required autofocus />
                             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
 </div>
@@ -173,7 +173,7 @@ Female
                         <label for="car_number">
                             CAR NUMBER</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="car_number" placeholder="Enter Your Car Number">
+                            <input type="text" class="form-control" name="car_number" id="car_number" placeholder="Enter Your Car Number">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
 </div>
 </div>
@@ -184,7 +184,7 @@ Female
                         <label for="phone">
                             CONTACT NUMBER * </label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="phone" placeholder="Enter Your Phone Number"
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Your Phone Number"
                                 required autofocus />
                             <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
 </div>
