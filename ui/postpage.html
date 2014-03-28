@@ -1,7 +1,8 @@
 <html>
 <head>
-<meta charset="utf-8">
-<title>My page</title>
+
+<title>Welcome!</title>
+ 
  <style>
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/bootstrap.css" %}
@@ -10,20 +11,71 @@
     {% include "bootstrap/css/extra.css" %}
     {% include "bootstrap/css/bootstrap-theme.css" %}
 </style>
-<script>
-    {% include "bootstrap/js/bootstrap.js" %}
-</script>
-<script>
-    {% include "bootstrap/js/jquery.min.js" %}
-</script>
-<script>
-    {% include "bootstrap/js/jquery.js" %}
-</script>
-<script>
-    {% include "bootstrap/js/star-rating.js" %}
-    </script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <!-- CSS dependencies -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="admin" >
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+     
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="sticky-footer.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+  </head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          {% if rider == None %}
+          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
+            <div class="form-group">
+              <input type="text" name="username" placeholder="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" placeholder="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" >Log in</button>
+            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
+          </form>
+        {% else %}
+        <div class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ rider.user.first_name }} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/preferences"><span type="input-group-addon" class= "glyphicon glyphicon-cog"></span> &nbsp Preferences  </a></li>
+                    <li><a href="/profile"><span type="input-group-addon" class= "glyphicon glyphicon-user"></span> &nbsp Profile  </a></li>
+                    <li><a href="/faq"><span type="input-group-addon" class= "glyphicon glyphicon-question-sign"></span> &nbsp FAQ </a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout_do"><span type="input-group-addon" class= "glyphicon glyphicon-off"></span>&nbsp Logout</a></li>
+                </ul>
+            </li>
+        </div>
+        {% endif %}
+        </div><!--/.navbar-collapse-->
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </head>
 <body>
 <script>
@@ -179,7 +231,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 </div>
                 <div class="centered">      
  
-<input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rating/2 }}">
+<input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}">
 <!-- put rating system here -->
 
 <button class="btn btn-primary">Rate</button>
