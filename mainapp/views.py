@@ -244,7 +244,7 @@ def signup_do(request):
         login_do(request)
         return send_verification_email(request)
     except Exception as e:
-        return HttpResponse(e)
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Username already exists. Please enter some other username. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
 
 #Called when a user enters verification code and clicks on submit
