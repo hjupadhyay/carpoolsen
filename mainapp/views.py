@@ -134,10 +134,10 @@ def inbox_page(request):
         return retval
     
     try:
-	results = Message.objects.filter(receiver=request.user.rider)
-	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,"messages":results}))
+        results = Message.objects.filter(receiver=request.user.rider)
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,"messages":results}))
     except:
-	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider, "messages":None}))
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider, "messages":None}))
         
 def dashboard(request):
     
@@ -180,7 +180,11 @@ def post_page(request):
     x=postobj[0].date_time
     date=x.date()
     time=x.time()
-
+    reserved_obj = None
+    for x in postobj.reserved_set.all():
+        if x.reserver.user.username == request.user.username:
+            reserved_obj = x
+            break
     
     if(reserved>0):
       template_values={'post':postobj, 
@@ -188,7 +192,8 @@ def post_page(request):
 		       'date':date,
 		       'time':time,
 		       'rider':request.user.rider,
-		       'rating':request.user.rider.user_rating
+		       'reserved_obj': reserved_obj,
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
 	              
     else: 
@@ -197,7 +202,8 @@ def post_page(request):
 		       'time':time,
 		       'date':date,
 		       'rider':request.user.rider,
-		       'rating':request.user.rider.user_rating
+		       'reserved_obj': reserved_obj,
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
     
     #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
