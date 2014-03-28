@@ -37,7 +37,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">CarPool</a>
+          <a class="navbar-brand" href="/index/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">

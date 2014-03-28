@@ -58,7 +58,7 @@ class Post(models.Model):
     
     car_number = models.CharField(max_length=20)
     total_seats = models.IntegerField(default=1)
-    phone = models.CharField(max_length=10)
+    phone = models.IntegerField(max_length=10)
     fro = models.CharField(max_length=200)
     to = models.CharField(max_length=200)
     date_time = models.DateTimeField('date_time',default=timezone.now())
