@@ -90,14 +90,14 @@
                     <label class="control-label">First Name</label>
                     <br/>
                     
-                    <input id="full-name" name="first_name" type="text" placeholder="full name"class="input-xlarge">
+                    <input id="full-name" name="first_name" type="text" placeholder="full name"class="input-xlarge" default="{{ rider.user.first_name }}">
                     
                 </div>
 				<div class="control-group">
                     <label class="control-label">Last Name</label>
                     <br/>
                     
-                    <input id="full-name" name="last_name" type="text" placeholder="full name"class="input-xlarge">
+                    <input id="full-name" name="last_name" type="text" placeholder="full name"class="input-xlarge" default = "{{ rider.user.last_name }}">
                     
                 </div>
                 
@@ -105,7 +105,7 @@
                     <label class="control-label">Gender</label>
                     <div class="controls">
                         <select id="Gender" name="gender" class="input-xlarge">
-                            <option value="" selected="selected">(please select a Gender)</option>
+                            <option value="" selected="selected" default = default = "{{ rider.user.gender }}">(please select a Gender)</option>
                             <option value="m">Male</option>
                             <option value="f">Female</option>
 							<option value="o">Other</option>
@@ -116,21 +116,21 @@
                 <div class="control-group">
                     <label class="control-label">Email</label>
                     <div class="controls">
-                        <input id="Email" name="email" type="text" placeholder="Email"class="input-xlarge">
+                        <input id="Email" name="email" type="text" placeholder="Email"class="input-xlarge" default = default = "{{rider.user.email}}">
                     </div>
                 </div>
                 
 				<div class="control-group">
                     <label class="control-label">Phone No.</label>
                     <div class="controls">
-                        <input id="Phone No." name="phone" type="text" placeholder="Phone No."class="input-xlarge">
+                        <input id="Phone No." name="phone" type="text" placeholder="Phone No."class="input-xlarge" default = "{{ rider.user.phone }}">
                     </div>
                 </div>
                 
                 <div class="control-group">
                     <label class="control-label">Vehicle No.</label>
                     <div class="controls">
-                        <input id="Vehicle no." name="car_no" type="text" placeholder="vehicle no."class="input-xlarge">
+                        <input id="Vehicle no." name="car_no" type="text" placeholder="vehicle no."class="input-xlarge" default = "{{ rider.user.car_no }}">
                     </div>
                 </div>
 				
@@ -145,7 +145,7 @@
 							<option value="Other">Other</option>
 							
                         </select>
-                        <input id="ID No." name="auth_token" type="text" placeholder="ID No."class="input-xlarge">
+                        <input id="ID No." name="auth_token" type="text" placeholder="ID No."class="input-xlarge" default = "{{ rider.user.auth_token }}">
                     </div>
                 </div>
             <button type = "submit" class="btn btn-primary center-block">Done</button>
