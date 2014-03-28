@@ -12,12 +12,7 @@ import uuid
 import jinja2
 import smtplib
 
-#def index(request):
-    #return HttpResponse("Hello, world. You're at the poll index.")
-    
-
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
-
 
 #Perform basic checks on user
 def check(request):
@@ -56,11 +51,11 @@ def send_verification_email(request):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
     fro = gmailLogin + "@gmail.com"
-    subject = 'CarPool SEN Verification Email'
+    subject = 'CarPool Verification Email'
     
     to = entry.email
     msg = 'Subject: %s \n\nYour email has been registered on carpoolsen.com.\nPlease\
-    click on the following link to verify (or copy paste it in your browser if needed\n\n\
+    click on the following link to verify (or copy paste it in your browser if needed)\n\n\
     http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
    
     try:
@@ -244,7 +239,7 @@ def signup_do(request):
         login_do(request)
         return send_verification_email(request)
     except Exception as e:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Invalid email, please Enter again. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Username already exists. Please enter some other username. Click <a href="/signup_page/">here</a> to go back to signup page.'}))
     
 
 #Called when a user enters verification code and clicks on submit
