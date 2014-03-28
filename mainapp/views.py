@@ -85,10 +85,10 @@ def login_page(request):
 def contactus(request):
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
 def faq(request):
-    check = 0
+    rider = None
     if request.user.is_authenticated():
-        check += 1
-    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'check':check}))
+        rider = request.user.rider
+    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'check':str(check), 'rider':rider}))
 def aboutus(request):
     return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
 def search_results(request):
