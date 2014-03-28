@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -129,3 +130,9 @@ class Message(models.Model):
     
     
 #Here there also exists another table called 'User', provided by Django. It has username, email and password attributes.
+
+
+#Temp check form
+class UploadFileForm(forms.Form):
+    first_name = forms.CharField(max_length=50)
+    #image = forms.FileField()

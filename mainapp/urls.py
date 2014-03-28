@@ -31,11 +31,13 @@ urlpatterns = patterns('',
     url(r'^post_page/', views.post_page, name='post_page'),
     url(r'^login_page/', views.login_page, name='login_page'),
     url(r'^index/', views.index, name='index'),
-    url(r'^search_results/', views.search_results, name='search_results'),
     url(r'^reserve_page/', views.reserve_page, name='reserve_page'),
     url(r'^edit_profile_page/', views.edit_profile_page, name='edit_profile_page'),
     url(r'^contactus/', views.contactus, name='contactus'),
     url(r'^aboutus/', views.aboutus, name='aboutus'),
     url(r'^faq/', views.faq, name='faq'),
     url(r'^inbox/', views.inbox_page, name='inbox_page'),
+    
+    #temp form check
+    url(r'^upload/', views.upload, name='upload'),
 )

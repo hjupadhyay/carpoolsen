@@ -8,24 +8,22 @@
     {% include "bootstrap/css/star-rating.css" %}
     {% include "bootstrap/css/star-rating.min.css" %}
     {% include "bootstrap/css/extra.css" %}
+    {% include "bootstrap/css/bootstrap-theme.css" %}
 </style>
-<script src ="bootstrap/js/bootstrap.js">
+<script>
     {% include "bootstrap/js/bootstrap.js" %}
 </script>
-<script src="bootstrap/js/jquery.min.js">
+<script>
     {% include "bootstrap/js/jquery.min.js" %}
 </script>
-<script src="bootstrap/js/jquery.js">
+<script>
     {% include "bootstrap/js/jquery.js" %}
 </script>
-<script src="bootstrap/js/star-rating.js" type="text/javascript">
+<script>
     {% include "bootstrap/js/star-rating.js" %}
     </script>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <!-- CSS dependencies -->
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
 </head>
 <body>
 <script>
@@ -50,9 +48,10 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CarPool</a>
+          <a class="navbar-brand" href="/">CarPool</a>
         </div>
         <div class="navbar-collapse collapse">
+        {% if rider == None %}
           <form class="navbar-form navbar-right" role="form">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
@@ -63,6 +62,19 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <button type="submit" class="btn btn-success">Log in</button>
             <button type="submit" class="btn btn-primary">Sign up</button>
           </form>
+        {% else %}
+        <div class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ rider.user.first_name }} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/preferences"><span type="input-group-addon" class= "glyphicon glyphicon-cog"></span> &nbsp Preferences  </a></li>
+                    <li><a href="/profile"><span type="input-group-addon" class= "glyphicon glyphicon-user"></span> &nbsp Profile  </a></li>
+                    <li><a href="/faq"><span type="input-group-addon" class= "glyphicon glyphicon-question-sign"></span> &nbsp FAQ </a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout_do"><span type="input-group-addon" class= "glyphicon glyphicon-off"></span>&nbsp Logout</a></li>
+                </ul>
+            </li>
+        </div>
+        {% endif %}
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -153,11 +165,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <div class="col-md-4 col-xs-4"> 
 <div class="contain">
     
-<div class="centered">
+<div class="centered" style="padding:5px">
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
             <div class="user-image">
-                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column">
+                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column" style="height:160px; width:160px; align:center;">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
@@ -167,9 +179,12 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 </div>
                 <div class="centered">      
  
-<input id="input-21" type="number" class="rating" min="1" max="5" step="1">
-        <button class="btn btn-primary">Submit</button>
-        <button class="btn btn-primary" type="reset">Message Me</button>
+<input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rating/2 }}">
+<!-- put rating system here -->
+
+<button class="btn btn-primary">Rate</button>
+<button class="btn btn-primary" type="reset">Message Me</button>
+<p></p>
 </div>      
 </div>
 </div>
@@ -177,10 +192,12 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 </div>
 </div>
 </div>
+<br>
+<br>
 <div id="footer">
           <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
+            <p><a href="/aboutus/"><font size=3>About Us</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/"><font size=3>FAQs</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/"><font size=3>Contact Us</font></a></p>
+            <p class="text-muted"><font size=3>&copy; Carpool 2014</font></p>
             </div>
         </div>
 
@@ -197,10 +214,10 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
  </div>
 <!-- JS dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
  
 <!-- bootbox code -->
-<script src="bootstrap/js/bootbox.js"></script>
+<script> {% include "bootstrap/js/bootbox.js" %}</script>
 
 
 
