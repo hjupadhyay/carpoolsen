@@ -77,24 +77,24 @@
             </div><!--/.navbar-collapse -->
           </div>
         </div> 
-		<br><br>
+		
 		
 		
 	<div class="jumbotron">
-    <div class="container">
+    <div class="container" align = "center">
         <div class="col-lg-6"><div class="conatiner drop-shadow">
-		<div class="jumbotron extra">
+		<div class="jumbotron extra" align = "center" >
 		<div class="row marketing">
-        <h3 style="font-family:arial;font-size:45px;" class="text-center" >My Profile</h3><br></br>
+        <h3 style="font-family:arial;font-size:45px;" class="text-center" >{{rider.user.first_name}}'s Profile</h3>
 			<div id="inner" class="user-image">
-                <img src="http://www.gravatar.com/avatar/2ab7b2009d27ec37bffee791819a090c?s=100&d=mm&r=g" alt="User's Photo" title="User's Photo"  height="200" width="200">
+                <img src=http://1.gravatar.com/avatar/7381ac88cc1a7fb5d0756e9698bf9b14?s=1024&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D1024&r=G alt="User's Photo" title="User's Photo"  height="150" width="150">
             
 			</div>
-			<br></br>
-			<form>
+			
+			<!--<form>
 			<input id="input-5" type="number" class="rating" min="1" max="5" step="1">
 			</form>
-        
+        -->
 			<!-- <div style="height:400px; width:100%; clear:both;"></div> -->
 			<!--<a class="navbar-brand" href="#"><font size="1" color="red">YOU ARE UNTRUSTED USER, PLEASE AUTHENTICATE TO BECOME TRUSTED</font></a><br></br>-->
                                         
@@ -103,19 +103,32 @@
                     <h3>{{rider.user.username}}</h3>
 					<TABLE>
 					<TR>
-						<TD>Gender: </TD>
-						<TD>&nbsp{{rider.gender}}</TD>
+						<TD><b><font color="black">Name</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
+						<TD>&nbsp{{rider.user.first_name}}&nbsp{{rider.user.last_name}}</TD>
 					</TR>
 					<TR>
-						<TD>Email: </TD>
+						<TD><b><font color="black">Gender</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
+						{% if rider.gender=="m" %}
+						<TD>&nbspMale</TD>
+						{% else %}
+						<TD>&nbspFemale</TD>
+						{% endif %}
+					</TR>
+					<TR>
+						<TD><b><font color="black">Email</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
 						<TD>&nbsp{{rider.user.email}}</TD>
 					</TR>
 					<TR>
-						<TD>Phone: </TD>
+						<TD><b><font color="black">Phone</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
 						<TD>&nbsp{{rider.phone}}</TD>
 					</TR>
 					<TR>
-						<TD>Authentication: </TD>
+						<TD><b><font color="black">Authentication</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
 						<TD>&nbsp{{rider.auth_type}}</TD>
 					</TR>
 					<!--<TR>
