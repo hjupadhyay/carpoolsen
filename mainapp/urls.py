@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^send_verification_email/', views.send_verification_email, name='send_verification_email'),
     url(r'^edit_profile/', views.edit_profile, name='edit_profile'),
     url(r'^search_username/', views.search_username, name = 'search_username'),
+    url(r'^reply/', views.reply, name = 'reply'),
     
     
     #Pages

@@ -814,6 +814,24 @@ def delete_message(request):
         message.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
+#reply to a message
+@csrf_exempt
+def reply(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    mid = request.POST['mid']
+    message = request.POST['message']
+    receiver = None
+    try:
+        receiver = Message.objects.get(pk=int(mid)).sender
+    except:
+        return HttpResponse("Message not found")
+    entry = Message(sender = request.user.rider, receiver = receiver, message = message)
+    entry.save()
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Message sent successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 #Search for username
 @csrf_exempt
