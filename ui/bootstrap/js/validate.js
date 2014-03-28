@@ -10,8 +10,8 @@ $(document).ready(function(){
 			var pos = ele.offset();
 
 			uname.css({
-				top: pos.top-3,
-				left: pos.left+ele.width()+15
+				top: pos.top+1,
+				left: pos.left+ele.width()+75
 			});
 
 			if(ele.val().length < 6) {
