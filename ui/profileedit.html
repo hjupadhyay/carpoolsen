@@ -105,11 +105,16 @@
                     <label class="control-label">Gender</label>
                     <div class="controls">
                         <select id="Gender" name="gender" class="input-xlarge">
-                            <option value="" selected="selected" value = "{{ rider.user.gender }}">(please select a Gender)</option>
-                            <option value="m">Male</option>
-                            <option value="f">Female</option>
-							<option value="o">Other</option>
+                            <option value="" selected="selected">Please select a value</option>
+                            <option id = "m" value="m">Male</option>
+                            <option id = "f" value="f">Female</option>
+							<option id = "o" value="o">Other</option>
                         </select>
+                        <script>
+                            var element = document.getElementById('Gender');
+                            var valueToSelect = document.getElementById('{{ rider.gender }}');
+                            element.value = valueToSelect.value;
+                        </script>
 					</div>
                 </div>
                 
