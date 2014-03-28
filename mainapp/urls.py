@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     url(r'^faq/', views.faq, name='faq'),
     url(r'^inbox/', views.inbox_page, name='inbox_page'),
     
-    #temp form check
+    #temp for check
     url(r'^upload/', views.upload, name='upload'),
+    url(r'^tempage/', views.tempage, name='tempage'),
 )

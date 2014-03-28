@@ -9,12 +9,12 @@ function showDivs(start)
 	for(var i=1;((div = document.getElementById('div' + i)) !== false);i++)
 	{
 		if(div.style.display == 'none')
-			if(i == inp){
+			if(i == inp)
+            {
 				div.style.display = 'block';
 				flag1=1;
-				}else {}
-		else
-			div.style.display = 'none';
+            }
+            if (i != inp) div.style.display = 'none';
 	}
 }
 function showhide()

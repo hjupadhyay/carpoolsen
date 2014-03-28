@@ -818,7 +818,9 @@ def search_username(request):
             return HttpResponse("0")
         return HttpResponse("1")
 
-
+#Testing functions:
+def tempage(request):
+    return HttpResponse(jinja_environ.get_template('tempage.html').render())
 #temp form checksdef upload_file(request):
 @csrf_exempt
 def upload(request):
