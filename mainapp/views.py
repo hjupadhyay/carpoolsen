@@ -800,14 +800,14 @@ def delete_message(request):
 
 #Search for username
 def search_username(request):
-    if request.method == 'GET':
-        username = request.GET['username']
-        length = 0
+    if request.method == 'POST':
+        username = request.POST['username']
+        length = 1
         try:
-            length = len(User.objects.get(username=username))
+            User.objects.get(username=username)
         except Exception as e:
-            return HttpResponse(e)
-        return HttpResponse(str(length))
+            return HttpResponse("0")
+        return HttpResponse("1")
 
 
 #temp form checksdef upload_file(request):
