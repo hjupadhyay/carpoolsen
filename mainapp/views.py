@@ -216,7 +216,7 @@ def reserve_page(request):
 #Actions
 @csrf_exempt
 def edit_profile(request):
-    x = request.REQUEST['lol']
+    
     pass
 
 @csrf_exempt

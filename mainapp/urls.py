@@ -37,4 +37,5 @@ urlpatterns = patterns('',
     url(r'^contactus/', views.contactus, name='contactus'),
     url(r'^aboutus/', views.aboutus, name='aboutus'),
     url(r'^faq/', views.faq, name='faq'),
+    url(r'^inbox/', views.inbox_page, name='inbox_page'),
 )
