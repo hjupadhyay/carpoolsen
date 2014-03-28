@@ -1,0 +1,48 @@
+<html>
+    <body>
+                
+        <table class="table table-striped custab" id="block_main">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Driver</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Cost(INR)</th>
+            <th>Rating</th>            
+            <th class="text-center">Action</th>
+            
+        </tr>
+    </thead>
+        {% for post in result_list %}
+        <tr>
+                <td>1</td>
+                <td>{{ post.owner.user.first_name }} </td>
+                <td>{{ post.date_time.date() }}</td>
+                <td>{{ post.date_time.time() }}</td>
+                <td>{{ post.cost }}</td>
+                <td>{{ post.owner.user_rating }}</td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-hand-up"></span> Reserve</a> </td>
+                
+        </tr>
+      {% endfor %}
+     
+                   {% for post in result_list %}
+        <tr>
+                <td>1</td>
+                <td>{{ post.owner.user.first_name }} </td>
+                <td>{{ post.date_time.date() }}</td>
+                <td>{{ post.date_time.time() }}</td>
+                <td>{{ post.cost }}</td>
+                <td>{{ post.owner.user_rating }}</td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-hand-up"></span> Reserve</a> </td>
+                
+        </tr>
+
+      {% endfor %}
+            
+    </table>
+        <script src="bootstrap/js/searchresult.js"></script>
+
+    </body>
+</html>

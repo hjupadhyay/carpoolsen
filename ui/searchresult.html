@@ -51,11 +51,11 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Time</a></li>
+                        <li><a href="#block_main">Time</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Cost</a></li>
+                        <li><a href="#block_main">Cost</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Rating</a></li>
+                        <li><a href="#block_main">Rating</a></li>
                    </ul>
                 </div>
                 
@@ -66,7 +66,7 @@
 <div class="container">
     <div class="row col-md-10 col-md-offset-1 custyle">
     
-    <table class="table table-striped custab">
+    <table class="table table-striped custab" id="block_main">
     <thead>
         <tr>
             <th>ID</th>
@@ -90,7 +90,10 @@
                 <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Reserve</a> </td>
                 
         </tr>
+
       {% endfor %}
+        
+        
             
     </table>
     </div>
@@ -108,6 +111,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/searchresult.js"></script>
 
 </body>
 </html>
