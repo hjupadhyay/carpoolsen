@@ -158,47 +158,47 @@
 
 <!--             THIS IS THE PART GIVING PROBLEM MOSTLY -->
             
-    <form class="form-horizontal" role="form" action="/search_do/" method="GET">
+    <form class="form-horizontal" role="form" action="/search_do/" method="POST">
 				<div class="form-group">
-                    <label class="col-sm-2 control-label">From</label>
+                    <div class="col-sm-2 control-label">From</div>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="Location" name="fro">
                     </div>
                 </div>	
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">To</label>
+                    <div class="col-sm-2 control-label">To</div>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="Location" name="to">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-2 control-label">Date</div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Date of Journey" name="dtstart">
+                        <input type="text" class="form-control" placeholder="Date of Journey" name="date">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-2 control-label">Time</label>
+                    <div  class="col-sm-2 control-label">Time</div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Time of Journey" name="dtend">
+                        <input type="text" class="form-control" placeholder="from" name="time_start">
+                        <input type="text" class="form-control" placeholder="to" name="time_end">
                     </div>
+                    
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Gender</label>
+                    <div class="col-sm-2 control-label">Gender</div>
                     <div class="col-sm-10">
-                            <label>
-                                <input type="checkbox" value="male" name="men_women" checked>
+                            <input type="checkbox" value="male" name="men_women" checked>
                                 Male
-                            </label>
-                            <label>
-                                <input type="checkbox" value="female" name="men_women" checked>
+                            
+                            <input type="checkbox" value="female" name="men_women" checked>
                                 Female
-                            </label>
+                            
                     </div>
                 </div>  
 
-                <button type="submit" class="btn btn-default center-block" name="result">Submit</button>
+                <button type="submit" class="btn btn-default center-block" name="submit">Submit</button>
             </form>     
         </div>
 
@@ -207,7 +207,10 @@
     </div>
     <hr>	
     </div> 
-                    <div id="footer">
+                    
+
+
+        <div id="footer">
           <div class="container">
             <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
             <p class="text-muted">&copy; Carpool 2014</p>
