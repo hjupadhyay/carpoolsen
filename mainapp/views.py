@@ -820,7 +820,10 @@ def search_username(request):
 
 #Testing functions:
 def tempage(request):
-    return HttpResponse(jinja_environ.get_template('tempage.html').render())
+    retval = check(request)
+    if retval <> None:
+        return retval
+    return HttpResponse(jinja_environ.get_template('tempage.html').render({'rider':request.user.rider}))
 #temp form checksdef upload_file(request):
 @csrf_exempt
 def upload(request):
