@@ -1,7 +1,7 @@
 <html>
 <head>
 <title> First Step to CarPool </title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!--<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -12,6 +12,8 @@
             window.opener.location.reload();
         }
 </script>-->
+<script type="text/javascript" src="bootstrap/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="bootstrap/js/validate.js" charset="utf-8"></script>
 
 <style>
 {% include "bootstrap/css/bootstrap.min.css" %}
@@ -20,7 +22,7 @@
 
 </style>
 </head>       
-
+<body>
 <!--<div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
             <div class="form-group">
@@ -61,7 +63,7 @@ button>
               <input type="password" name="password" placeholder="password" class="form-control">
             </div>
             <button type="submit" class="btn btn-success" >Log in</button>
-            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
+            <button type="button" class="btn btn-primary" onclick = "#" >Sign up</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -69,8 +71,7 @@ button>
 
       
       
-      
-<body>
+  
 <div class="container">    
 <div class="row">
 
@@ -107,7 +108,7 @@ Female
 <label for="username">
                             USERNAME * </label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="username" placeholder="Valid Username"
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Valid Username"
                                 required autofocus />
                            <span class="input-group-addon"><span class="glyphicon glyphicon-log-in"></span></span>
 </div>
