@@ -6,8 +6,9 @@ function showDivs(start)
 	var rep = document.getElementById("reply");
 	rep.style.display = "none";
 	
-	for(var i=1;((div = document.getElementById('div' + i)) !== false);i++)
+	for(var i=1; i <= {{max_mid}};i++)
 	{
+        div = document.getElementById('div' + i)
 		if(div.style.display == 'none')
 			if(i == inp)
             {
@@ -18,14 +19,28 @@ function showDivs(start)
 	}
 }
 function showhide()
-     {
-		var rep = document.getElementById("reply");
-		rep.style.display = "block";
-		for(var i=1;((div = document.getElementById('div' + i)) !== false);i++)
-			div.style.display = 'none';
-			
-	
-	}
+{
+    var rep = document.getElementById("reply");
+    rep.style.display = "block";
+    var message = null;
+    for(var i=1; i <= {{max_mid}};i++)
+    {
+        
+        div = document.getElementById('div' + i)
+        if (div.style.display != 'none')
+        {
+            message = div;
+            div.style.display = 'none';
+        }
+    }
+    var reply_header= document.getElementById('reply_header');
+//     console.log(mid);
+//     console.log(messages);
+//     reply_header.value = "Reply To: " + message.sender;
+    alert("Reply To: " + message.value);
+    
+
+}
     
 $(document).ready(function() {
     $('#selectall').click(function(event) {  //on click 

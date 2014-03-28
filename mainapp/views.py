@@ -135,9 +135,17 @@ def inbox_page(request):
     
     try:
         results = Message.objects.filter(receiver=request.user.rider)
-        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,"messages":results}))
+        max_mid = 0
+        for x in results:
+            if x.id > max_mid:
+                max_mid = x.id
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,
+                                                                             "messages":results,
+                                                                             "max_mid": max_mid,}))
     except:
-        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider, "messages":None}))
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,
+                                                                             "messages":None,
+                                                                             "max_mid": 0,}))
         
 def dashboard(request):
     
@@ -808,6 +816,7 @@ def delete_message(request):
 
 
 #Search for username
+@csrf_exempt
 def search_username(request):
     if request.method == 'POST':
         username = request.POST['username']
