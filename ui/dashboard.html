@@ -131,7 +131,14 @@
                         <div class="tab-pane fade" id="inbox">
                         <ol>
                         {% for message in messages %}
-                            <li><p><h5>{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
+                            <li><p><h5 id="{{message.id}}">{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
+                            <script>
+                                var message = document.getElementById("{{message.id}}");
+                                var mbox = document.getElementById("inbox");
+//                                 console.log($('#inbox').attr('width'))
+                                if (message.innerHTML.length > 40)
+                                    message.innerHTML = message.innerHTML.substring(0,40) + "...";
+                            </script>
                         {% endfor %}
                         </ol>  
                         <div>

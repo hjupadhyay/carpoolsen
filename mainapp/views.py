@@ -134,7 +134,7 @@ def inbox_page(request):
         return retval
     
     try:
-        results = Message.objects.filter(receiver=request.user.rider)
+        results = Message.objects.filter(receiver=request.user.rider).extra(order_by = ['-date_time'])
         max_mid = 0
         for x in results:
             if x.id > max_mid:
@@ -763,9 +763,11 @@ def view_messages(request):
     results2 = Message.objects.filter(receiver = rider)
     
     return HttpResponse((len(results1) + len(results2)))
-    
+
+@csrf_exempt
 def read_message(request):
   
+    print "LOL"
     retval = check(request)
     if retval <> None:
         return retval

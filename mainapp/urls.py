@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^edit_profile/', views.edit_profile, name='edit_profile'),
     url(r'^search_username/', views.search_username, name = 'search_username'),
     url(r'^reply/', views.reply, name = 'reply'),
+    url(r'^read_message/', views.read_message, name = 'read_message'),
     
     
     #Pages

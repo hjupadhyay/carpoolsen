@@ -9,6 +9,8 @@ function showDivs(start)
 	for(var i=1; i <= {{max_mid}};i++)
 	{
         div = document.getElementById('div' + i)
+        if (div==null)
+            continue;
 		if(div.style.display == 'none')
 			if(i == inp)
             {
@@ -28,6 +30,8 @@ function showhide()
     {
         
         div = document.getElementById('div' + i)
+        if(div==null)
+            continue;
         if (div.style.display == 'block')
         {
             mid = i;
@@ -45,7 +49,27 @@ function showhide()
 //     console.log(message.getAttribute('name'));
 //     rep
     
+    
+//     entry = document.getElementById("mlist_entry" + i);
+//     console.log("lol");
+//     entry.style.fontWeight='normal';
+//     var xmlhttp = new XMLHttpRequest();
+//     var data = new FormData();
+//     data.append("mid",mid);
+//     xmlhttp.open("POST","/read_message/",true);
+//     xmlhttp.send(data);
+//     console.log("loL");
+    
+    
+    
+    
 
+}
+
+function delete_messages()
+{
+    //delete_messages
+    //use checkbox{{messageid}}
 }
     
 $(document).ready(function() {
