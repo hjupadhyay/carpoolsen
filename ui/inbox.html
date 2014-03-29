@@ -146,7 +146,7 @@
 						</div>
 					</form>
 					<div class="pull-right">
-						<span class="text-muted"><b>1</b>–<b>3</b> of <b>3</b></span>
+						<!--<span class="text-muted"><b>1</b>–<b>3</b> of <b>3</b></span>-->
 						<div class="btn-group btn-group-sm">
 							<button type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-chevron-left"></span>
@@ -169,20 +169,20 @@
 									</label>
 								</div>
 							</button>
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
+							</button>-->
+							<!--<ul class="dropdown-menu" role="menu">
 								<li><a id="selectall"href="#">All</a></li>
 								<li><a href="#">None</a></li>
 								<li><a href="#">Read</a></li>
 								<li><a href="#">Unread</a></li>
-							</ul>
+							</ul>-->
 						</div>
-						<button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
+						<!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
                    		<span class="glyphicon glyphicon-refresh"></span>   
 						</button>
-						<button type="delete" class="btn btn-danger">Delete</button>
+						--><button type="delete" class="btn btn-danger" onclick="delete_messages()">Delete</button>
 					</div>
 					</form>
 					</div>
@@ -194,14 +194,16 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <label>
-                                        <input type="checkbox" class="checkbox1" value="2" />
+                                        <input type="checkbox" class="checkbox1" value="2" id="checkbox{{message.id}}"/>
                                         {% if message.rmailbox == 2 %}
-                                        <a href="javascript:;" onclick="hideAndShow({{message.id}});"><b> Message from {{ message.sender }}</b></a>
+                                        <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
                                         {% elif  message.rmailbox == 1 %}
-                                        <a href="javascript:;" onclick="hideAndShow({{message.id}});"> New message from {{ message.sender }}</a>
+                                        <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
                                         {% endif %}
+                                        
                                     </label>
-                                    <span class="badge pull-right">12:10 AM</span>
+                                    <span class="badge pull-right"></span>
+                                    
                                 </div>
                             </div>
                         </li>
@@ -224,19 +226,26 @@
 	   <h3 id = "clicker" class="text-center">Click on a messages to view details</h3>
             {% for message in messages %}
 			<div class="modal-body" name="{{ message.sender }}" id="div{{ message.id }}" style="display:none">
+                <script>
+                    console.log({{message.id}});
+                </script>
                 <h3>From: {{ message.sender }}</h3>
-                <h3>Text:</h3>
-				<div class="well">				
-				<ol>
-				<form accept-charset="UTF-8" action="" method="POST">
-					{{ message.message }}
-				</form>	
-				</ol>
-				</div>
+                <br/>
+                <h4>Text:</h4>
+                
+<!-- 				<div class="well">				 -->
+<!-- 				<ol> -->
+				<textarea readonly rows="5" style="margin-bottom:10px;" class="form-control counted" id="message_body{{ message.id }}" name="message_body{{ message.id }}">{{ message.message }}</textarea>
+<!-- 				</ol> -->
+<!-- 				</div> -->
+                <script>
+                    document.getElementById("message_body{{ message.id }}").style.cursor="default";                    
+                    document.getElementById("message_body{{ message.id }}").style.backgroundColor="white";
+                </script>
 				<button class="btn btn-info center-block"  onclick=showhide() >Reply</button>
 			</div>
 			{% endfor %}
-			<div class="panel panel-default" id ="reply" style="display:none">
+			<div class="" id ="reply" style="display:none">
 				<div class="panel-body">                
                     <h3 id = "reply_title"></h3>
                     

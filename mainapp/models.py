@@ -33,7 +33,7 @@ class Rider(models.Model):
     car_number = models.CharField(max_length=20)
     
     #path to image
-    image = models.CharField(max_length=300, default="/static/images/default_profile.jpg")
+    image = models.CharField(max_length=300, default="http://1.gravatar.com/avatar/7381ac88cc1a7fb5d0756e9698bf9b14?s=1024&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D1024&r=G")
     
     #1 - unverified
     #any other number = verification code

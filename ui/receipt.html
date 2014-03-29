@@ -7,16 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-
+    <script>
+    function printer()
+    {
+        document.getElementById("print").style.display="none";
+        document.getElementById("b2dash").style.display="none";
+        window.print();
+        document.getElementById("print").style.display="block";
+        document.getElementById("b2dash").style.display="block";
+    }
+    </script>
     <title>Receipt</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/receipt.css" rel="stylesheet">
-    <link href="bootstrap/css/Bootstrap.min.css" rel="stylesheet">
-
+    <style>
+    {% include "bootstrap/css/receipt.css" %}
+    {% include "bootstrap/css/bootstrap.min.css" %}
+    </style>
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+<!--     <link href="signin.css" rel="stylesheet"> -->
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -52,11 +61,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="col-md-9"><em>{{post.owner.user.first_name}}&nbsp{{post.owner.user.last_name}}<br>{{post.owner.phone}}<br>{{post.owner.car_number}}</em></td>
-                            <td class="col-md-1" style="text-align: center">{{post.owner.total_seats}}</td>
+                            <td class="col-md-9"><em><b>{{post.owner.user.first_name}}&nbsp{{post.owner.user.last_name}}</b><br><b>Phone:</b> {{post.owner.phone}}<br><b>Car No:</b> {{post.owner.car_number}}</em></td>
+                            <td class="col-md-4" style="text-align: center">{{post.total_seats}}</td>
                             <td class="col-md-2">{{post.date_time.date()}}</td>
                             <td class="col-md-1 text-center">{{post.date_time.time()}}</td>
-							<td class="col-md-1">{{post.cost}}</td>
+							<td class="col-md-1 text-center">{{post.cost}}</td>
 							<td class="col-md-1"><em>Confirmed</em></td>
                         </tr>
                     </tbody>
@@ -67,17 +76,15 @@
                 <!-- <button type="button" class="btn btn-success center-block">
                     Submit   <span class="glyphicon glyphicon-chevron-right"></span>
                 </button> -->
-				<button type="button" class="btn btn-success center-block" onclick="window.print()">
-                    Print   <span class="glyphicon glyphicon-chevron-right"></span>
+				<button id = "print" type="button" class="btn btn-success center-block" onclick="printer()">Print <span class="glyphicon glyphicon-ok"></span>
                 </button>
-<!--				<div>
-				<button type="button" class="btn btn-success btn-left" onclick="window.location.href='http://localhost:8000/logout_do/'">
-                    Log out   <span class="glyphicon glyphicon-log-out"></span>
-                </button>-->
-				<button type="button" class="btn btn-info btn-right" onclick="window.location.href='http://localhost:8000/'">
-                    Go Back to DashBoard   <span class="glyphicon glyphicon-ok"></span>
+                <br/>
+				<button id = "b2dash" type="button" class="btn btn-info center-block" onclick="window.location.href='/'">Go Back to DashBoard    <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
+                <br>
+                
 				</div>
+				<p><font size="2">*Please carry a copy of the receipt, the driver may ask for it</font></p>
             </div>
         </div>
     </div>

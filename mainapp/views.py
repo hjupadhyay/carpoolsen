@@ -38,7 +38,7 @@ def check(request):
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
                                                                                   <p>Your account has not been verified. Please check your email and click on the verification link.</p>
                                                                                   <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                                  <p>Click <a href="/logout_do/?direct_home=1">here</a> to go to the homepage and log-in again</p>"""}))
+                                                                                  <p>Click <a href="/logout_do/">here</a> to go to the homepage and log-in again</p>"""}))
         #return HttpResponse(request.user.rider.verified)
     return None
     
@@ -134,7 +134,7 @@ def inbox_page(request):
         return retval
     
     try:
-        results = Message.objects.filter(receiver=request.user.rider)
+        results = Message.objects.filter(receiver=request.user.rider).extra(order_by = ['-date_time'])
         max_mid = 0
         for x in results:
             if x.id > max_mid:
@@ -364,12 +364,13 @@ def verify(request):
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
-    try:
-        if request.REQUEST['direct_home']=='1':
-            return HttpResponse(jinja_environ.get_template('index.html').render())
-    except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
+    #try:
+        #if request.REQUEST['direct_home']=='1':
+            #return HttpResponse(jinja_environ.get_template('index.html').render())
+    #except:
+        #return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
+                                                                                  #<p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
+    return HttpResponse(jinja_environ.get_template('redirect.html').render({"redirect_url":"/"}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -773,9 +774,11 @@ def view_messages(request):
     results2 = Message.objects.filter(receiver = rider)
     
     return HttpResponse((len(results1) + len(results2)))
-    
+
+@csrf_exempt
 def read_message(request):
   
+    print "LOL"
     retval = check(request)
     if retval <> None:
         return retval
