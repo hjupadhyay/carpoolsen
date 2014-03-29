@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     url(r'^aboutus/', views.aboutus, name='aboutus'),
     url(r'^faq/', views.faq, name='faq'),
     url(r'^inbox/', views.inbox_page, name='inbox_page'),
+    url(r'^receipt/', views.receipt, name='receipt'),
     
     #temp for check
     url(r'^upload/', views.upload, name='upload'),

@@ -29,7 +29,9 @@ def check(request):
     try:
         request.user.rider
     except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     
     #Check if user has been verified
     if request.user.rider.verified <> '1':
@@ -83,17 +85,20 @@ def signup_page(request):
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render())
 def contactus(request):
-    return HttpResponse(jinja_environ.get_template('ContactUs.html').render())
+    rider = None
+    if request.user.is_authenticated():
+        rider = request.user.rider
+    return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
 def faq(request):
     rider = None
     if request.user.is_authenticated():
         rider = request.user.rider
-    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'check':str(check), 'rider':rider}))
+    return HttpResponse(jinja_environ.get_template('FAQs.html').render({'rider':rider}))
 def aboutus(request):
-    return HttpResponse(jinja_environ.get_template('AboutUs.html').render())
-def search_results(request):
-    #return HttpResponse(jinja_environ.get_template('searchresult.html
-    pass
+    rider = None
+    if request.user.is_authenticated():
+        rider = request.user.rider
+    return HttpResponse(jinja_environ.get_template('AboutUs.html').render({"rider":rider}))
 
 def edit_profile_page(request):
     if not request.user.is_authenticated():
@@ -111,9 +116,9 @@ def profile(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+
     try:
-        riderid = int(request.REQUEST['id'])
+        riderid = request.REQUEST['id']
         if riderid == request.user.rider.pk:
             return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
         else:
@@ -129,11 +134,30 @@ def inbox_page(request):
         return retval
     
     try:
-	results = Message.objects.filter(receiver=request.user.rider)
-	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,"messages":results}))
+        results = Message.objects.filter(receiver=request.user.rider)
+        max_mid = 0
+        for x in results:
+            if x.id > max_mid:
+                max_mid = x.id
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,
+                                                                             "messages":results,
+                                                                             "max_mid": max_mid,}))
     except:
-	return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider, "messages":None}))
+        return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,
+                                                                             "messages":None,
+                                                                             "max_mid": 0,}))
+
+def receipt(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    try:
+        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":Post.objects.filter(pk=request.REQUEST['key'])}))
         
+    except:
+        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":None}))
+
 def dashboard(request):
     
     retval = check(request)
@@ -175,13 +199,20 @@ def post_page(request):
     x=postobj[0].date_time
     date=x.date()
     time=x.time()
-
+    reserved_obj = None
+    for x in postobj[0].reserved_set.all():
+        if x.reserver.user.username == request.user.username:
+            reserved_obj = x
+            break
     
     if(reserved>0):
       template_values={'post':postobj, 
 		       'minus':postobj[0].total_seats-reserved,
 		       'date':date,
 		       'time':time,
+		       'rider':request.user.rider,
+		       'reserved_obj': reserved_obj,
+		       'reserved_list': postobj[0].reserved_set.all(),
 	              }
 	              
     else: 
@@ -189,6 +220,9 @@ def post_page(request):
 		       'minus':postobj[0].total_seats,
 		       'time':time,
 		       'date':date,
+		       'rider':request.user.rider,
+		       'reserved_obj': reserved_obj,
+		       'reserved_list': postobj[0].reserved_set.all(),
 	              }
     
     #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
@@ -210,8 +244,40 @@ def reserve_page(request):
 #Actions
 @csrf_exempt
 def edit_profile(request):
-    return HttpResponse("")
-    pass
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render())
+
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    
+    #image = request.FILES['image']
+    #image.save('/home/rishav/Desktop/x.jpg',image.readlines(),True)
+    #return HttpResponse('0')
+    
+    
+    request.user.first_name = request.REQUEST['first_name']
+    request.user.last_name = request.REQUEST['last_name']
+    request.user.email = request.REQUEST['email']
+    
+    request.user.save()
+    
+    request.user.rider.gender = request.REQUEST['gender']
+    
+    request.user.rider.phone = request.REQUEST['phone']
+    request.user.rider.car_number = request.REQUEST['car_number']
+    request.user.rider.auth_type = request.REQUEST['auth_type']
+    request.user.rider.auth_token = request.REQUEST['auth_token']
+    request.user.rider.save()
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
 
 @csrf_exempt
 def signup_do(request):
@@ -564,7 +630,7 @@ def cancel_res(request):
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
-
+@csrf_exempt
 def search_do(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -580,17 +646,20 @@ def search_do(request):
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
-    dtstart = request.REQUEST['dtstart'].split("-")
-    dtend = request.REQUEST['dtend'].split("-")
+    #dtstart = request.REQUEST['dtstart'].split("-")
+    #dtend = request.REQUEST['dtend'].split("-")
+    date = request.REQUEST['date'].split("/")
+    time_start = request.REQUEST['time_start'].split(":")
+    time_end = request.REQUEST['time_end'].split(":")
     men_women = request.REQUEST['men_women']
-    dtstart = datetime.datetime(year=int(dtstart[0]), month=int(dtstart[1]), day=int(dtstart[2]), hour=int(dtstart[3]),
-                                minute=int(dtstart[4]), second=0, microsecond=0)
-    dtend = datetime.datetime(year=int(dtend[0]), month=int(dtend[1]), day=int(dtend[2]), hour=int(dtend[3]),
-                                minute=int(dtend[4]), second=0, microsecond=0)
-    results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=men_women)
-    
+    dtstart = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_start[0]),
+                                minute=int(time_start[1]), second=0, microsecond=0)
+    dtend = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_end[0]),
+                                minute=int(time_end[1]), second=0, microsecond=0)
+    results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=int(men_women))
     template_values = {
-        'results':results,
+        'result_list':results,
+        'searched':Post(to=to, fro=fro)
         }
     
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
@@ -722,7 +791,6 @@ def read_message(request):
     except Exception as e:
         return HttpResponse("0"+str(e))
         
-
 def delete_message(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -756,3 +824,51 @@ def delete_message(request):
     else:
         message.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+
+#reply to a message
+@csrf_exempt
+def reply(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    mid = request.POST['mid']
+    message = request.POST['message']
+    receiver = None
+    try:
+        receiver = Message.objects.get(pk=int(mid)).sender
+    except:
+        return HttpResponse("Message not found")
+    entry = Message(sender = request.user.rider, receiver = receiver, message = message)
+    entry.save()
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'Message sent successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
+
+#Search for username
+@csrf_exempt
+def search_username(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        length = 1
+        try:
+            User.objects.get(username=username)
+        except Exception as e:
+            return HttpResponse("0")
+        return HttpResponse("1")
+
+#Testing functions:
+def tempage(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    return HttpResponse(jinja_environ.get_template('tempage.html').render({'rider':request.user.rider}))
+#temp form checksdef upload_file(request):
+@csrf_exempt
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            response = "Form is valid"
+        else:
+            response = "Failed to upload"
+    return HttpResponse(response)

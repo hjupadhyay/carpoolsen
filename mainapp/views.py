@@ -116,9 +116,9 @@ def profile(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+
     try:
-        riderid = int(request.REQUEST['id'])
+        riderid = request.REQUEST['id']
         if riderid == request.user.rider.pk:
             return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
         else:
@@ -146,7 +146,18 @@ def inbox_page(request):
         return HttpResponse(jinja_environ.get_template('inbox.html').render({"rider":request.user.rider,
                                                                              "messages":None,
                                                                              "max_mid": 0,}))
+
+def receipt(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    try:
+        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":Post.objects.filter(pk=request.REQUEST['key'])[0]}))
         
+    except:
+        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":None}))
+
 def dashboard(request):
     
     retval = check(request)
