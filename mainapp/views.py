@@ -153,7 +153,7 @@ def receipt(request):
         return retval
     
     try:
-        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":Post.objects.filter(pk=request.REQUEST['key'])[0]}))
+        return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":Post.objects.get(pk=request.REQUEST['key'])}))
         
     except:
         return HttpResponse(jinja_environ.get_template('receipt.html').render({"post":None}))
