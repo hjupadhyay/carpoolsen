@@ -13,7 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/receipt.css" rel="stylesheet">
-	<link href="bootstrap/css/Bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/Bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
@@ -52,11 +52,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="col-md-9"><em>Karan&nbspSingh&nbspSisodia<br>9876543210<br>X111</em></td>
-                            <td class="col-md-1" style="text-align: center">1</td>
-                            <td class="col-md-2">7th&nbspMarch<br>2014</td>
-                            <td class="col-md-1 text-center">0800</td>
-							<td class="col-md-1">420</td>
+                            <td class="col-md-9"><em>{{post.owner.user.first_name}}&nbsp{{post.owner.user.last_name}}<br>{{post.owner.phone}}<br>{{post.owner.car_number}}</em></td>
+                            <td class="col-md-1" style="text-align: center">{{post.owner.total_seats}}</td>
+                            <td class="col-md-2">{{post.date_time.date()}}</td>
+                            <td class="col-md-1 text-center">{{post.date_time.time()}}</td>
+							<td class="col-md-1">{{post.cost}}</td>
 							<td class="col-md-1"><em>Confirmed</em></td>
                         </tr>
                     </tbody>
@@ -67,15 +67,15 @@
                 <!-- <button type="button" class="btn btn-success center-block">
                     Submit   <span class="glyphicon glyphicon-chevron-right"></span>
                 </button> -->
-				<button type="button" class="btn btn-success center-block">
+				<button type="button" class="btn btn-success center-block" onclick="window.print()">
                     Print   <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
-				<div>
-				<button type="button" class="btn btn-success btn-left">
+<!--				<div>
+				<button type="button" class="btn btn-success btn-left" onclick="window.location.href='http://localhost:8000/logout_do/'">
                     Log out   <span class="glyphicon glyphicon-log-out"></span>
-                </button>
-				<button type="button" class="btn btn-info btn-right">
-                    DashBoard   <span class="glyphicon glyphicon-ok"></span>
+                </button>-->
+				<button type="button" class="btn btn-info btn-right" onclick="window.location.href='http://localhost:8000/'">
+                    Go Back to DashBoard   <span class="glyphicon glyphicon-ok"></span>
                 </button>
 				</div>
             </div>
