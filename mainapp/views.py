@@ -224,8 +224,7 @@ def post_page(request):
 		       'reserved_obj': reserved_obj,
 		       'reserved_list': postobj[0].reserved_set.all(),
 	              }
-    
-    #return HttpResponse(jinja_environ.get_template('postpage.html').render({'post':postobj} {'minus':postobj[0].total_seats -postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']))
+	              
     return HttpResponse(jinja_environ.get_template('postpage.html').render(template_values))
 
     
