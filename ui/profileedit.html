@@ -37,8 +37,10 @@
 
   <body>
     {% include "header.html" %}
-        <br>
+        
+     
 	<div class="jumbotron">
+	
     <div class="container">
         <div class="col-lg-6"><div class="conatiner drop-shadow">
 		<div class="jumbotron extra">
@@ -46,9 +48,9 @@
 
       <div class="row marketing">
 	  	<div class="user-image">
-            <img src= "{{ rider.image }}" alt="Profile Photo here">
+            <img src= "{{ rider.image }}" alt="Profile Photo here" height="150" width="150">
                 </div>
-			<!-- <!-- <div style="height:400px; width:100%; clear:both;"></div> -->
+<!-- 			<div style="height:400px; width:100%; clear:both;"></div> -->
 			<div class="user-info-block">
                 <div class="user-heading">
                     				
@@ -61,21 +63,21 @@
                     <label class="control-label">Change Profile Photo:</label>
                     <br>
                     <input type="file" name="image">
-                    <button type="submit">Do</button>
+                    <button type="submit">Upload</button>
                 </div>
                 
                 <div class="control-group">
                     <label class="control-label">First Name</label>
                     <br/>
                     
-                    <input id="full-name" name="first_name" type="text" placeholder="full name" class="input-xlarge" value="{{ rider.user.first_name }}">
+                    <input id="full-name" name="first_name" type="text" placeholder="First name" class="input-xlarge" value="{{ rider.user.first_name }}">
                     
                 </div>
 				<div class="control-group">
                     <label class="control-label">Last Name</label>
                     <br/>
                     
-                    <input id="full-name" name="last_name" type="text" placeholder="full name" class="input-xlarge" value = "{{ rider.user.last_name }}">
+                    <input id="full-name" name="last_name" type="text" placeholder="Last name" class="input-xlarge" value = "{{ rider.user.last_name }}">
                     
                 </div>
                 
@@ -83,7 +85,7 @@
                     <label class="control-label">Gender</label>
                     <div class="controls">
                         <select id="Gender" name="gender" class="input-xlarge">
-                            <option value="" selected="selected">Please select a value</option>
+<!--                             <option value="" selected="selected">Please select a value</option> -->
                             <option id = "m" value="m">Male</option>
                             <option id = "f" value="f">Female</option>
 							<option id = "o" value="o">Other</option>
@@ -135,6 +137,7 @@
                         <input id="ID No." name="auth_token" type="text" placeholder="ID No."class="input-xlarge" value = "{{ rider.auth_token }}">
                     </div>
                 </div>
+                <br>
             <button type = "submit" class="btn btn-primary center-block">Done</button>
 <!--             </fieldset> -->
         </form>

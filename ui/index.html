@@ -13,6 +13,7 @@
     <style>
         {% include "bootstrap/css/bootstrap.min.css" %}
         {% include "bootstrap/css/style.css" %}
+            {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
     </style>
     
     <script type="text/javascript">
@@ -54,6 +55,84 @@
           							 	</div>
       										</div>
     									        
+<<<<<<< HEAD
+<div class="col-md-6">
+              <h2 class="reserveAlign">Search</h2>
+                <br>
+            <div class="container">
+
+<!--             THIS IS THE PART GIVING PROBLEM MOSTLY -->
+            
+    <form class="form-horizontal" role="form" action="/search_do/" method="POST">
+				<div class="form-group">
+                    <div class="col-sm-2 control-label">From</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Location" name="fro">
+                    </div>
+                </div>	
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">To</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Location" name="to">
+                    </div>
+                </div>
+                
+                      
+               <div class="form-group">
+               
+               <div class="col-sm-2 control-label">Date</div>
+               
+               <div class="col-md-10">
+               <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
+                    <input class="form-control" style="background-color:white" size="16" type="text"  placeholder="Set Date and Time "value="" readonly>
+                    
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input1" value="" />
+            </div>
+            </div>
+           </div>
+              <!--  <div class="form-group">
+                    <div class="col-sm-2 control-label">Date</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Date of Journey" name="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div  class="col-sm-2 control-label">Time</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="from" name="time_start">
+                        <input type="text" class="form-control" placeholder="to" name="time_end">
+                    </div>
+                    
+                </div>-->
+
+                <div class="form-group">
+                    <div class="col-sm-2 control-label" for="radios"> &nbsp &nbspGender</div>
+                    <div class="col-sm-10">
+                    <label class="radio-inline">
+                            <input type="radio" value="2" name="men_women">
+                                Only Men
+                            </input>
+                    </label>
+                    <label class="radio-inline">
+                            <input type="radio" value="1" name="men_women">
+                                Only Women
+                            </input>
+                    </label>
+                    <label class="radio-inline">
+                            <input type="radio" value="0" name="men_women">
+                                Both
+                            </input>
+                    </label>
+                    </div>
+                </div>  
+		<br>
+                <button type="submit" class="btn btn-default center-block" name="submit">Submit</button>
+            </form>     
+        </div>
+
+=======
         
       
         <div class="col-md-6">
@@ -69,49 +148,12 @@
     <label for="inputPassword3" class="col-sm-2 control-label">To</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="Location">
+>>>>>>> 008dbf769dbcb31a9134cc12faa2ff33614aec11
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Date</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="Date of Journey">
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Time</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="Time of Journey">
     </div>
-  </div>
-  
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Gender</label>
-    <div class="col-sm-10">
-      <div class="checkbox-inline">
-  				<label>
-    				<input type="checkbox" name="male" id="male" value="male" checked>
-    				Male
-  				</label>
-					</div>
-					<div class="checkbox-inline">
-  				<label>
-    					<input type="checkbox" name="female" id="female" value="female" checked>
-    			Female
-  				</label>
-					</div>
-   </div>
- </div>  
-
-	    <button type="submit" class="btn btn-default center-block">Submit</button>
-
-  
-
-</form>     
-          
-       </div>
-      </div>
-    </div>
-
+    <hr>	
+    </div> 
 
 
       <hr>	
@@ -129,6 +171,23 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+<!--     <script src="bootstrap/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript">
+ {% include "bootstrap/js/jquery-1.8.3.min.js"%}
+{% include  "bootstrap/js/bootstrap.min.js" %}
+{% include "bootstrap/js/bootstrap-datetimepicker.js" %} </script>
+<script type="text/javascript">  $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+    
+    </script>
+		
   </body>
 </html>
