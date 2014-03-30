@@ -15,7 +15,7 @@
 <!-- <script type="text/javascript" src="bootstrap/js/jquery.min.js" charset="utf-8"></script> -->
 <!-- <script type="text/javascript" src="bootstrap/js/validate.js" charset="utf-8"></script> -->
 <script>
-  {% include "bootstrap/js/jquery.min.js" %}
+  {% include "bootstrap/js/jquery.min1.js" %}
   {% include "bootstrap/js/validate.js" %}
   
 </script>
@@ -63,7 +63,7 @@
 <div class="container">    
 <div class="row">
 
-      <form class="form-horizontal" action= "/signup_do/" method = "POST">
+      <form class="form-horizontal" id="signupform" action= "/signup_do/" method = "POST">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 c col-sm-5 col-sm-offset-2">               
             <div class="panel panel-info" >
                     <div class="panel-heading">
@@ -78,7 +78,7 @@
 <div style="padding-top:30px" class="panel-body" >  
 <div class="panel-body">
 <div class="col-xs-4 col-md-8"> 
-<label class="control-label" for="radios">GENDER * </label>
+<label class="control-label" id="gender" for="radios">GENDER * </label>
 
 	<div class="controls">
 
@@ -138,7 +138,7 @@
 </div>
 <div class="col-xs-6 col-md-6">
                         <label for="password">
-                            PASSWORD * </label>
+                            PASSWORD (AGAIN) * </label>
                         <div class="input-group">
                             <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password"
                                 required autofocus />
@@ -149,7 +149,7 @@
 <!-- EMAIL ID-->    
 <div class="col-xs-0 col-md-12">    
 <br>
-<label for="email">
+<label for="email" id="emaillabel">
                             EMAIL ID * </label>
                         <div class="input-group">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Enter Valid ID"
@@ -200,7 +200,7 @@
 -->
 <div class="col-xs-0 col-md-12">
 <br>
-<button type="submit" class="btn btn-large btn-success"> Sign Up </button>
+<button type="submit" id="signup" class="btn btn-large btn-success"> Sign Up </button>
 </div>
 </div>
 </div>
