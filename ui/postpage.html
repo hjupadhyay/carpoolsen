@@ -107,7 +107,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 		      <h4>
 			  Reserve Requests</h4>
 		      <ul>
-			<p><li>Reserve Request by <a href="/profile/?id=reserved.reserver.pk">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p> <button class="btn btn-primary inline" onclick="window.location.href='/accept/'">Accept</button> <button class="btn btn-primary inline" onlcick="window.location.href='/revoke/'">Cancel</button>
+			<p><li>Reserve Request by <a href="/profile/?id=reserved_obj.reserver.pk">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p> <button class="btn btn-primary inline" onclick="window.location.href='/accept/'">Accept</button> <button class="btn btn-primary inline" onlcick="window.location.href='/revoke/'">Cancel</button>
 		      </ul>
 	  </div>
 	  
@@ -218,11 +218,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 {% else %}
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
     
   {% else %}
     <p>You are already reserved on this post and confirmed.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
   {% endif %}
 {% endif %}
 

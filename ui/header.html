@@ -11,14 +11,14 @@
         </div>
         <div class="navbar-collapse collapse">
           {% if rider == None %}
-          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
+          <form id="loginform" class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
             <div class="form-group">
-              <input type="text" name="username" placeholder="username" class="form-control">
+              <input type="text" name="username" id="username" placeholder="username" class="form-control">
             </div>
             <div class="form-group">
-              <input type="password" name="password" placeholder="password" class="form-control">
+              <input type="password" name="password" id="password" placeholder="password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success" >Log in</button>
+            <button type="submit" id="login" class="btn btn-success" >Log in</button>
             <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
           </form>
         {% else %}

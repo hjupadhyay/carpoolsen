@@ -3,15 +3,15 @@ $(document).ready(function(){
 	var jVal = {
 		'gender' : function (){
 
-			$('body').append('<div id="genderInfo" class="info"></div>');
+			$('body').append('<div id="genderInfo" class="valid"></div>');
 
 			var genderInfo = $('#genderInfo');
 			var ele = $('#gender');
 			var pos = ele.offset();
 
 			genderInfo.css({
-				top: pos.top-10,
-				left: pos.left+ele.outerWidth()+60
+				top: pos.top+1,
+				left: pos.left+ele.outerWidth()+10
 			});
 
 			if($('input[name="gender"]:checked').length == 0) {
@@ -155,7 +155,7 @@ $(document).ready(function(){
 		
 		'email' : function() {
 
-			$('body').append('<div id="emailInfo" class="info"></div>');
+			$('body').append('<div id="emailInfo" class="valid"></div>');
 
 			var emailInfo = $('#emailInfo');
 			var ele = $('#email');
@@ -163,8 +163,8 @@ $(document).ready(function(){
 			var pos = ele.offset();
 
 			emailInfo.css({
-				top: 3,
-				left: 2
+				top: pos.top+1,
+				left: pos.left+ele.outerWidth()+40
 			});
 
 			var patt = /^.+@.+[.].{2,}$/i;
