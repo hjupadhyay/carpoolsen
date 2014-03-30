@@ -1,5 +1,3 @@
-
-
 # Create your views here.
 from django.http import HttpResponse
 from django.utils import timezone
@@ -201,37 +199,41 @@ def post_page(request):
     retval = check(request)
     if retval <> None:
         return retval
-    postobj=Post.objects.filter(pk=request.REQUEST['key'])
-    reserved=postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']
-    x=postobj[0].date_time
+        
+    postobj=Post.objects.get(pk=request.REQUEST['key'])
+    reserved=postobj.reserved_set.aggregate(Sum('status'))['status__sum']
+    
+    x=postobj.date_time
+    
     date=x.date()
     time=x.time()
+    
     reserved_obj = None
-    for x in postobj[0].reserved_set.all():
+    for x in postobj.reserved_set.all():
         if x.reserver.user.username == request.user.username:
             reserved_obj = x
             break
     
     if(reserved>0):
       template_values={'post':postobj, 
-		       'minus':postobj[0].total_seats-reserved,
+		       'minus':postobj.total_seats-reserved,
 		       'date':date,
 		       'time':time,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj[0].reserved_set.all(),
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
 	              
     else: 
       template_values={'post':postobj, 
-		       'minus':postobj[0].total_seats,
+		       'minus':postobj.total_seats,
 		       'time':time,
 		       'date':date,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj[0].reserved_set.all(),
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
-	              
+              
     return HttpResponse(jinja_environ.get_template('postpage.html').render(template_values))
 
     
