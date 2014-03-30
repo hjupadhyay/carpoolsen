@@ -132,20 +132,16 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
     </div>
 <div class="jumbotron" style="width:100%; height:100%">
       <div class="container">
-        
-        
         <center>
-        
         <div class="row">
 <div class="container drop-shadow">
-
     <div class="centered">
         <h2>Post Details</h2>
             <br>
             <br>
     </div>
         
-        <div class="col-md-4 col xs-4">
+        <div class="col-md-4">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
                 <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
@@ -154,7 +150,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <h4>
                     From Location</h4>
                 <p>
-                   {{post[0].fro}}
+                   {{post.fro}} 
                    <!--Maninagar, Ahmedabad, Gujarat-->
                 </p>
             </div>
@@ -179,7 +175,44 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                     {{minus}} Remaining
                 </p>
             </div>
-        </div>
+            {% if rider.user.username==post.owner.user.username and reserved_list!=None %}
+		{% for reserved in reserved_list %}
+		  {%if reserved.status==0 %}          
+		      <div class="blockquote-box blockquote-danger clearfix">
+			  <div class="square pull-left">
+			  <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+			  </div>
+		      <h4>
+			  Reserve Requests</h4>
+		      <ul>
+			<p><li>Reserve Request by <a href="/profile/?id=reserved.reserver.pk">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p> <button class="btn btn-primary inline" onclick="window.location.href='/accept/'">Accept</button> <button class="btn btn-primary inline" onlcick="window.location.href='/revoke/'">Cancel</button>
+		      </ul>
+	  </div>
+	  
+		    {%endif%}
+		    {%endfor%}
+            
+  {% for reserved in reserved_list %}
+    {%if reserved.status==1 %}       
+		      <div class="blockquote-box blockquote-danger clearfix">
+			  <div class="square pull-left">
+			  <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+			  </div>
+		      <h4>
+			  Accepted Requests</h4>
+		      <ul>
+			<li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
+		      </ul>
+	  </div>
+	  
+    {%endif%}
+ {%endfor%}
+            
+            
+            <div class="blockquote-box blockquote-danger clearfix">       
+	    </div> 
+            
+	    </div>
         <div class="col-md-4 col-xs-4">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
@@ -188,7 +221,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <h4>
                      To Location</h4>
                 <p>
-             {{post[0].to}}
+             {{post.to}} 
                      <!--DA-IICT, Gandhinagar-->
                 </p>
             </div>
@@ -210,11 +243,16 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <h4>
                     Cost</h4>
                 <p>
-                    ₹{{post[0].cost}} per person
+                    {{post.cost}} per person
                 </p>
             </div>
-        </div>
-<div class="col-md-4 col-xs-4"> 
+            
+           
+            
+          
+   </div>
+         
+<div class="col-md-4"> 
 <div class="contain">
     
 <div class="centered" style="padding:5px">
@@ -225,17 +263,22 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
-                    <h3>{{post[0].owner.user.first_name}} {{post[0].owner.user.last_name}}</h3>
-                    <h3>Username: {{post[0].owner.user.username}}</h3>
+                    <h3>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h3>
+                    <h3>Username: {{post.owner.user.username}}</h3>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      
  
 <input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}">
 <!-- put rating system here -->
+{% if rider.user.username==post.owner.user.username %}
+  <button class="btn btn-primary" type="" onclick="window.location.href='edit_post_page'">Edit Post</button>
+{% endif %}
 
+{% if rider.user.username!=post.owner.user.username %}
 <button class="btn btn-primary">Rate</button>
 <button class="btn btn-primary" type="reset">Message Me</button>
+{% endif %}
 <p></p>
 </div>      
 </div>
@@ -245,7 +288,22 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 </div>
 </div>
 <br>
-<br>
+<br> 
+
+{% elif reserved_obj==None %}
+  <button class="btn btn-primary inline" onclick="window.location.href='/reserve/'">Reserve a seat</button>
+  
+{% else %}
+  {% if reserved_obj.status==0 %}
+    <p> You have already sent a reservation request which is pending approval.</p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+    
+  {% else %}
+    <p>You are already reserved on this post and confirmed.</p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+  {% endif %}
+{% endif %}
+
 <div id="footer">
           <div class="container">
             <p><a href="/aboutus/"><font size=3>About Us</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/"><font size=3>FAQs</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/"><font size=3>Contact Us</font></a></p>
@@ -253,27 +311,19 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             </div>
         </div>
 
-					<br>
+<br>
 <br>					
-<!--       				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick="onClick()">Cancel</button>							 -->
-      										
-    			</center>	
-				
-				<div id = "hr"></div>
+</center>	
+
+<div id = "hr"></div>
 
  
- </div>
- </div>
+</div>
+</div>
 <!-- JS dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
- 
 <!-- bootbox code -->
 <script> {% include "bootstrap/js/bootbox.js" %}</script>
-
-
-
-<script>
-</script>
 </body>
 </html>

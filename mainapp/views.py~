@@ -1,5 +1,3 @@
-
-
 # Create your views here.
 from django.http import HttpResponse
 from django.utils import timezone
@@ -38,7 +36,7 @@ def check(request):
         return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""
                                                                                   <p>Your account has not been verified. Please check your email and click on the verification link.</p>
                                                                                   <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                                  <p>Click <a href="/logout_do/?direct_home=1">here</a> to go to the homepage and log-in again</p>"""}))
+                                                                                  <p>Click <a href="/logout_do/">here</a> to go to the homepage and log-in again</p>"""}))
         #return HttpResponse(request.user.rider.verified)
     return None
     
@@ -124,7 +122,7 @@ def profile(request):
         else:
             return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":Rider.objects.get(pk=riderid), "check":"0"}))
     except:
-        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"0"}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
 
@@ -134,7 +132,7 @@ def inbox_page(request):
         return retval
     
     try:
-        results = Message.objects.filter(receiver=request.user.rider)
+        results = Message.objects.filter(receiver=request.user.rider).extra(order_by = ['-date_time'])
         max_mid = 0
         for x in results:
             if x.id > max_mid:
@@ -194,36 +192,41 @@ def post_page(request):
     retval = check(request)
     if retval <> None:
         return retval
-    postobj=Post.objects.filter(pk=request.REQUEST['key'])
-    reserved=postobj[0].reserved_set.aggregate(Sum('status'))['status__sum']
-    x=postobj[0].date_time
+        
+    postobj=Post.objects.get(pk=request.REQUEST['key'])
+    reserved=postobj.reserved_set.aggregate(Sum('status'))['status__sum']
+    
+    x=postobj.date_time
+    
     date=x.date()
     time=x.time()
+    
     reserved_obj = None
-    for x in postobj[0].reserved_set.all():
+    for x in postobj.reserved_set.all():
         if x.reserver.user.username == request.user.username:
             reserved_obj = x
             break
     
     if(reserved>0):
       template_values={'post':postobj, 
-		       'minus':postobj[0].total_seats-reserved,
+		       'minus':postobj.total_seats-reserved,
 		       'date':date,
 		       'time':time,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj[0].reserved_set.all(),
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
 	              
     else: 
       template_values={'post':postobj, 
-		       'minus':postobj[0].total_seats,
+		       'minus':postobj.total_seats,
 		       'time':time,
 		       'date':date,
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
-		       'reserved_list': postobj[0].reserved_set.all(),
+		       'reserved_list': postobj.reserved_set.all(),
 	              }
+              
     return HttpResponse(jinja_environ.get_template('postpage.html').render(template_values))
 
     
@@ -363,12 +366,13 @@ def verify(request):
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
-    try:
-        if request.REQUEST['direct_home']=='1':
-            return HttpResponse(jinja_environ.get_template('index.html').render())
-    except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
+    #try:
+        #if request.REQUEST['direct_home']=='1':
+            #return HttpResponse(jinja_environ.get_template('index.html').render())
+    #except:
+        #return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
+                                                                                  #<p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
+    return HttpResponse(jinja_environ.get_template('redirect.html').render({"redirect_url":"/"}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -772,9 +776,11 @@ def view_messages(request):
     results2 = Message.objects.filter(receiver = rider)
     
     return HttpResponse((len(results1) + len(results2)))
-    
+
+@csrf_exempt
 def read_message(request):
   
+    print "LOL"
     retval = check(request)
     if retval <> None:
         return retval
