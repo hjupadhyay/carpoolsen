@@ -6,20 +6,20 @@ $(document).ready(function(){
 			$('body').append('<div id="genderInfo" class="valid"></div>');
 
 			var genderInfo = $('#genderInfo');
-			var ele = $('#gender');
+			var ele = $('#f');
 			var pos = ele.offset();
 
 			genderInfo.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()+10
+				left: pos.left+ele.outerWidth()+55
 			});
 
 			if($('input[name="gender"]:checked').length == 0) {
 				jVal.errors = true;
-// 					genderInfo.removeClass('correct').addClass('error').html('&larr; Are you a man or a woman?').show();
+					genderInfo.removeClass('correct').addClass('error').html('&larr; Please select your Gender!').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
-// 					genderInfo.removeClass('error').addClass('correct').html('&radic; Okay').show();
+					genderInfo.removeClass('error').addClass('correct').html('&radic; Okay').show();
 					ele.removeClass('wrong').addClass('normal');
 			}
 		},
@@ -159,7 +159,6 @@ $(document).ready(function(){
 
 			var emailInfo = $('#emailInfo');
 			var ele = $('#email');
-            var ele2 = $('#emaillabel');
 			var pos = ele.offset();
 
 			emailInfo.css({
@@ -171,13 +170,11 @@ $(document).ready(function(){
 
 			if(!patt.test(ele.val())) {
 				jVal.errors = true;
-// 					emailInfo.removeClass('correct').addClass('error').html('&larr;').show();
+					emailInfo.removeClass('correct').addClass('error').html('&larr; Wrong format').show();
 					ele.removeClass('normal').addClass('wrong');
-                    ele2.removeClass('normal').addClass('wrong');
 			} else {
-// 					emailInfo.removeClass('error').addClass('correct').html('&radic; you so pro!').show();
+					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').show();
 					ele.removeClass('wrong').addClass('normal');
-                    ele2.removeClass('wrong').addClass('normal');
 			}
 		},
 		
@@ -200,7 +197,6 @@ $(document).ready(function(){
             xmlhttp.send(data);
             xmlhttp.onreadystatechange = function() {
                 if(ele.val().length == 0){
-                    jVal.errors = false;
                         car_noInfo.hide();
                         ele.removeClass('wrong').addClass('normal');
                 } else {
@@ -209,7 +205,7 @@ $(document).ready(function(){
                         car_noInfo.removeClass('correct').addClass('error').html('&larr; already taken').show();
                         ele.removeClass('normal').addClass('wrong');
                 } else {
-                        car_noInfo.removeClass('error').addClass('correct').html('&radic; available').show();
+                        car_noInfo.removeClass('error').addClass('correct').html('&radic; available').hide();
                         ele.removeClass('wrong').addClass('normal');
                 }
             }
@@ -250,6 +246,7 @@ $(document).ready(function(){
 
     $('#signup').click(function (){
         var obj = $.browser.webkit ? $('body') : $('html');
+        console.log("yoooo");
         obj.animate({ scrollTop: $('#gender').offset().top }, 750, function (){
             jVal.errors = false;
             jVal.gender();

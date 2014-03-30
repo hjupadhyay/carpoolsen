@@ -109,4 +109,16 @@
 	color: #222;
 }
 
+.loginwrong {
+    color: #000;
+    font-weight: bold;
+    background-color: #d58582;
+}
+
+.loginokay {
+    color: #555;
+    font-weight: normal;
+    background-color: #fff;
+}
+
 .body {background-image:url("http://wstaw.org/m/2014/03/27/volkswagen-volkswagen-bus-wallpaper.jpg");} 

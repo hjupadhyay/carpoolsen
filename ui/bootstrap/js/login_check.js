@@ -7,7 +7,7 @@ $(document).ready(function(){
             $('body').append('<div id="loginname" class="valid"></div>');
             
             var loginname = $('#loginname');
-            var ele = $('#username');
+            var ele = $('#loginusername');
         },
         
         'passwd' : function(){
@@ -15,16 +15,43 @@ $(document).ready(function(){
             $('body').append('<div id="passwd" class="valid"></div>');
             
             var passwd = $('#passwd');
-            var ele = $("#password");
+            var ele = $("#loginpassword");
         },
         
         'loginsend' : function(){
             
             var loginname = $('#loginname');
-            var ele = $('#username');
+            var ele = $('#loginusername');
             var passwd = $('#passwd');
-            var ele2 = $("#password");
+            var ele2 = $("#loginpassword");
             
+            var xmlhttp = new XMLHttpRequest();
+            var data = new FormData();
+            data.append("username",ele.val());
+            data.append("password",ele2.val());
+            data.append("js","1");
+            xmlhttp.open("POST","/login_do/",true);
+            xmlhttp.send(data);
+            xmlhttp.onreadystatechange = function() {
+                if(ele.val() == 0 || xmlhttp.responseText=="inv_user"){
+                    jVal.errors = true;
+                        ele.removeClass('loginokay').addClass('loginwrong');
+                        ele2.removeClass('loginwrong').addClass('loginokay');
+                }
+                if(xmlhttp.responseText=="inv_pass") {
+                    jVal.errors = true;
+                        ele.removeClass('loginwrong').addClass('loginokay');
+                        ele2.removeClass('loginokay').addClass('loginwrong');
+                }
+                if(xmlhttp.responseText=="disabled") {
+                    jVal.errors = true;
+                        
+                }
+                if(xmlhttp.responseText=="done") {
+                    ele.removeClass('loginwrong').addClass('loginokay');
+                    ele2.removeClass('loginwrong').addClass('loginokay');
+                }                
+            }
             if(!jVal.errors) {
                 $('#loginform').submit();
             }
@@ -34,15 +61,13 @@ $(document).ready(function(){
     
     $('#login').click(function (){
         var obj = $.browser.webkit ? $('body') : $('html');
-        obj.animate({ scrollTop: $('#username').offset().top }, 750, function (){
+        obj.animate({ scrollTop: $('#loginusername').offset().top }, 750, function (){
             jVal.errors = false;
-            jVal.loginname();
-            jVal.passwd();
             jVal.loginsend();
         });
         return false;
     });
-    $('#username').change(jVal.loginname);
-    $('#password').change(jVal.passwd);
+    $('#loginusername').change(jVal.loginname);
+    $('#loginpassword').change(jVal.passwd);
     
 });
