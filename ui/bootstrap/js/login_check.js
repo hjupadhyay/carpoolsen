@@ -30,28 +30,28 @@ $(document).ready(function(){
             data.append("username",ele.val());
             data.append("password",ele2.val());
             data.append("js","1");
-            xmlhttp.open("POST","/login_do/",true);
+            xmlhttp.open("POST","/login_do/",false);
             xmlhttp.send(data);
-            xmlhttp.onreadystatechange = function() {
-                if(ele.val() == 0 || xmlhttp.responseText=="inv_user"){
-                    jVal.errors = true;
-                        ele.removeClass('loginokay').addClass('loginwrong');
-                        ele2.removeClass('loginwrong').addClass('loginokay');
-                }
-                if(xmlhttp.responseText=="inv_pass") {
-                    jVal.errors = true;
-                        ele.removeClass('loginwrong').addClass('loginokay');
-                        ele2.removeClass('loginokay').addClass('loginwrong');
-                }
-                if(xmlhttp.responseText=="disabled") {
-                    jVal.errors = true;
-                        
-                }
-                if(xmlhttp.responseText=="done") {
-                    ele.removeClass('loginwrong').addClass('loginokay');
+            console.log("LOL");
+            if(ele.val() == 0 || xmlhttp.responseText=="inv_user"){
+                jVal.errors = true;
+                    ele.removeClass('loginokay').addClass('loginwrong');
                     ele2.removeClass('loginwrong').addClass('loginokay');
-                }                
             }
+            if(xmlhttp.responseText=="inv_pass") {
+                jVal.errors = true;
+                    ele.removeClass('loginwrong').addClass('loginokay');
+                    ele2.removeClass('loginokay').addClass('loginwrong');
+            }
+            if(xmlhttp.responseText=="disabled") {
+                jVal.errors = true;
+                    
+            }
+            if(xmlhttp.responseText=="done") {
+                ele.removeClass('loginwrong').addClass('loginokay');
+                ele2.removeClass('loginwrong').addClass('loginokay');
+            }                
+        
             if(!jVal.errors) {
                 $('#loginform').submit();
             }

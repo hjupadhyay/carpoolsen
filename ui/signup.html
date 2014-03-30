@@ -14,11 +14,6 @@
 </script>-->
 <!-- <script type="text/javascript" src="bootstrap/js/jquery.min.js" charset="utf-8"></script> -->
 <!-- <script type="text/javascript" src="bootstrap/js/validate.js" charset="utf-8"></script> -->
-<script>
-  {% include "bootstrap/js/jquery.min1.js" %}
-  {% include "bootstrap/js/validate.js" %}
-  
-</script>
 
 <style>
 {% include "bootstrap/css/bootstrap.min.css" %}
@@ -176,7 +171,7 @@
 -->
 <div class="col-xs-0 col-md-12">
 <br>
-<button type="submit" id="signup" class="btn btn-large btn-success"> Sign Up </button>
+<button type="button" id="signup" class="btn btn-large btn-success"> Sign Up </button>
 </div>
 </div>
 </div>
@@ -189,6 +184,7 @@
 </div>
 </div>
 <script>
+{% include "bootstrap/js/validate.js" %}
 {% include "bootstrap/js/bootstrap.min.js" %}
 </script>
 </body>
