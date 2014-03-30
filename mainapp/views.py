@@ -45,7 +45,7 @@ def check(request):
 #Function to send email
 def send_verification_email(request):
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('index.html').render())
+        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
     #Check if user has an associated rider
     #(This will be false if the admin logs in)
     try:
@@ -82,11 +82,11 @@ def send_verification_email(request):
 #pages and forms
 
 def index(request):
-    return HttpResponse(jinja_environ.get_template('index.html').render())
+    return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 def signup_page(request):
-    return HttpResponse(jinja_environ.get_template('signup.html').render())
+    return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
 def login_page(request):
-    return HttpResponse(jinja_environ.get_template('login.html').render())
+    return HttpResponse(jinja_environ.get_template('login.html').render({"rider":None}))
 def contactus(request):
     rider = None
     if request.user.is_authenticated():
@@ -253,7 +253,7 @@ def reserve_page(request):
 @csrf_exempt
 def edit_profile(request):
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('index.html').render())
+        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
     #Check if user has an associated rider
     #(This will be false if the admin logs in)
@@ -386,11 +386,11 @@ def logout_do(request):
     logout(request)
     #try:
         #if request.REQUEST['direct_home']=='1':
-            #return HttpResponse(jinja_environ.get_template('index.html').render())
+            #return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
     #except:
         #return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
                                                                                   #<p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
-    return HttpResponse(jinja_environ.get_template('redirect.html').render({"redirect_url":"/"}))
+    return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":"/"}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
@@ -908,6 +908,15 @@ def search_username(request):
         except Exception as e:
             return HttpResponse("0")
         return HttpResponse("1")
+
+#save facebook token
+def facebook(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider, "text": request.get_full_path()}))
+
 
 #Testing functions:
 def tempage(request):
