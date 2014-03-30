@@ -16,10 +16,29 @@ import smtplib
 from mainapp.checker import check
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
+#Dummy request object
+class Dum:
+    REQUEST = {}
 #Perform basic checks on user
 
+#send email function
+def send_email(msg, entry):
+    gmailLogin = 'carpoolsen'
+    gmailPas = 'qwertqwert!'
+    fro = gmailLogin + "@gmail.com"
     
-#Function to send email
+    to = entry.email
+    
+    try:
+        server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
+        a = server.login( gmailLogin, gmailPas)
+        server.sendmail(fro, to,msg)
+        return (1,1)
+    except:
+         return (0,HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Could not send verification email. Please try again later.</p>\
+                                                                                   <p>click <a href="/">here</a> to go to the homepage</p>'})))
+#Function to send verification
 def send_verification_email(request):
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
@@ -30,26 +49,16 @@ def send_verification_email(request):
     except:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'No Rider associated!. Please go back or click <a href="/">here</a> to go to the homepage'}))
-    
     entry = request.user
-    gmailLogin = 'carpoolsen'
-    gmailPas = 'qwertqwert!'
-    fro = gmailLogin + "@gmail.com"
     subject = 'CarPool Verification Email'
-    
-    to = entry.email
     msg = 'Subject: %s \n\nYour email has been registered on carpoolsen.com.\nPlease\
     click on the following link to verify (or copy paste it in your browser if needed)\n\n\
     http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
-   
-    try:
-        server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
-        a = server.login( gmailLogin, gmailPas)
-        server.sendmail(fro, to,msg)
-    except:
-         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                               "text":'<p>Could not send verification email. Please try again later.</p><p>click <a href="/">here</a> to go to the homepage</p>'}))
-   
+    
+    x = send_email(msg, entry)
+    if x[0]==0:
+        return x[1]
+    
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":"""<p>Verification Email sent! Please Check your email inbox.</p>
                                                                               <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
@@ -220,7 +229,48 @@ def reserve_page(request):
         return retval
     return HttpResponse(jinja_environ.get_template('reservepage.html').render({"rider":request.user.rider, 'post':Post.objects.get(pk=3)}))
 
+#Forgot Password
+def forgot_pass_page(request):
+    if request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'<p>Please log out before requesting reset in password.</p>\
+                                                                                  <p>click <a href="/">here</a> to go to the homepage</p>'}))
+    return HttpResponse(jinja_environ.get_template('forgot_password.html').render({"rider":None}))
 
+#Reset Password
+@csrf_exempt
+def reset_pass_page(request):
+    if request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'<p>Please log out before requesting reset in password.</p>\
+                                                                                  <p>click <a href="/">here</a> to go to the homepage</p>'}))
+    if "reset_pass" not in request.REQUEST.keys() or 'email' not in request.REQUEST.keys():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'<p>Invalid Request</p>\
+                                                                                  <p>click <a href="/">here</a> to go to the homepage</p>'}))
+    reset_pass = request.REQUEST['reset_pass']
+    if reset_pass == "":
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'<p>Invalid Request</p>\
+                                                                                  <p>click <a href="/">here</a> to go to the homepage</p>'}))
+    user = Rider.objects.filter(reset_pass=reset_pass)
+    if len(user)==0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                                "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
+    user = user[0].user
+    
+    if user.email <> request.REQUEST['email']:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                                "text":'Invalid Email. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    return HttpResponse(jinja_environ.get_template('reset_password.html').render({'rider':None, 'reset_pass':reset_pass}))
+
+def change_pass_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    return HttpResponse(jinja_environ.get_template('ChangePass.html').render({"rider":request.user.rider}))
+        
 ##############################################################################
 ##############################################################################
 ##############################################################################
@@ -419,23 +469,60 @@ def login_do(request):
     
 
 #Forgot Password
-def forgot_password(request):
+@csrf_exempt
+def forgot_pass(request):
+    if request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'<p>Please log out in order to request for a password reset.</p>\
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
     if 'username' not in request.REQUEST.keys() or 'email' not in request.REQUEST.keys():
-        return return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
-                                                                                     "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    user = User.objects.filter(username=request.REQUEST['username'])
+    if len(user) == 0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'User Does not exist. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    user = user[0]
+    if user.email <> request.REQUEST['email']:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'Invalid email. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    user.rider.reset_pass = uuid.uuid4().hex
+    user.rider.save()
     
-
+    subject = "Password Reset Request"
+    msg = 'Subject: %s \n\nYou have requested for a password reset on CarPoolSen.com\n\
+    Please click on the following link (or copy paste in your browser) to reset your password.\n\n\
+    http://localhost:8000/change_pass?reset_pass=%s\n\n\
+    If you have not requested for a reset of password, please ignore.' % (subject, user.rider.reset_pass)
+    
+    x = send_email(msg, user)
+    if x[0] == 0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'Could not process request, please try again later by going back or clicking <a href="/">here</a> to go to the homepage'}))
+    else:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'<p>An email has been sent to your regestered email address.</p>\
+                                                                                  <p>Check your email and click on the link to reset your password.</p>\
+                                                                                  <p>Click <a href="/">here</a> to go to the homepage</p>'}))
+    
 #Change Password
+@csrf_exempt
 def change_pass(request):
-    if "secret" in request.REQUEST.keys():
-        secret = request.REQUEST['secret']
-        user = Users.objects.filter(secret=secret)
+    if "reset_pass" in request.REQUEST.keys():
+        reset_pass = request.REQUEST['reset_pass']
+        if reset_pass == "":
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                                  "text":'<p>Invalid Request</p>\
+                                                                                      <p>click <a href="/">here</a> to go to the homepage</p>'}))
+        user = Rider.objects.filter(reset_pass=reset_pass)
         if len(user)==0 or 'pass' not in request.REQUEST.keys():
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                                   "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
-        user = user[0]
+        user = user[0].user
         user.set_password(request.REQUEST['pass'])
         user.save()
+        user.rider.reset_pass = ""
+        user.rider.save()
         logout(request)
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'Password Changed. Please click <a href="/logout_do">here</a> to go to the homepage or log in again.'}))

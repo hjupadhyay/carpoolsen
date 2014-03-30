@@ -49,6 +49,9 @@ class Rider(models.Model):
     user_rating = models.IntegerField(default=5)
     neg_flags = models.IntegerField(default=0)
     
+    #for reset_password
+    reset_pass = models.CharField(default="",max_length=32)
+    
     def __unicode__(self):
         return self.user.username
 
@@ -94,7 +97,6 @@ class Post(models.Model):
     #0 - Doesn't want notifications
     #1 - Wants Notifications
     sms_noti = models.IntegerField(default=1)
-    
     
     def __unicode__(self):
         return self.owner.user.username

@@ -72,9 +72,6 @@ $(document).ready(function(){
         jVal.loginsend();
         return false;
     });
-    $('#loginusername').change(jVal.loginname);
-    $('#loginpassword').change(jVal.passwd);
-    
     $('#logout_link').click(function (){
         console.log("LOL")
         var xmlhttp = new XMLHttpRequest();
@@ -83,4 +80,6 @@ $(document).ready(function(){
         
         window.location = "/";
     });
+    $('#loginusername').change(jVal.loginname);
+    $('#loginpassword').change(jVal.passwd);
 });
