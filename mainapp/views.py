@@ -13,36 +13,11 @@ from django.db.models import Count, Min, Sum, Avg
 import uuid
 import jinja2
 import smtplib
-
+from mainapp.checker import check
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 #Perform basic checks on user
-def check(request):
-    
-    #Check if user is logged in
-    if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
-    #Check if user has an associated rider
-    #(This will be false if the admin logs in)
-    
-    try:
-        request.user.rider
-    except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
-                                                                              "text":"""
-                                                                                  <p>No Rider associated!.</p>
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
-    
-    #Check if user has been verified
-    if request.user.rider.verified <> '1':
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":"""
-                                                                                  <p>Your account has not been verified. Please check your email and click on the verification link.</p>
-                                                                                  <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                                  <p>Click <a href="/logout_do/">here</a> to go to the homepage and log-in again</p>"""}))
-        #return HttpResponse(request.user.rider.verified)
-    return None
     
 #Function to send email
 def send_verification_email(request):
@@ -438,8 +413,37 @@ def login_do(request):
             return HttpResponse("inv_pass")
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'Invalid Login. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
 
+#Change Password
+def change_pass(request):
+    if "secret" in request.REQUEST.keys():
+        secret = request.REQUEST['secret']
+        user = Users.objects.filter(secret=secret)
+        if len(user)==0 or 'pass' not in request.REQUEST.keys():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                                  "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        user = user[0]
+        user.set_password(request.REQUEST['pass'])
+        user.save()
+        logout(request)
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'Password Changed. Please click <a href="/logout_do">here</a> to go to the homepage or log in again.'}))
+    else:
+        retval = check(request)
+        if retval <> None:
+            return retval
+        if "pass" not in request.REQUEST.keys():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        request.user.set_password(request.REQUEST['pass'])
+        request.user.save()
+        logout(request)
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":'Password Changed. Please click <a href="/logout_do">here</a> to go to the homepage and log in again.'}))
+        
 #Called when a user cancels his post
+@csrf_exempt
 def cancel_post(request):
     retval = check(request)
     if retval <> None:

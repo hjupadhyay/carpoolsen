@@ -1,6 +1,6 @@
  
 $(document).ready(function(){
-
+    console.log("LOL")
     var jVal = {
         'loginname' : function(){
             
@@ -19,7 +19,7 @@ $(document).ready(function(){
         },
         
         'loginsend' : function(){
-            
+            console.log("loginsend");
             var loginname = $('#loginname');
             var ele = $('#loginusername');
             var passwd = $('#passwd');
@@ -53,18 +53,23 @@ $(document).ready(function(){
             }                
         
             if(!jVal.errors) {
-                $('#loginform').submit();
+//                 $('#loginform').submit();
+                console.log(document.URL)
+                window.location.replace(document.URL)
             }
         },
         
     };
     
     $('#login').click(function (){
-        var obj = $.browser.webkit ? $('body') : $('html');
-        obj.animate({ scrollTop: $('#loginusername').offset().top }, 750, function (){
-            jVal.errors = false;
-            jVal.loginsend();
-        });
+        console.log("LOLOL");
+//         var obj = $.browser.webkit ? $('body') : $('html');
+//         obj.animate({ scrollTop: $('#loginusername').offset().top }, 750, function (){
+//             jVal.errors = false;
+//             jVal.loginsend();
+//         });
+        jVal.errors = false;
+        jVal.loginsend();
         return false;
     });
     $('#loginusername').change(jVal.loginname);

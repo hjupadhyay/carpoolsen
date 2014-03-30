@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, url
+from django.conf.urls.defaults import handler404, handler500
 
-from mainapp import views
+from mainapp import views, errors
+
 
 urlpatterns = patterns('',
     #Actions
@@ -27,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^reply/', views.reply, name = 'reply'),
     url(r'^read_message/', views.read_message, name = 'read_message'),
     url(r'^facebook/', views.facebook, name = 'facebook'),
+    url(r'^change_pass/', views.change_pass, name = 'change_pass'),
     
     
     #Pages
