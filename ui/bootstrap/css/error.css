@@ -1,0 +1,23 @@
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	font-family: 'Carrois Gothic SC', sans-serif;
+	/*color: #EDC951;*/
+	background: #F3F3F3;
+}
+h1.error-title{
+	font-size:120px;
+	line-height:126px;
+	margin-bottom:20px;
+}
+.jumbotron{
+		background: #F3F3F3;
+}
+
+.input, .btn {
+	-moz-border-radius: 2px !important;
+	-webkit-border-radius: 2px !important;
+	border-radius: 2px !important;
+	background: #EDC951;
+}
+
