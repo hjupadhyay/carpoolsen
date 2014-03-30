@@ -915,7 +915,7 @@ def facebook(request):
     if retval <> None:
         return retval
     
-    return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider}))
+    return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider, "text": request.get_full_path()}))
 
 
 #Testing functions:
