@@ -524,19 +524,22 @@ def change_pass(request):
         user.rider.reset_pass = ""
         user.rider.save()
         logout(request)
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":1,
                                                                               "text":'Password Changed. Please click <a href="/logout_do">here</a> to go to the homepage or log in again.'}))
     else:
         retval = check(request)
         if retval <> None:
             return retval
-        if "pass" not in request.REQUEST.keys():
+        if "pass" not in request.REQUEST.keys() or "oldpass" not in request.REQUEST.keys():
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        if not request.user.check_password(request.REQUEST['oldpass']):
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'Invalid Old Password. Please go back or click <a href="/">here</a> to go to the homepage'}))
         request.user.set_password(request.REQUEST['pass'])
         request.user.save()
         logout(request)
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":1,
                                                                               "text":'Password Changed. Please click <a href="/logout_do">here</a> to go to the homepage and log in again.'}))
         
 #Called when a user cancels his post

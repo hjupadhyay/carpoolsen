@@ -38,11 +38,12 @@
         <div class="row">
         <div class="col-md-10">
         
-					<div align=right>		
+					<div align="center">
+					<form action="/change_pass/" method="POST">
       				<div>
                         <label for="oldpassword">OLD PASSWORD * </label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="oldpassword" placeholder="Valid Password"
+                            <input type="password" id="oldpassword" class="form-control" name="oldpass" placeholder="Valid Password"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 						</div>
@@ -52,7 +53,7 @@
 					<div>
                         <label for="newpassword">NEW PASSWORD * </label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="newpassword" placeholder="Valid Password"
+                            <input type="password" id="passwd" class="form-control" name="pass" placeholder="Valid Password"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 						</div>
@@ -62,11 +63,16 @@
 					<div>
                         <label for="password">CONFIRM PASSWORD * </label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="confirmpassword" placeholder="Valid Password"
+                            <input type="password" id="conf_passwd" class="form-control" placeholder="Valid Password"
                                 required autofocus />
                             <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
 						</div>
 					</div>
+					</div>
+                        <div class="controls">
+                            <button type="submit" class="btn btn-success btn-block btn-lg">Submit</button>
+                        </div>
+					</form>
 					</div>
        </div>
       </div>
