@@ -75,4 +75,12 @@ $(document).ready(function(){
     $('#loginusername').change(jVal.loginname);
     $('#loginpassword').change(jVal.passwd);
     
+    $('#logout_link').click(function (){
+        console.log("LOL")
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","/logout_do/",false);
+        xmlhttp.send();
+        
+        window.location = "/";
+    });
 });

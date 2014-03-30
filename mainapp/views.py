@@ -53,7 +53,7 @@ def send_verification_email(request):
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":"""<p>Verification Email sent! Please Check your email inbox.</p>
                                                                               <p>To re-send verification email, click <a href="/send_verification_email/">here</a>.</p>
-                                                                              <p>Click <a href="/logout_do/?direct_home=1">here</a> to go to the homepage and log-in again</p>"""}))
+                                                                              <p>Click <a href="/logout_do/">here</a> to go to the homepage and log-in again</p>"""}))
 
 
 #pages and forms
@@ -361,13 +361,16 @@ def verify(request):
 #Called when a user clicks logout button.
 def logout_do(request):
     logout(request)
+    redirect_url = "/"
+    if 'redirect_url' in request.REQUEST.keys():
+        redirect_url = request.REQUEST['redirect_url']
     #try:
         #if request.REQUEST['direct_home']=='1':
             #return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
     #except:
         #return HttpResponse(jinja_environ.get_template('notice.html').render({"text":"""<p>Log out successful.</p>
                                                                                   #<p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
-    return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":"/"}))
+    return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":redirect_url}))
     
 #Called when a user clicks login button. 
 @csrf_exempt
