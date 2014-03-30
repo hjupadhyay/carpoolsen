@@ -26,10 +26,12 @@
     
 </head>
 <body>
+    {% include "header.html" %}
     <div class="container" class="jumbotron" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">
         <br>
-
-  
+    <br>
+    <br>
+    <h1>Enter Rider details</h1>
     <div class="row">
         
             <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> Post Your Trip!</legend>
@@ -54,7 +56,7 @@
         <div class="form-group">
                
                 <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                    <input class="form-control" style="background-color:white" size="16" type="text"  placeholder="Set Date and Time "value="" readonly>
+                    <input name="date_time" class="form-control" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="Set Date and Time "value="" readonly>
                     
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -119,7 +121,7 @@
 
                 <div class="col-md-5">
                 <select class="form-control" >
-  <option selected="selected">Seats Available</option>
+  <option selected="selected">Total Seats Available</option>
   <option>1</option>
   <option>2</option>
   <option>3</option>
