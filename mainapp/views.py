@@ -672,7 +672,7 @@ def search_do(request):
         
     #check for user login
     rider = None
-    if not request.user.is_authenticated():
+    if request.user.is_authenticated():
         rider = request.user.rider
     
     #try:
