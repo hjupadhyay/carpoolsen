@@ -1,60 +1,156 @@
 <html>
 <head>
-<title>Welcome Driver! </title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
-<script src ="bootstrap/js/bootstrap.js">
-	{% include "bootstrap/js/bootstrap.js" %}
-</script>
-<script src="bootstrap/js/jquery.min.js">
-	{% include "bootstrap/js/jquery.min.js" %}
-</script>
-<script src="bootstrap/js/jquery.js">
-	{% include "bootstrap/js/jquery.js" %}
-</script>
-<script src="bootstrap/js/star-rating.js" type="text/javascript">
-	{% include "bootstrap/js/star-rating.js" %}
-	</script>
-
-<link href="bootstrap/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/extra.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-
-
-
-<style>
+<title>Welcome!</title>
+ 
+ <style>
     {% include "bootstrap/css/bootstrap.min.css" %}
-  		 {% include "bootstrap/css/bootstrap.css" %}
-	   {% include "bootstrap/css/star-rating.css" %}
-	   {% include "bootstrap/css/star-rating.min.css" %}
-				{% include "bootstrap/css/extra.css" %}
-    
-</style>    
-</head>       
-        
-<body>
-    <div class="row">
-<div class="container drop-shadow">
+    {% include "bootstrap/css/bootstrap.css" %}
+    {% include "bootstrap/css/star-rating.css" %}
+    {% include "bootstrap/css/star-rating.min.css" %}
+    {% include "bootstrap/css/extra.css" %}
+    {% include "bootstrap/css/bootstrap-theme.css" %}
+</style>
+<!-- CSS dependencies -->
 
-	<div class="centered">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="admin" >
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+     
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="sticky-footer.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+  </head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          {% if rider == None %}
+          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
+            <div class="form-group">
+              <input type="text" name="username" placeholder="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" placeholder="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" >Log in</button>
+            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
+          </form>
+        {% else %}
+        <div class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ rider.user.first_name }} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/preferences"><span type="input-group-addon" class= "glyphicon glyphicon-cog"></span> &nbsp Preferences  </a></li>
+                    <li><a href="/profile"><span type="input-group-addon" class= "glyphicon glyphicon-user"></span> &nbsp Profile  </a></li>
+                    <li><a href="/faq"><span type="input-group-addon" class= "glyphicon glyphicon-question-sign"></span> &nbsp FAQ </a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout_do"><span type="input-group-addon" class= "glyphicon glyphicon-off"></span>&nbsp Logout</a></li>
+                </ul>
+            </li>
+        </div>
+        {% endif %}
+        </div><!--/.navbar-collapse-->
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</head>
+<body>
+<script>
+
+function onClick(){
+bootbox.confirm("<br>Are you sure to cancel?", function(result) {
+if (result === false) {
+document.getElementById("hr").innerHTML = "You pressed Cancel"
+} else {
+document.getElementById("hr").innerHTML = "Pressed O.K";
+}
+})
+};
+
+</script>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CarPool</a>
+        </div>
+        <div class="navbar-collapse collapse">
+        {% if rider == None %}
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Log in</button>
+            <button type="submit" class="btn btn-primary">Sign up</button>
+          </form>
+        {% else %}
+        <div class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ rider.user.first_name }} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/preferences"><span type="input-group-addon" class= "glyphicon glyphicon-cog"></span> &nbsp Preferences  </a></li>
+                    <li><a href="/profile"><span type="input-group-addon" class= "glyphicon glyphicon-user"></span> &nbsp Profile  </a></li>
+                    <li><a href="/faq"><span type="input-group-addon" class= "glyphicon glyphicon-question-sign"></span> &nbsp FAQ </a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout_do"><span type="input-group-addon" class= "glyphicon glyphicon-off"></span>&nbsp Logout</a></li>
+                </ul>
+            </li>
+        </div>
+        {% endif %}
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+<div class="jumbotron" style="width:100%; height:100%">
+      <div class="container">
+        <center>
+        <div class="row">
+<div class="container drop-shadow">
+    <div class="centered">
         <h2>Post Details</h2>
-			<br>
-			<br>
-	</div>
-		
-        <div class="col-md-4 col xs-4">
+            <br>
+            <br>
+    </div>
+        
+        <div class="col-md-4">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
-				<span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
+                <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
                   
                 </div>
                 <h4>
                     From Location</h4>
                 <p>
-                   {{post[0].fro}}
+                   {{post.fro}} 
                    <!--Maninagar, Ahmedabad, Gujarat-->
                 </p>
             </div>
@@ -65,7 +161,7 @@
                 <h4>
                     Date of Travel</h4>
                 <p>
-		    {{date}}
+            {{date}}
               <!--   21st January 2014 -->
                 </p>
             </div>
@@ -76,10 +172,47 @@
                 <h4>
                     Seats Available</h4>
                 <p>
-					{{minus}} Remaining
+                    {{minus}} Remaining
                 </p>
             </div>
-        </div>
+            {% if rider.user.username==post.owner.user.username and reserved_list!=None %}
+		{% for reserved in reserved_list %}
+		  {%if reserved.status==0 %}          
+		      <div class="blockquote-box blockquote-danger clearfix">
+			  <div class="square pull-left">
+			  <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+			  </div>
+		      <h4>
+			  Reserve Requests</h4>
+		      <ul>
+			<p><li>Reserve Request by <a href="/profile/?id=reserved.reserver.pk">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p> <button class="btn btn-primary inline" onclick="window.location.href='/accept/'">Accept</button> <button class="btn btn-primary inline" onlcick="window.location.href='/revoke/'">Cancel</button>
+		      </ul>
+	  </div>
+	  
+		    {%endif%}
+		    {%endfor%}
+            
+  {% for reserved in reserved_list %}
+    {%if reserved.status==1 %}       
+		      <div class="blockquote-box blockquote-danger clearfix">
+			  <div class="square pull-left">
+			  <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+			  </div>
+		      <h4>
+			  Accepted Requests</h4>
+		      <ul>
+			<li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
+		      </ul>
+	  </div>
+	  
+    {%endif%}
+ {%endfor%}
+            
+            
+            <div class="blockquote-box blockquote-danger clearfix">       
+	    </div> 
+            
+	    </div>
         <div class="col-md-4 col-xs-4">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
@@ -88,7 +221,7 @@
                 <h4>
                      To Location</h4>
                 <p>
-		     {{post[0].to}}
+             {{post.to}} 
                      <!--DA-IICT, Gandhinagar-->
                 </p>
             </div>
@@ -99,7 +232,7 @@
                 <h4>
                     Time </h4>
                 <p>
-		    {{time}}
+            {{time}}
                     <!-- 11:00 AM -->
                 </p>
             </div>
@@ -110,38 +243,87 @@
                 <h4>
                     Cost</h4>
                 <p>
-                    ₹{{post[0].cost}} per person
+                    {{post.cost}} per person
                 </p>
             </div>
-        </div>
-<div class="col-md-4 col-xs-4">	
+            
+           
+            
+          
+   </div>
+         
+<div class="col-md-4"> 
 <div class="contain">
-	
-<div class="centered">
+    
+<div class="centered" style="padding:5px">
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
             <div class="user-image">
-                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column">
+                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column" style="height:160px; width:160px; align:center;">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
-                    <h3>{{post[0].owner.user.first_name}} {{post[0].owner.user.last_name}}</h3>
-                    <h3>Username: {{post[0].owner.user.username}}</h3>
+                    <h3>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h3>
+                    <h3>Username: {{post.owner.user.username}}</h3>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
-                <div class="centered">		
+                <div class="centered">      
  
-<input id="input-21" type="number" class="rating" min="1" max="5" step="1">
-        <button class="btn btn-primary">Submit</button>
-        <button class="btn btn-primary" type="reset">Message Me</button>
-</div>		
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}">
+<!-- put rating system here -->
+{% if rider.user.username==post.owner.user.username %}
+  <button class="btn btn-primary" type="" onclick="window.location.href='edit_post_page'">Edit Post</button>
+{% endif %}
 
-	
+{% if rider.user.username!=post.owner.user.username %}
+<button class="btn btn-primary">Rate</button>
+<button class="btn btn-primary" type="reset">Message Me</button>
+{% endif %}
+<p></p>
+</div>      
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+<br> 
+
+{% elif reserved_obj==None %}
+  <button class="btn btn-primary inline" onclick="window.location.href='/reserve/'">Reserve a seat</button>
+  
+{% else %}
+  {% if reserved_obj.status==0 %}
+    <p> You have already sent a reservation request which is pending approval.</p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+    
+  {% else %}
+    <p>You are already reserved on this post and confirmed.</p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid=reserved_obj.pk'">Wish to cancel?</button>
+  {% endif %}
+{% endif %}
+
+<div id="footer">
+          <div class="container">
+            <p><a href="/aboutus/"><font size=3>About Us</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/"><font size=3>FAQs</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/"><font size=3>Contact Us</font></a></p>
+            <p class="text-muted"><font size=3>&copy; Carpool 2014</font></p>
+            </div>
+        </div>
+
+<br>
+<br>					
+</center>	
+
+<div id = "hr"></div>
+
+ 
+</div>
+</div>
+<!-- JS dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
+<!-- bootbox code -->
+<script> {% include "bootstrap/js/bootbox.js" %}</script>
 </body>
 </html>
