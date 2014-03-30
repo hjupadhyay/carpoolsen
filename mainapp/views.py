@@ -82,7 +82,7 @@ def send_verification_email(request):
 #pages and forms
 
 def index(request):
-    return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None))
+    return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 def signup_page(request):
     return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
 def login_page(request):
