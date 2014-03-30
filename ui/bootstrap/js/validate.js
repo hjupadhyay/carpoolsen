@@ -6,7 +6,7 @@ $(document).ready(function(){
 			$('body').append('<div id="genderInfo" class="info"></div>');
 
 			var genderInfo = $('#genderInfo');
-			var ele = $('#f');
+			var ele = $('#gender');
 			var pos = ele.offset();
 
 			genderInfo.css({
@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 			uname.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()+40
+				left: pos.left+ele.outerWidth()+45
 			});
 			var xmlhttp = new XMLHttpRequest();
 			var data = new FormData();
@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 			fname.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()-275
+				left: pos.left+ele.outerWidth()-270
 			});
 
 			if(ele.val().length == 0) {
@@ -95,18 +95,23 @@ $(document).ready(function(){
 
 			passwd.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()-275
+				left: pos.left+ele.outerWidth()-280
 			});
 
 			if(ele.val().length == 0) {
 				jVal.errors = true;
-					passwd.removeClass('correct').addClass('error').html('&larr; Enter a Password').show();
+					passwd.removeClass('correct').addClass('error').html('Enter a Password &rarr;').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
 					passwd.hide();
 					ele.removeClass('wrong').addClass('normal');
 			}
 			
+			if(ele.val().length == 0){
+                    jVal.errors = true;
+                        conf_passwd.hide();
+                        ele.removeClass('normal').addClass('wrong');
+            } else {
 			if(ele.val() != ele2.val()) {
 				jVal.errors = true;
 					conf_passwd.removeClass('correct').addClass('error').html('&larr; Not matching').show();
@@ -115,6 +120,7 @@ $(document).ready(function(){
 					conf_passwd.removeClass('error').addClass('correct').html('&radic; Matches').show();
 					ele.removeClass('wrong').addClass('normal');
 			}
+            }
 		},
 		
 		'conf_passwd' : function() {
@@ -131,6 +137,11 @@ $(document).ready(function(){
 				left: pos.left+ele.outerWidth()+10
 			});
 
+            if(ele2.val().length == 0){
+                    jVal.errors = true;
+                        conf_passwd.hide();
+                        ele.removeClass('normal').addClass('wrong');
+            } else {
 			if(ele.val() != ele2.val()) {
 				jVal.errors = true;
 					conf_passwd.removeClass('correct').addClass('error').html('&larr; Not matching').show();
@@ -139,6 +150,7 @@ $(document).ready(function(){
 					conf_passwd.removeClass('error').addClass('correct').html('&radic; Matches').show();
 					ele.removeClass('wrong').addClass('normal');
 			}
+            }
 		},
 		
 		'email' : function() {
@@ -147,6 +159,7 @@ $(document).ready(function(){
 
 			var emailInfo = $('#emailInfo');
 			var ele = $('#email');
+            var ele2 = $('#emaillabel');
 			var pos = ele.offset();
 
 			emailInfo.css({
@@ -160,9 +173,11 @@ $(document).ready(function(){
 				jVal.errors = true;
 // 					emailInfo.removeClass('correct').addClass('error').html('&larr;').show();
 					ele.removeClass('normal').addClass('wrong');
+                    ele2.removeClass('normal').addClass('wrong');
 			} else {
 // 					emailInfo.removeClass('error').addClass('correct').html('&radic; you so pro!').show();
 					ele.removeClass('wrong').addClass('normal');
+                    ele2.removeClass('wrong').addClass('normal');
 			}
 		},
 		
@@ -184,6 +199,11 @@ $(document).ready(function(){
             xmlhttp.open("POST","/search_car_number/",true);
             xmlhttp.send(data);
             xmlhttp.onreadystatechange = function() {
+                if(ele.val().length == 0){
+                    jVal.errors = false;
+                        car_noInfo.hide();
+                        ele.removeClass('wrong').addClass('normal');
+                } else {
                 if(xmlhttp.responseText=="1") {
                     jVal.errors = true;
                         car_noInfo.removeClass('correct').addClass('error').html('&larr; already taken').show();
@@ -192,6 +212,7 @@ $(document).ready(function(){
                         car_noInfo.removeClass('error').addClass('correct').html('&radic; available').show();
                         ele.removeClass('wrong').addClass('normal');
                 }
+            }
             }
 		},
 		
@@ -216,8 +237,33 @@ $(document).ready(function(){
 					phoneInfo.hide();
 					ele.removeClass('wrong').addClass('normal');
 			}
-		}
+		},
+
+        'sendIt' : function (){
+            if(!jVal.errors) {
+                $('#signupform').submit();
+            }
+        }
 	};
+    
+// ====================================================== //
+
+    $('#signup').click(function (){
+        var obj = $.browser.webkit ? $('body') : $('html');
+        obj.animate({ scrollTop: $('#gender').offset().top }, 750, function (){
+            jVal.errors = false;
+            jVal.gender();
+            jVal.usern();
+            jVal.firstn();
+            jVal.passwd();
+            jVal.conf_passwd();
+            jVal.email();
+            jVal.car_no();
+            jVal.phone();
+            jVal.sendIt();
+        });
+        return false;
+    });
 
 	// bind jVal.usern function to "User name" form field
 	$('input[name="gender"]').change(jVal.gender);

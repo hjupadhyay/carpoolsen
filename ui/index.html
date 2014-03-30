@@ -34,39 +34,7 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/index/">CarPool</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/login_do/" role="form" method="POST">
-            <div class="form-group">
-              <input type="text" name="username" placeholder="username" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" name="password" placeholder="password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success" >Log in</button>
-            <button type="button" class="btn btn-primary" onclick = "signup()" >Sign up</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-    
-    <div class="navbar-collapse collapse">
-          <!--<form class="navbar-form navbar-right" action="/signup_page/" role="form">
-            <div class="form-group">
-              <button type="submit" class="btn btn-success">Signup</button>
-            </div>
-            </form>-->
-            </div>
+    {% include "header.html" %}
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -89,7 +57,7 @@
         
       
         <div class="col-md-6">
-          <h2>Search</h2>
+          <h2 align="center">Search</h2>
 		<form class="form-horizontal" role="form">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">From</label>

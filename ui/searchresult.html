@@ -18,31 +18,7 @@
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">CarPool</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success" href="/login_do/">Log in</button>
-            <button type="submit" class="btn btn-primary" href="/signup_do/">Sign up</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
+    {% include "header.html" %}
 
 <div class="jumbotron">
 
@@ -94,7 +70,10 @@
                 <td>{{ post.date_time.time() }}</td>
                 <td>{{ post.cost }}</td>
                 <td>{{ post.owner.user_rating }}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Reserve</a> </td>
+                
+                {% if not rider == None %}
+                <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Show Details</a> </td>
+                {% endif %}
                 
         </tr>
 
@@ -117,8 +96,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="bootstrap/js/searchresult.js"></script>
+    <script>
+    {% include "bootstrap/js/bootstrap.min.js" %}
+    {% include "bootstrap/js/searchresult.js" %}
+    </script>
 
 </body>
 </html>
