@@ -2,7 +2,7 @@
 $(document).ready(function(){
 
     var jVal = {
-        'loginname' : functioon(){
+        'loginname' : function(){
             
             $('body').append('<div id="loginname" class="valid"></div>');
             
