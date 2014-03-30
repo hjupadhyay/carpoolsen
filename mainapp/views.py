@@ -398,7 +398,7 @@ def login_do(request):
     
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
-        
+    
     username = request.REQUEST['username']
     password = request.REQUEST['password']
     user = authenticate(username=username, password=password)
@@ -413,6 +413,8 @@ def login_do(request):
                     user.rider.verified=1
                     user.save()
                     user.rider.save()
+                    if "js" in request.REQUEST.keys():
+                        return HttpResponse("done")
                     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":user.rider,
                                                                                           "text":"""<p>Successfully Logged in.</p>
                                                                                               <p>Click <a href="/">here</a> to go to the homepage</p>"""}))
@@ -421,11 +423,17 @@ def login_do(request):
             return dashboard(request)
         else:
             # Return a 'disabled account' error message
+            if "js" in request.REQUEST.keys():
+                return HttpResponse("disabled")
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
-                                                                                  "text":"""<p>Disabled Account.</p>
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+                                                                                "text":"""<p>Disabled Account.</p>
+                                                                                    <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     else:
         # Return an 'invalid login' error message.
+        if "js" in request.REQUEST.keys():
+            if len(User.objects.filter(username=request.REQUEST['username'])) == 0:
+                return HttpResponse("inv_user")
+            return HttpResponse("inv_pass")
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'Invalid Login. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
@@ -923,6 +931,10 @@ def tempage(request):
     retval = check(request)
     if retval <> None:
         return retval
+    #if "lol" in request.REQUEST.keys():
+        #return HttpResponse("LOL")
+    #else:
+        #return HttpResponse("No Lol")
     return HttpResponse(jinja_environ.get_template('tempage.html').render({'rider':request.user.rider}))
 #temp form checksdef upload_file(request):
 @csrf_exempt
