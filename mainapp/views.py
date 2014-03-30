@@ -1,4 +1,6 @@
 # Create your views here.
+from facebook import GraphAPI
+import json
 from django.http import HttpResponse
 from django.utils import timezone
 from mainapp.models import *
@@ -918,11 +920,15 @@ def search_username(request):
         return HttpResponse("1")
 
 #save facebook token
+@csrf_exempt
 def facebook(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+    if request.method == "POST":
+        if "access_token" in request.REQUEST.keys():
+            fbobj = GraphAPI(str(request.REQUEST['access_token']))
+            return HttpResponse(json.dumps(fbobj.get_connections("me","friends"), indent=1))
     return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider, "text": request.get_full_path()}))
 
 
