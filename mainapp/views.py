@@ -909,6 +909,15 @@ def search_username(request):
             return HttpResponse("0")
         return HttpResponse("1")
 
+#save facebook token
+def facebook(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider}))
+
+
 #Testing functions:
 def tempage(request):
     retval = check(request)
