@@ -418,6 +418,13 @@ def login_do(request):
                                                                               "text":'Invalid Login. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 
+#Forgot Password
+def forgot_password(request):
+    if 'username' not in request.REQUEST.keys() or 'email' not in request.REQUEST.keys():
+        return return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                                     "text":'Invalid Request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
+
 #Change Password
 def change_pass(request):
     if "secret" in request.REQUEST.keys():
