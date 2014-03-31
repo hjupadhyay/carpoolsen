@@ -70,23 +70,23 @@
 	    <div class="col-lg-6 col-lg-offset-3"><div class="conatiner drop-shadow">
 		<div class="jumbotron extra" align = "center" style= "margin-left:400">
 		  <div class="row marketing">
-		     <h3 style="font-family:arial;font-size:45px;" class="text-center" >{{rider.user.first_name}}'s Profile</h3>
+		     <h3 style="font-family:arial;font-size:45px;" class="text-center" >{{profiler.user.first_name}}'s Profile</h3>
 			<div id="inner" class="user-image">
-			  <img src={{rider.image}} alt="User's Photo" title="User's Photo"  height="150" width="150">
+			  <img src={{profiler.image}} alt="User's Photo" title="User's Photo"  height="150" width="150">
 			    </div>
 			<div class="user-info-block">
 			  <div class="user-heading">
-			    <h3>&nbsp{{rider.user.first_name}}&nbsp{{rider.user.last_name}}</h3>
+			    <h3>&nbsp{{profiler.user.first_name}}&nbsp{{profiler.user.last_name}}</h3>
 					<TABLE>
 					<TR>
 						<TD><b><font color="black">Username</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.user.username}}</TD>
+						<TD>&nbsp{{profiler.user.username}}</TD>
 					</TR>
 					<TR>
 						<TD><b><font color="black">Gender</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						{% if rider.gender=="m" %}
+						{% if profiler.gender=="m" %}
 						<TD>&nbspMale</TD>
 						{% else %}
 						<TD>&nbspFemale</TD>
@@ -95,38 +95,40 @@
 					<TR>
 						<TD><b><font color="black">Email</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.user.email}}</TD>
+						<TD>&nbsp{{profiler.user.email}}</TD>
 					</TR>
 					<TR>
 						<TD><b><font color="black">Phone</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.phone}}</TD>
+						<TD>&nbsp{{profiler.phone}}</TD>
 					</TR>
 					
-                    {% if rider.auth_token == "0" %}
+                    {% if profiler.auth_token == "0" %}
                     <TR>
 						<TD><b><font color="red">Authentication</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD><b><font color="red">&nbsp{{rider.auth_type}}</font></TD>
+						<TD><b><font color="red">&nbsp{{profiler.auth_type}}</font></TD>
 					</TR>
                     {% else %}
                     <TR>
 						<TD><b><font color="black">Authentication</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.auth_type}}</TD>
+						<TD>&nbsp{{profiler.auth_type}}</TD>
 					</TR>
                     {% endif %}    
 					<TR>
 						<TD><b><font color="black">Vehicle No.</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
-						<TD>&nbsp{{rider.car_number}}</TD>
+						<TD>&nbsp{{profiler.car_number}}</TD>
 					</TR>
 				</TABLE>
                     </div>
 				<div class="span4">
 <!-- 				<h3>Profile complete<span class="pull-right"><div> -->
                 <br>
+                {% if profiler.user.username == rider.user.username %}
         	    <button class="btn btn-primary" onclick="window.location.href='/edit_profile_page/'">Edit Profile</a></button>
+        	    {% endif %}
         	</div></span></h3>
 
  				</div>
