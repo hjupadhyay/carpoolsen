@@ -1,13 +1,20 @@
 <script>
 {% include "bootstrap/js/countdown.js" %}
 </script>  
+<script>
+$(document).ready(function(){
+    $('#countdown-holder1').change(function (){
+        console.log("LOL");
+    });
+});
+</script>
 <br/>
-{% if not date_time1 == None %}
+{% if not date_time1 == None and date_time1 > nowtime %}
 <h3>Your next trip in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h3>
 <h2 id="countdown-holder1"></h2>  
 <script>  
     var clock = document.getElementById("countdown-holder1")  
-    , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour}}, {{date_time1.minute}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
+    , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour+5}}, {{date_time1.minute+30}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
     
     clock.innerHTML = countdown(targetDate).toString();  
     setInterval(function(){  
@@ -15,7 +22,7 @@
     }, 1000);  
 </script>  
 {% endif %}
-{% if not date_time2 == None %}
+{% if not date_time2 == None and date_time2 > nowtime %}
 <h3>Your next trip in {{reserved_obj.post.owner}}'s vehicle from {{reserved_obj.post.fro}} to {{reserved_obj.post.to}}</h3>
 <h2 id="countdown-holder2"></h2>  
 <script>  

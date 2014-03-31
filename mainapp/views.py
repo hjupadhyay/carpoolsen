@@ -25,7 +25,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 #Function to remove old posts of user
 def remove_old_posts(user):
     for x in Post.objects.filter(owner=user.rider):
-        if x.date_time < timezone.now():
+        if (timezone.now() - x.date_time).total_seconds() > 3600:
             for y in x.reserved_set.all():
                 y.delete()
             x.delete()
@@ -235,6 +235,7 @@ def dashboard(request):
                     "date_time2":date_time2,
                     "reserved_obj":resobj,
                     "post_obj": pobj,
+                    "nowtime": timezone.now(),
                     }
     return HttpResponse(jinja_environ.get_template('dashboard2.html').render(template_values))
     #return HttpResponse(str(template_values))

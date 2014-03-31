@@ -251,9 +251,9 @@ $(document).ready(function(){
             xmlhttp.open("POST","/search_element/",true);
             xmlhttp.send(data);
             xmlhttp.onreadystatechange = function() {
-                if(ele.val().length < 10 || ele.val().length > 15 || patt.test(ele.val())) {
+                if(ele.val().length != 10 || patt.test(ele.val())) {
                     jVal.errors = true;
-					phoneInfo.removeClass('correct').addClass('error').html('&larr; Wrong Format').show();
+					phoneInfo.removeClass('correct').addClass('error').html('&larr; Enter 10-digit Phone Number').show();
 					ele.removeClass('normal').addClass('wrong');
                 } else {
                     if(xmlhttp.responseText=="1") {
