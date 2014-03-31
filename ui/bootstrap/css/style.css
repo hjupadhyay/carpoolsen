@@ -91,12 +91,21 @@
 .error {
 	background: #f60000;
 	border: 3px solid #d50000;
-
 }
 
 .correct {
-	background: #56d800;
-	border: 3px solid #008000;
+	background: #5cb85c;
+	border: 3px solid #5cb85c;
+}
+
+.medium {
+    background: #ffa500;
+    border: 3px solid #ff8c00;
+}
+
+.weak {
+    background: #ffd700;
+    border: 3px solid #ff6347;
 }
 
 .wrong {
@@ -113,6 +122,7 @@
     color: #000;
     font-weight: bold;
     background-color: #d58582;
+    border: 6px transparent #e53332;
 }
 
 .loginokay {
