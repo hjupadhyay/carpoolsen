@@ -94,6 +94,7 @@
 
 
     <div class="col-md-5">
+
     <h2 class="reserveAlign">Status</h2>
                                          <!--<ul class="nav nav-tabs">
                                                                         <li class="active"><a href="#">Posted Rides</a></li>
@@ -101,35 +102,55 @@
                                                                          <li><a href="#">Messages</a></li>
                                                                 </ul>-->					 
    <div class="container">
-	<div class="row">
+	<div class="row" >
             <div class="span12">
-                <div class="" id="loginModal">
-                    <div class="modal-body">
-                    <div class="well">
+<!--                <div class="" id="loginModal">-->
+<!--                    <div class="modal-body">-->
+                    <div class="well" style="height:400px;">
                       <ul class="nav nav-tabs">
                         <li class="active"><a href="#post" data-toggle="tab">My posts ({{ post_list|length }})</a></li>
                         <li><a href="#reserve" data-toggle="tab">Reserve Updates ({{ reserved_list|length }})</a></li>
                         <li><a href="#inbox" data-toggle="tab">Inbox ({{ messages|length }})</a></li>
                       </ul>
+<!--                      <div id="myTabContent" class="tab-content" style="overflow-y:scroll; height:400px;">-->
                       <div id="myTabContent" class="tab-content">
+
                         <div class="tab-pane active in" id="post">
-                        <ul>
+                        <div class="scroll_set">
+                        
+                        {% if not post_list %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        There are no posts by you so far
+                        </div>
+                        {% endif %}
                         {% for reserved in post_list %}
+                        
+                        <ul>
                             <li><p><h5>{{ reserved.reserver.user.first_name }} asked to share a ride with you from {{ reserved.post.fro }} to {{ reserved.post.to }} at {{ reserved.post.date_time }}</h5></p></li>
                         {% endfor %}
-                        </ul>       
+                        </ul>
+                          </div>
                         </div>
                         <div class="tab-pane fade" id="reserve">
+                        <div class="scroll_set">
+                        
+                        {% if not reserved_list %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        There are no reservations by you so far
+                        </div>
+                        {% endif %}
+                            
                         <ul>
                         {% for reserved in reserved_list %}
                             <li><p><h5>Your reservation from {{ reserved.post.fro }} to {{ reserved.post.to }} with {{ reserved.post.owner.user.first_name }} on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
                         {% endfor %}
                         </ul>  
-
+                        </div>  
                         </div>
                         <div class="tab-pane fade" id="inbox">
-                        <ol>
+                        
                         {% for message in messages %}
+                            <ol>
                             <li><p><h5 id="{{message.id}}">{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
                             <script>
                                 var message = document.getElementById("{{message.id}}");
@@ -138,18 +159,24 @@
                                 if (message.innerHTML.length > 40)
                                     message.innerHTML = message.innerHTML.substring(0,40) + "...";
                             </script>
+                            </ol>  
+                            <div>
+                            <button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
+                            </div>
                         {% endfor %}
-                        </ol>  
-                        <div>
-                            <button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Go To Inbox</button>
+                        
+                        {% if not messages %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        No Messages in Inbox so far.
                         </div>
-
-
+                        {% endif %}
+                            
+        
                       </div>
                     </div>
                   </div>
-                </div>
-            </div>
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>																	 
    </div>
