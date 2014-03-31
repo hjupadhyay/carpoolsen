@@ -22,6 +22,9 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 #Perform basic checks on user
 
 #send email function
+
+month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
@@ -576,7 +579,7 @@ def cancel_post(request):
 
 @csrf_exempt
 def post_new(request):
-    
+    global month
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
         
@@ -598,35 +601,30 @@ def post_new(request):
     date=date_time[0:3]
     time=date_time[4]
     time=time.split(':')
-    date_time = datetime.datetime(day=date[0],
-                                  month=date[1], 
-                                  year=date[2], 
-                                  hour=time[0],
-                                  minute=time[1], 
+    
+    date_time = datetime.datetime(day=int(date[0]),
+                                  month=month.index(date[1]), 
+                                  year=int(date[2]), 
+                                  hour=int(time[0]),
+                                  minute=int(time[1]), 
                                   second=0, 
                                   microsecond=0,)
         
     ac = int(request.REQUEST['ac'])
     men_women = 0
-    try:
-        men_women += int(request.REQUEST['men'])
-    except:
-        pass
-    try:
-        men_women += int(request.REQUEST['women'])
-    except:
-        pass
-    available_to = int(request.REQUEST['available_to'])
-    autoaccept = 0
+    men_women = int(request.REQUEST['men_women'])
     
+    available_to = int(request.REQUEST['available_to'])
+    
+    autoaccept = 0
     try:
         autoaccept += int(request.REQUEST['autoaccept'])
     except:
         pass
     
     cost = int(request.REQUEST['cost'])
-    sms_noti = 0
     
+    sms_noti = 0
     try:
         sms_noti += int(request.REQUEST['sms_noti'])
     except:
@@ -661,7 +659,7 @@ def reserve(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+        
     try:
         reserver = request.user.rider
         postid = request.REQUEST['postid']
@@ -808,19 +806,18 @@ def search_do(request):
                                   microsecond=0,)
 
     #Date and time format: dd mm yyyy - hh:mm
-    start_date_time=request.REQUEST['start_date_time']
-    start_date_time=date_time.split(' ')
-    startdate=date_time[0:3]
-    starttime=date_time[4]
-    starttime=time.split(':')
-    start_date_time = datetime.datetime(day=startdate[0],
-                                  month=startdate[1], 
-                                  year=startdate[2], 
-                                  hour=starttime[0],
-                                  minute=starttime[1], 
+    end_date_time=request.REQUEST['end_date_time']
+    end_date_time=date_time.split(' ')
+    enddate=date_time[0:3]
+    endtime=date_time[4]
+    endtime=time.split(':')
+    end_date_time = datetime.datetime(day=enddate[0],
+                                  month=enddate[1], 
+                                  year=enddate[2], 
+                                  hour=endtime[0],
+                                  minute=endtime[1], 
                                   second=0, 
                                   microsecond=0,)
-
     
     results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=int(men_women))
     template_values = {
