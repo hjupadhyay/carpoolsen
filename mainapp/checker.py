@@ -18,6 +18,7 @@ def check(request):
     
     #Check if user is logged in
     if not request.user.is_authenticated():
+        #return HttpResponse(jinja_environ.get_template('fool.html').render({"rider":None}))
         return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
     #Check if user has an associated rider

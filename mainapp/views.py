@@ -121,7 +121,8 @@ def profile(request):
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
 
-def inbox_page(request):    
+def inbox_page(request):   
+
     retval = check(request)
     if retval <> None:
         return retval
@@ -825,7 +826,7 @@ def search_do(request):
                                   second=0, 
                                   microsecond=0,)
     
-    results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=int(men_women))
+    results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women))
     template_values = {
         "rider":rider,
         'result_list':results,
