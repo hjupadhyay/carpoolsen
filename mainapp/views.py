@@ -29,6 +29,9 @@ def remove_old_posts(user):
             x.delete()
     print "LOL"
 #send email function
+
+month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
@@ -588,7 +591,7 @@ def cancel_post(request):
 
 @csrf_exempt
 def post_new(request):
-    
+    global month
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
         
@@ -610,35 +613,30 @@ def post_new(request):
     date=date_time[0:3]
     time=date_time[4]
     time=time.split(':')
-    date_time = datetime.datetime(day=date[0],
-                                  month=date[1], 
-                                  year=date[2], 
-                                  hour=time[0],
-                                  minute=time[1], 
+    
+    date_time = datetime.datetime(day=int(date[0]),
+                                  month=month.index(date[1]), 
+                                  year=int(date[2]), 
+                                  hour=int(time[0]),
+                                  minute=int(time[1]), 
                                   second=0, 
                                   microsecond=0,)
         
     ac = int(request.REQUEST['ac'])
     men_women = 0
-    try:
-        men_women += int(request.REQUEST['men'])
-    except:
-        pass
-    try:
-        men_women += int(request.REQUEST['women'])
-    except:
-        pass
-    available_to = int(request.REQUEST['available_to'])
-    autoaccept = 0
+    men_women = int(request.REQUEST['men_women'])
     
+    available_to = int(request.REQUEST['available_to'])
+    
+    autoaccept = 0
     try:
         autoaccept += int(request.REQUEST['autoaccept'])
     except:
         pass
     
     cost = int(request.REQUEST['cost'])
-    sms_noti = 0
     
+    sms_noti = 0
     try:
         sms_noti += int(request.REQUEST['sms_noti'])
     except:
