@@ -1,0 +1,30 @@
+<script>
+{% include "bootstrap/js/countdown.js" %}
+</script>  
+<br/>
+{% if not date_time1 == None %}
+<h3>Your next trip in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h3>
+<h2 id="countdown-holder1"></h2>  
+<script>  
+    var clock = document.getElementById("countdown-holder1")  
+    , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour+5}}, {{date_time1.minute+30}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
+    
+    clock.innerHTML = countdown(targetDate).toString();  
+    setInterval(function(){  
+    clock.innerHTML = countdown(targetDate).toString();  
+    }, 1000);  
+</script>  
+{% endif %}
+{% if not date_time2 == None %}
+<h3>Your next trip in {{reserved_obj.post.owner}}'s vehicle from {{reserved_obj.fro}} to {{reserved_obj.to}}</h3>
+<h2 id="countdown-holder2"></h2>  
+<script>  
+    var clock2 = document.getElementById("countdown-holder2")  
+    , targetDate2 = new Date({{date_time2.year}}, {{date_time2.month-1}}, {{date_time2.day}}, {{date_time2.hour+5}}, {{date_time2.minute+30}}, {{date_time2.second}}, {{date_time2.microsecond}}); // Jan 1, 2050;  
+    
+    clock2.innerHTML = countdown(targetDate2).toString();  
+    setInterval(function(){  
+    clock2.innerHTML = countdown(targetDate2).toString();  
+    }, 1000);  
+</script>  
+{% endif %}

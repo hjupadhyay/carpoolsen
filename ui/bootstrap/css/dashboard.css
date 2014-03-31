@@ -1,0 +1,39 @@
+body {
+    margin: 30px 0px;
+}
+.progress {
+    position: relative;
+	height: 100px;
+
+
+}
+.progress > .progress-type {
+	position: absolute;
+	left: 0px;
+	font-weight: 800;
+	padding: 3px 30px 2px 10px;
+	color: rgb(255, 255, 255);
+/*    position: relative;*/
+    top: -50%;
+	height: 100px;
+
+
+/*	background-color: rgba(25, 25, 25, 0.2);*/
+}
+.progress > .progress-completed {
+	position: absolute;
+	right: 0px;
+	font-weight: 800;
+	padding: 3px 10px 2px;
+	height: 100px;
+
+}
+
+.scroll_set
+{
+width:auto;
+height:300px;
+/*overflow:scroll;*/
+overflow-y: auto;
+
+}

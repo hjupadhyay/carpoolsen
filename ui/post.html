@@ -9,37 +9,49 @@
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
     {% include "bootstrap/css/bootstrap.min.css" %}
+        {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
 </style>
     
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="./bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <link href="jumbotron.css" rel="stylesheet">
-	
     
 			
 
     
 </head>
 <body>
-    <div class="container" class="jumbotron" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">
+{%include "header.html" %}
+   <!-- <div class="container" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">-->
         <br>
 
+  <div class = "container" padding-left: 300>
   
     <div class="row">
-        
-            <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> Post Your Trip!</legend>
-            <form action="http://localhost:8000/post_new/" method="post" class="form" role="form">
+        <div align="center">
+            <legend><span class="glyphicon glyphicon-arrow-th"></span> Post Your Trip!</legend>
+            </div>
+            <form action="/post_new/" method="post" class="form" role="form">
+            <div align="center">
+            <h3>Post Your Trip </h3>
+            </div>
             <div class="row">
-                <div class="col-md-5">
-                    <input class="form-control" name="fro" placeholder="From" type="text"
+            <br>
+            <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="fro">
+                            FROM  </label>
+                    <input class="form-control" name="fro" placeholder="From Location" type="text"
                         required autofocus />
                 </div>
-                <div class="col-md-5">
-                    <input class="form-control" name="to" placeholder="To" type="text" required />
+                <div class="col-md-4">
+                <label for="to">
+                            TO  </label>
+                    <input class="form-control" name="to" placeholder="To Location" type="text" required />
                 </div>
            
 			
@@ -49,19 +61,26 @@
 		<br>
 		
 		<div class="row">
- <div class="col-md-5">
+		<div class="col-md-2"> </div>
+ <div class="col-md-4">
 		<div class="form-group">
-               
-                <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                    <input class="form-control" style="background-color:white" size="16" type="text"  placeholder="click on the side to set date  "value="" readonly>
+               <label for="">
+                            DATE & TIME </label>
+                <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="" value="" name="date_time" readonly >
                     
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
 				<input type="hidden" id="dtp_input1" value="" />
             </div>
 			</div>
-			<div class="col-md-5">
-                    <input class="form-control" name="phone" placeholder="Phone Number" type="text" >
+			
+			
+			
+			<div class="col-md-4">
+			<label for="phone">
+                            CONTACT ME  </label>
+                    <input class="form-control" name="phone" placeholder="Phone Number" type="text" value="{{rider.phone}}" >
                 </div>
 			</div>
        
@@ -70,15 +89,19 @@
 
 
                 <div class="row">
-                
-                <div class="col-md-5">
-                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" >
+                <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="">
+                            CAR NUMBER </label>
+                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{rider.car_number}}">
                 </div>
-				<div class="col-md-5">
-                     <select class="form-control" name="ac" >
-  <option selected="selected">Car Type</option>
-  <option  value="0">AC</option>
-  <option value="1">Non-AC</option>
+				
+<div class="col-md-4">
+<label for="">CAR TYPE  </label>
+ <select class="form-control" name="ac" >
+  <option selected="selected">---</option>
+  <option  value="1">AC</option>
+  <option value="0">Non-AC</option>
 </select>
                     </div>
                 </div>
@@ -86,30 +109,29 @@
 
                 <div class="row">
                 
-                
-                <div class="col-md-5">
+                <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="men_women">
+                            CAN BE RESERVED BY </label>
                     <select class="form-control" name="men_women" >
-  <option selected="selected ">Allow</option>
-  <option value="0">Men</option>
+  <option selected="selected ">---</option>
+  <option value="2">Men</option>
   <option value="1">Women</option>
-  <option value="2">Both</option>
+  <option value="0">Both</option>
   
 </select>
                 </div>
 				
-				<div class="col-md-5">
+				<div class="col-md-4">
+				<label for="available_to">
+                            CAN BE VIEWED BY  </label>
                    <select class="form-control" name="available_to">
-  <option selected="selected">Available to</option>
+  <option selected="selected">---</option>
   <option value="0" >All</option>
-  <option value="1">Friends Only</option>
+  <option value="1">Facebook Friends Only</option>
 </select>
-</div>
-                
-               
-                
-                                
-                </div>
-            
+</div>                                         
+                </div>            
                 <br>
 
 <!--      
@@ -218,25 +240,29 @@
 -->
 		
 		<div class="row">
+		<div class="col-md-2"> </div>
 		 
-
-				<div class="col-md-5">
+				<div class="col-md-4">
+				<label for="total_seats">
+                            SEATS AVAILABLE  </label>
 				<select class="form-control" name="total_seats" >
-  <option selected="selected">Seats Available</option>
+  <option selected="selected">---</option>
   <option value="1">1</option>
-  <option value="1">2</option>
-  <option value="1">3</option>
-  <option value="1">4</option>
-  <option value="1">5</option>
-  <option value="1">6</option>
-  <option value="1">8</option>
-  <option value="1">9</option>
-  <option value="1">10</option>
-  <option value="1">11</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
 </select>
 </div>
-<div class="col-md-5">
-                    <input class="form-control" name="cost" placeholder="Cost" type="text" required />
+<div class="col-md-4">
+<label for="cost">
+                            COST PER SEAT </label>
+                    <input class="form-control" name="cost" placeholder="Cost in Rupee" type="text" required />
                 </div>
 
 </div>
@@ -248,54 +274,50 @@
 
 
 
-<label class="checkbox" for="smsnotify">
+<!--<label class="checkbox" for="smsnotify">
       <input type="checkbox" name="sms_notif" id="Travelwith-1" value="1">
       Would like to recieve SMS if anyone requests for reservation
-    </label>
+    </label>-->
                 
-
+<div class="col-md-2"> </div>
+<div class="col-md-4"> 
 <label class="checkbox" for="acceptance">
-      <input type="checkbox" name=autoaccept id="Travelwith-1" value="1">
+      <input type="checkbox" name="autoaccept" id="Travelwith-1" value="1">
         Reserve automatically (without approval)
     </label>
-                
-<div class="control group">
-<hr class="colorgraph">
-<div class="col-md-5">
+ </div>
+
+<div class="col-md-1"> </div>
+<div class="col-md-11" align="center">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-ok-sign"></span>Done</span></button>
+  &nbsp &nbsp 
+<button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg"> Submit Post </span></button>
   </div>
-</div>
 </div>
 
 </fieldset>
       
 	  </form>
 
+    </div></div>
     </div>
-     <div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+     
 
-	
-	<script type="text/javascript" src="./bootstrap/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        //language:  'fr',
+	<script type="text/javascript">
+            {% include "bootstrap/js/jquery-1.8.3.min.js"%}
+{% include  "bootstrap/js/bootstrap.min.js" %}
+{% include "bootstrap/js/bootstrap-datetimepicker.js" %} </script>
+<script type="text/javascript">  $('.form_datetime').datetimepicker({
+        format:"dd MM yyyy - hh:ii",
         weekStart: 1,
         todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
     });
-	</script>
+    
+    </script>
 </body>
 </html>

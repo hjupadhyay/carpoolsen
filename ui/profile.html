@@ -102,11 +102,20 @@
 						<TD>&nbsp:&nbsp</TD>
 						<TD>&nbsp{{rider.phone}}</TD>
 					</TR>
-					<TR>
+					
+                    {% if rider.auth_token == "0" %}
+                    <TR>
+						<TD><b><font color="red">Authentication</font></b></TD>
+						<TD>&nbsp:&nbsp</TD>
+						<TD><b><font color="red">&nbsp{{rider.auth_type}}</font></TD>
+					</TR>
+                    {% else %}
+                    <TR>
 						<TD><b><font color="black">Authentication</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
 						<TD>&nbsp{{rider.auth_type}}</TD>
 					</TR>
+                    {% endif %}    
 					<TR>
 						<TD><b><font color="black">Vehicle No.</font></b></TD>
 						<TD>&nbsp:&nbsp</TD>
