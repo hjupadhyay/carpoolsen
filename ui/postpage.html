@@ -63,7 +63,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <br>
     </div>
         
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
                 <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
@@ -99,11 +99,19 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             </div>
 
             
-            <div class="blockquote-box blockquote-danger clearfix">       
-	    </div> 
+            <div class="blockquote-box blockquote-primary clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon glyphicon-flag glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Car Type</h4>
+                <p>
+					AC
+                </p>
+            </div> 
             
 	    </div>
-        <div class="col-md-4 col-xs-4">
+        <div class="col-md-3 col-xs-3">
             <div class="blockquote-box blockquote-info clearfix">
                 <div class="square pull-left">
                     <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
@@ -136,26 +144,35 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                     {{post.cost}} per person
                 </p>
             </div>
-            
+            <div class="blockquote-box blockquote-primary clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon glyphicon-flag glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Available To</h4>
+                <p>
+					Both
+                </p>
+            </div>
            
             
           
    </div>
     
     
-    <div class="col-md-4"> 
-<div class="contain">
+    <div class="col-md-6"> 
+<div class="contain col-xs-12">
     
 <div class="centered" style="padding:5px">
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
             <div class="user-image">
-                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column" style="height:160px; width:160px; align:center;">
+                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column" style="height:140px; width:140px; align:center;">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
-                    <h3>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h3>
-                    <h3>Username: {{post.owner.user.username}}</h3>
+                    <h4>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h4>
+                    <h4>Username: {{post.owner.user.username}}</h4>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      

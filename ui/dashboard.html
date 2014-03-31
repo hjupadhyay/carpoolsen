@@ -12,10 +12,12 @@
         <style>
             {% include "bootstrap/css/bootstrap.min.css" %}
             {% include "bootstrap/css/style.css" %}
+            {% include "bootstrap/css/dashboard.css" %}
             {% include "bootstrap/css/bootstrap.css" %}
             {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
         </style>
-        <!-- Bootstrap core CSS -->
+         
+       <!-- Bootstrap core CSS -->
 			
             <!-- Custom styles for this template -->
             <!--<link href="jumbotron.css" rel="stylesheet">
@@ -27,13 +29,21 @@
     <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="./bootstrap/css/dashboard.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
       </head>
 
       <body>
 
-        {% include "header.html" %}
+        
+  
+          {% include "header.html" %}
         <!-- Main jumbotron for a primary marketing message or call to action -->
+         
+      
+        
+        
+          
         <div class="jumbotron">
           <div class="container">
 
@@ -41,9 +51,23 @@
                                         <button type="button" class="btn btn-default  btn-default1 btn-lg btn3d">Post A New Trip</button>
                         </div>			
                         <br><br>-->
+        <br>
+        
+       {% if rider.auth_token == "0" %}
 
-
-            <div class="row">
+        <div class="container">
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                
+            </div>
+            <span class="progress-type" align="center"><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Account has not been authenticated.
+            <a href="/profile/?id={{rider.pk}}" style="color: #FFFFFF"><b><u>Authenticate Now</u></b></a></h5> </span>
+        </div>
+	</div>
+     {% endif %}
+          
+              
+    <div class="row">
                 
                 
     <div class="col-md-3">
