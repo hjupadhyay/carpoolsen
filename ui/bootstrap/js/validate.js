@@ -227,35 +227,6 @@ $(document).ready(function(){
             }
 		},
 		
-		'car_no' : function() {
-
-			$('body').append('<div id="car_noInfo" class="valid"></div>');
-
-			var car_noInfo = $('#car_noInfo');
-			var ele = $('#car_number');
-			var pos = ele.offset();
-
-			car_noInfo.css({
-				top: pos.top+1,
-				left: pos.left+ele.outerWidth()+40
-			});
-            
-                if(ele.val().length == 0){
-                        car_noInfo.hide();
-                        ele.removeClass('wrong').addClass('normal');
-                } else {
-                if(xmlhttp.responseText=="1") {
-                    jVal.errors = true;
-                        car_noInfo.removeClass('correct').addClass('error').html('&larr; already taken').show();
-                        ele.removeClass('normal').addClass('wrong');
-                } else {
-                        car_noInfo.removeClass('error').addClass('correct').html('&radic; available').hide();
-                        ele.removeClass('wrong').addClass('normal');
-                }
-            }
-            }
-		},
-		
 		'phone' : function() {
 
 			$('body').append('<div id="phoneInfo" class="valid"></div>');
@@ -301,7 +272,6 @@ $(document).ready(function(){
             jVal.passwd();
             jVal.conf_passwd();
             jVal.email();
-            jVal.car_no();
             jVal.phone();
             jVal.sendIt();
         });
@@ -315,7 +285,6 @@ $(document).ready(function(){
 	$('#password').change(jVal.passwd);
 	$('#confirmpassword').change(jVal.conf_passwd);
 	$('#email').change(jVal.email);
-	$('#car_number').change(jVal.car_no);
 	$('#phone').change(jVal.phone);
 
 });
