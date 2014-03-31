@@ -23,7 +23,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 #send email function
 
-month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+month=["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
@@ -781,6 +781,7 @@ def cancel_res(request):
     
 @csrf_exempt
 def search_do(request):
+    global month
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
         
@@ -796,35 +797,37 @@ def search_do(request):
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
-    date = request.REQUEST['date_time'].split(" ")
+    #date = request.REQUEST['date_time'].split(" ")
 
     #Date and time format: dd mm yyyy - hh:mm
     start_date_time=request.REQUEST['start_date_time']
-    start_date_time=date_time.split(' ')
-    startdate=date_time[0:3]
-    starttime=date_time[4]
-    starttime=time.split(':')
-    start_date_time = datetime.datetime(day=startdate[0],
-                                  month=startdate[1], 
-                                  year=startdate[2], 
-                                  hour=starttime[0],
-                                  minute=starttime[1], 
+    start_date_time=start_date_time.split(' ')
+    startdate=start_date_time[0:3]
+    starttime=start_date_time[4]
+    starttime=starttime.split(':')
+    start_date_time = datetime.datetime(day=int(startdate[0]),
+                                  month=month.index(startdate[1]), 
+                                  year=int(startdate[2]), 
+                                  hour=int(starttime[0]),
+                                  minute=int(starttime[1]), 
                                   second=0, 
                                   microsecond=0,)
 
     #Date and time format: dd mm yyyy - hh:mm
     end_date_time=request.REQUEST['end_date_time']
-    end_date_time=date_time.split(' ')
-    enddate=date_time[0:3]
-    endtime=date_time[4]
-    endtime=time.split(':')
-    end_date_time = datetime.datetime(day=enddate[0],
-                                  month=enddate[1], 
-                                  year=enddate[2], 
-                                  hour=endtime[0],
-                                  minute=endtime[1], 
+    end_date_time=end_date_time.split(' ')
+    enddate=end_date_time[0:3]
+    endtime=end_date_time[4]
+    endtime=endtime.split(':')
+    end_date_time = datetime.datetime(day=int(enddate[0]),
+                                  month=month.index(enddate[1]), 
+                                  year=int(enddate[2]), 
+                                  hour=int(endtime[0]),
+                                  minute=int(endtime[1]), 
                                   second=0, 
                                   microsecond=0,)
+    
+    men_women=request.REQUEST['men_women']
     
     results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women))
     template_values = {
