@@ -17,8 +17,8 @@ from mainapp.checker import check
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 
 #Dummy request object
-class Dum:
-    REQUEST = {}
+#class Dum:
+    #REQUEST = {}
 #Perform basic checks on user
 
 #send email function
@@ -492,8 +492,8 @@ def forgot_pass(request):
     subject = "Password Reset Request"
     msg = 'Subject: %s \n\nYou have requested for a password reset on CarPoolSen.com\n\
     Please click on the following link (or copy paste in your browser) to reset your password.\n\n\
-    http://localhost:8000/change_pass?reset_pass=%s\n\n\
-    If you have not requested for a reset of password, please ignore.' % (subject, user.rider.reset_pass)
+    http://localhost:8000/reset_pass_page/?reset_pass=%s&email=%s\n\n\
+    If you have not requested for a reset of password, please ignore.' % (subject, user.rider.reset_pass, user.email)
     
     x = send_email(msg, user)
     if x[0] == 0:

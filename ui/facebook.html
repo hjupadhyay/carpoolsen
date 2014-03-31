@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+    <script>
+    var url = window.location.href
+    if (url.length> 50 ){
+    	var s = url.search("=");
+	    var e = url.search("&");
+
+	    accesst = url.substring(s+1,e);
+	    var xmlhttp = new XMLHttpRequest();
+	    var data = new FormData();
+	    data.append("access_token",accesst);
+	    xmlhttp.open("POST","/facebook/",false);
+	    xmlhttp.send(data);
+	    document.write(xmlhttp.responseText)
+    }
+    
+    </script>
+  </head>
+  <body><a href='https://www.facebook.com/dialog/oauth?client_id=1402875186650026&redirect_uri=http://localhost:8000/facebook/&response_type=token'>Add you Friends on facebook</a> 	</body>
+</html>
