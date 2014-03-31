@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.conf.urls.defaults import handler404, handler500
+#from django.conf.urls.defaults import handler404, handler500
 
 from mainapp import views, errors
 
@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^search_username/', views.search_username, name = 'search_username'),
     url(r'^reply/', views.reply, name = 'reply'),
     url(r'^read_message/', views.read_message, name = 'read_message'),
-    url(r'^facebook/', views.facebook, name = 'facebook'),
+    #url(r'^facebook/', views.facebook, name = 'facebook'),
     url(r'^change_pass/', views.change_pass, name = 'change_pass'),
     url(r'^forgot_pass/', views.forgot_pass, name = 'forgot_pass'),
     

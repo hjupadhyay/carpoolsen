@@ -1,4 +1,4 @@
-from facebook import GraphAPI
+#from facebook import GraphAPI
 import json
 from django.http import HttpResponse
 from django.utils import timezone
