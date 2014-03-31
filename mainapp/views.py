@@ -592,19 +592,12 @@ def post_new(request):
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
     
-    #Date and time format: yyyy-mm-dd-hh-mm
+    #Date and time format: dd mm yyyy - hh:mm
     date_time=request.REQUEST['date_time']
     date_time=date_time.split(' ')
     date=date_time[0:3]
     time=date_time[4]
     time=time.split(':')
-    #date_time = datetime.datetime(year=int(request.REQUEST['year']),
-                                  #month=int(request.REQUEST['month']), 
-                                  #day=int(request.REQUEST['day']), 
-                                  #hour=int(request.REQUEST['hour']),
-                                  #minute=int(request.REQUEST['min']), 
-                                  #second=0, 
-                                  #microsecond=0,)
     date_time = datetime.datetime(day=date[0],
                                   month=date[1], 
                                   year=date[2], 
@@ -612,8 +605,7 @@ def post_new(request):
                                   minute=time[1], 
                                   second=0, 
                                   microsecond=0,)
-    
-    
+        
     ac = int(request.REQUEST['ac'])
     men_women = 0
     try:
@@ -799,16 +791,36 @@ def search_do(request):
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
-    #dtstart = request.REQUEST['dtstart'].split("-")
-    #dtend = request.REQUEST['dtend'].split("-")
-    date = request.REQUEST['date'].split("/")
-    time_start = request.REQUEST['time_start'].split(":")
-    time_end = request.REQUEST['time_end'].split(":")
-    men_women = request.REQUEST['men_women']
-    dtstart = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_start[0]),
-                                minute=int(time_start[1]), second=0, microsecond=0)
-    dtend = datetime.datetime(year=int(date[2]), month=int(date[1]), day=int(date[0]), hour=int(time_end[0]),
-                                minute=int(time_end[1]), second=0, microsecond=0)
+    date = request.REQUEST['date_time'].split(" ")
+
+    #Date and time format: dd mm yyyy - hh:mm
+    start_date_time=request.REQUEST['start_date_time']
+    start_date_time=date_time.split(' ')
+    startdate=date_time[0:3]
+    starttime=date_time[4]
+    starttime=time.split(':')
+    start_date_time = datetime.datetime(day=startdate[0],
+                                  month=startdate[1], 
+                                  year=startdate[2], 
+                                  hour=starttime[0],
+                                  minute=starttime[1], 
+                                  second=0, 
+                                  microsecond=0,)
+
+    #Date and time format: dd mm yyyy - hh:mm
+    end_date_time=request.REQUEST['end_date_time']
+    end_date_time=date_time.split(' ')
+    enddate=date_time[0:3]
+    endtime=date_time[4]
+    endtime=time.split(':')
+    end_date_time = datetime.datetime(day=enddate[0],
+                                  month=enddate[1], 
+                                  year=enddate[2], 
+                                  hour=endtime[0],
+                                  minute=endtime[1], 
+                                  second=0, 
+                                  microsecond=0,)
+    
     results = Post.objects.filter(fro=fro, to=to, date_time__lte=dtend, date_time__gte=dtstart, men_women=int(men_women))
     template_values = {
         "rider":rider,
