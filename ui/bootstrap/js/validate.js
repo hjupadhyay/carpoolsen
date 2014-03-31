@@ -10,7 +10,7 @@ $(document).ready(function(){
 			var pos = ele.offset();
 
 			genderInfo.css({
-				top: pos.top+1,
+				top: pos.top-1,
 				left: pos.left+ele.outerWidth()+55
 			});
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			var data = new FormData();
 			data.append("username",ele.val());
             data.append("search","username");
-			xmlhttp.open("POST","/search/",true);
+			xmlhttp.open("POST","/search_element/",true);
 			xmlhttp.send(data);
 			xmlhttp.onreadystatechange = function() {
                 if(ele.val() == 0){
@@ -86,7 +86,7 @@ $(document).ready(function(){
 
 			fname.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()-270
+				left: pos.left+ele.outerWidth()-315
 			});
 
 			if(ele.val().length == 0) {
@@ -112,12 +112,12 @@ $(document).ready(function(){
 
 			passwd.css({
 				top: pos.top+1,
-				left: pos.left+ele.outerWidth()-280
+				left: pos.left+ele.outerWidth()-320
 			});
             
-            var char = /^[a-zA-Z]+./i;
-            var num = /^[0-9]+./i;
-            var spech = /^!@#\$%\^\&*\(\)_;:'"/g;
+            var char = /[a-zA-Z]/i;
+            var num = /[0-9]/i;
+            var spech = /[@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\? ]/i;
 
 			if(ele.val().length == 0) {
 				jVal.errors = true;
@@ -125,15 +125,15 @@ $(document).ready(function(){
 					ele.removeClass('normal').addClass('wrong');
 			} else {
                 if(char.test(ele.val()) && num.test(ele.val()) && spech.test(ele.val())) {
-                    passwd.removeClass('error').removeClass('medium').removeClass('weak').addClass('correct').html('Strong &rarr;').show();
+                    passwd.removeClass('error').removeClass('medium').removeClass('weak').addClass('correct').html('Strength: Strong &rarr;').show();
                     ele.removeClass('wrong').addClass('normal');
                 } else{
-                    if(char.test(ele.val()) && num.test(ele.val()) || char.test(ele.val()) && spech.test(ele.val()) || num.test(ele.val()) && spech.test(ele.val())) {
-                        passwd.removeClass('error').removeClass('correct').removeClass('weak').addClass('medium').html('Medium &rarr;').show();
+                    if((char.test(ele.val()) && num.test(ele.val())) || (char.test(ele.val()) && spech.test(ele.val())) || (num.test(ele.val()) && spech.test(ele.val()))) {
+                        passwd.removeClass('error').removeClass('correct').removeClass('weak').addClass('medium').html('Strength: Medium &rarr;').show();
                         ele.removeClass('wrong').addClass('normal');
                     } else {
                         if(char.test(ele.val()) || num.test(ele.val()) || spech.test(ele.val())) {
-                            passwd.removeClass('error').removeClass('medium').removeClass('correct').addClass('weak').html('Weak &rarr;').show();
+                            passwd.removeClass('error').removeClass('medium').removeClass('correct').addClass('weak').html('Strength: Weak &rarr;').show();
                             ele.removeClass('wrong').addClass('normal');
                         } else {
                             jVal.errors = true;
@@ -207,8 +207,8 @@ $(document).ready(function(){
             var xmlhttp = new XMLHttpRequest();
             var data = new FormData();
             data.append("car_number",ele.val());
-            data.append("search","car_number");
-            xmlhttp.open("POST","/search",true);
+            data.append("search","email");
+            xmlhttp.open("POST","/search_element/",true);
             xmlhttp.send(data);
             xmlhttp.onreadystatechange = function() {
 			if(!patt.test(ele.val())) {
@@ -218,10 +218,10 @@ $(document).ready(function(){
 			} else {
                 if(xmlhttp.responseText=="1") {
                     jVal.errors = true;
-                        emailInfo.removeClass('correct').addClass('error').html('&larr; already taken').show();
+                        emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('normal').addClass('wrong');
                 } else{
-					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').show();
+// 					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').show();
 					ele.removeClass('wrong').addClass('normal');
 			}
             }
@@ -242,15 +242,29 @@ $(document).ready(function(){
 			});
             
             var patt = /\D/i;
-
-			if(ele.val().length < 10 || ele.val().length > 15 || patt.test(ele.val())) {
-				jVal.errors = true;
+            
+            var xmlhttp = new XMLHttpRequest();
+            var data = new FormData();
+            data.append("car_number",ele.val());
+            data.append("search","email");
+            xmlhttp.open("POST","/search_element/",true);
+            xmlhttp.send(data);
+            xmlhttp.onreadystatechange = function() {
+                if(ele.val().length < 10 || ele.val().length > 15 || patt.test(ele.val())) {
+                    jVal.errors = true;
 					phoneInfo.removeClass('correct').addClass('error').html('&larr; Wrong Format').show();
 					ele.removeClass('normal').addClass('wrong');
-			} else {
-					phoneInfo.hide();
-					ele.removeClass('wrong').addClass('normal');
-			}
+                } else {
+                    if(xmlhttp.responseText=="1") {
+                        jVal.errors = true;
+                        emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
+                        ele.removeClass('normal').addClass('wrong');
+                    } else {
+                        phoneInfo.hide();
+                        ele.removeClass('wrong').addClass('normal');
+                    }
+                }
+            }
 		},
 
         'sendIt' : function (){
