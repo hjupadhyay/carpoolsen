@@ -175,14 +175,50 @@ def dashboard(request):
     posts = Post.objects.filter(owner=request.user.rider)
     post_list = []
     for x in posts:
-        for reserved in x.reserved_set.filter(status = 1):
-            post_list.append(reserved)
+        #for reserved in x.reserved_set.filter(status = 1):
+        post_list.append(reserved)
     #create jinja template values
     
+    retval = check(request)
+    if retval <> None:
+        return retval
+    #if "lol" in request.REQUEST.keys():
+        #return HttpResponse("LOL")
+    #else:
+        #return HttpResponse("No Lol")
+    #get latest post of rider
+    date_time1 = None
+    date_time2 = None
+    l_p_obj = Post.objects.filter(owner=request.user.rider)
+    l_r_obj = Reserved.objects.filter(reserver=request.user.rider)
+    resobj = None
+    pobj = None
+    if len(l_p_obj) <> 0:
+        l_p_obj = l_p_obj.aggregate(Min('date_time'))
+        date_time1 = l_p_obj['date_time__min']
+        pobj = Post.objects.get(owner=request.user.rider, date_time=date_time1)
+    if len(l_r_obj) <> 0:
+        mindt = None
+        for x in l_r_obj:
+            if mindt == None:
+                resobj = x
+                mindt = x.post.date_time
+            if mindt > x.post.date_time:
+                resobj = x
+                mindt = x.post.date_time
+        date_time2 = mindt
+    if (date_time1-timezone.now()).total_seconds() > 1800:
+        date_time1=None
+    if (date_time2-timezone.now()).total_seconds() > 1800:
+        date_time2=None
     template_values = {'rider' : request.user.rider,
                     'messages' : messages,
                     'post_list' : post_list,
                     'reserved_list' : Reserved.objects.filter(reserver=request.user.rider),
+                    "date_time1":date_time1,
+                    "date_time2":date_time2,
+                    "reserved_obj":resobj,
+                    "post_obj": pobj,
                     }
     return HttpResponse(jinja_environ.get_template('dashboard.html').render(template_values))
     #return HttpResponse(str(template_values))
@@ -1042,15 +1078,28 @@ def reply(request):
 
 #Search for username
 @csrf_exempt
-def search_username(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        length = 1
-        try:
-            User.objects.get(username=username)
-        except Exception as e:
-            return HttpResponse("0")
-        return HttpResponse("1")
+def search(request):
+    #if request.method == 'POST':
+        #username = request.POST['username']
+        #length = 1
+        #try:
+            #User.objects.get(username=username)
+        #except Exception as e:
+            #return HttpResponse("0")
+        #return HttpResponse("1")
+    if request.method == "POST":
+        if request.POST['search'] == 'phone':
+            return "0"
+        elif request.POST['search'] == 'username':
+            if User.objects.filter(username=request.POST['username']) == []:
+                return "1"
+            else:
+                return "0"
+        elif request.POST['search'] == 'email':
+            if User.objects.filter(email=request.POST['email']) == []:
+                return "1"
+            else:
+                return "0"
 
 #save facebook token
 @csrf_exempt
