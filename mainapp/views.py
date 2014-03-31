@@ -113,9 +113,19 @@ def edit_profile_page(request):
     return HttpResponse(jinja_environ.get_template('profileedit.html').render({"rider":request.user.rider}))
 
 def profile(request):
-    retval = check(request)
-    if retval <> None:
-        return retval
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
+
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
 
     try:
         riderid = request.REQUEST['id']
@@ -176,8 +186,8 @@ def dashboard(request):
     posts = Post.objects.filter(owner=request.user.rider)
     post_list = []
     for x in posts:
-        #for reserved in x.reserved_set.filter(status = 1):
-        post_list.append(x)
+        for reserved in x.reserved_set.all():
+            post_list.append(reserved)
     #create jinja template values
     
     retval = check(request)
@@ -221,7 +231,7 @@ def dashboard(request):
                     "reserved_obj":resobj,
                     "post_obj": pobj,
                     }
-    return HttpResponse(jinja_environ.get_template('dashboard.html').render(template_values))
+    return HttpResponse(jinja_environ.get_template('dashboard2.html').render(template_values))
     #return HttpResponse(str(template_values))
     
 
