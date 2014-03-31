@@ -1111,19 +1111,19 @@ def search(request):
         #except Exception as e:
             #return HttpResponse("0")
         #return HttpResponse("1")
-    if request.method == "POST":
-        if request.POST['search'] == 'phone':
-            return "0"
-        elif request.POST['search'] == 'username':
-            if User.objects.filter(username=request.POST['username']) == []:
-                return "1"
+    #if request.method == "POST":
+    if True:
+        if request.REQUEST['search'] == 'phone':
+            return HttpResponse("0")
+        elif request.REQUEST['search'] == 'username':
+            if len(User.objects.filter(username=request.REQUEST['username'])) <> 0:
+                return HttpResponse("1")
+            return HttpResponse("0")
+        elif request.REQUEST['search'] == 'email':
+            if len(User.objects.filter(email=request.REQUEST['email'])) == 0:
+                return HttpResponse("1")
             else:
-                return "0"
-        elif request.POST['search'] == 'email':
-            if User.objects.filter(email=request.POST['email']) == []:
-                return "1"
-            else:
-                return "0"
+                return HttpResponse("0")
 
 #save facebook token
 @csrf_exempt

@@ -47,6 +47,7 @@ $(document).ready(function(){
 			xmlhttp.open("POST","/search_element/",true);
 			xmlhttp.send(data);
 			xmlhttp.onreadystatechange = function() {
+                console.log(xmlhttp.responseText);
                 if(ele.val() == 0){
                     jVal.errors = true;
                         uname.removeClass('correct').addClass('error').html('&larr; Enter a username').show();
@@ -245,8 +246,8 @@ $(document).ready(function(){
             
             var xmlhttp = new XMLHttpRequest();
             var data = new FormData();
-            data.append("car_number",ele.val());
-            data.append("search","email");
+            data.append("phone",ele.val());
+            data.append("search","phone");
             xmlhttp.open("POST","/search_element/",true);
             xmlhttp.send(data);
             xmlhttp.onreadystatechange = function() {
