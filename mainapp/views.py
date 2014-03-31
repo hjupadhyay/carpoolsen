@@ -25,12 +25,12 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 #Function to remove old posts of user
 def remove_old_posts(user):
     for x in Post.objects.filter(owner=user.rider):
-        if x.date_time < datetime.now():
+        if x.date_time < timezone.now():
             x.delete()
     print "LOL"
 #send email function
 
-month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+month=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
