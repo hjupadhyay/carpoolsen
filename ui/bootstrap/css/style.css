@@ -99,13 +99,15 @@
 }
 
 .medium {
+    color: #000;
     background: #ffa500;
     border: 3px solid #ff8c00;
 }
 
 .weak {
+    color: #000;
     background: #ffd700;
-    border: 3px solid #ff6347;
+    border: 3px solid #e6c200;
 }
 
 .wrong {
