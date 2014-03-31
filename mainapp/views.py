@@ -176,7 +176,7 @@ def dashboard(request):
     post_list = []
     for x in posts:
         #for reserved in x.reserved_set.filter(status = 1):
-        post_list.append(reserved)
+        post_list.append(x)
     #create jinja template values
     
     retval = check(request)
