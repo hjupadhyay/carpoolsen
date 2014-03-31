@@ -26,6 +26,8 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 def remove_old_posts(user):
     for x in Post.objects.filter(owner=user.rider):
         if x.date_time < timezone.now():
+            for y in x.reserved_set.all():
+                y.delete()
             x.delete()
     print "LOL"
 #send email function
@@ -130,11 +132,11 @@ def profile(request):
     try:
         riderid = request.REQUEST['id']
         if riderid == request.user.rider.pk:
-            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
         else:
-            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":Rider.objects.get(pk=riderid), "check":"0"}))
+            return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":Rider.objects.get(pk=riderid)}))
     except:
-        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "check":"1"}))
+        return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
 
@@ -186,8 +188,9 @@ def dashboard(request):
     posts = Post.objects.filter(owner=request.user.rider)
     post_list = []
     for x in posts:
-        for reserved in x.reserved_set.all():
-            post_list.append(reserved)
+        #for reserved in x.reserved_set.all():
+            #post_list.append(reserved)
+        post_list.append([x,len(x.reserved_set.all()), len(x.reserved_set.filter(status=1))])
     #create jinja template values
     
     retval = check(request)
@@ -218,10 +221,12 @@ def dashboard(request):
                 resobj = x
                 mindt = x.post.date_time
         date_time2 = mindt
-    if (date_time1-timezone.now()).total_seconds() > 1800:
-        date_time1=None
-    if (date_time2-timezone.now()).total_seconds() > 1800:
-        date_time2=None
+    if date_time1 <> None:
+        if (date_time1-timezone.now()).total_seconds() > 1800:
+            date_time1=None
+    if date_time2 <> None:
+        if (date_time2-timezone.now()).total_seconds() > 1800:
+            date_time2=None
     template_values = {'rider' : request.user.rider,
                     'messages' : messages,
                     'post_list' : post_list,
@@ -726,9 +731,13 @@ def reserve(request):
         
         if reserver == postobj.owner:
 	    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-										  "text":'<p>You can\'t reserve your own post.</p>\
-										  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+                                                                           "text":'<p>You can\'t reserve your own post.</p>\
+                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         
+        if (reserver.gender=='m' and postobj.men_women==1) or (reserver.gender=='f' and postobj.men_women==2):
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>You are not allowed to reserve this post due to gender preferences of the owner.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         entry = Reserved(post = postobj, reserver = reserver)
         
         
@@ -797,12 +806,13 @@ def revoke(request):
         #if postobj.total_seats > postobj.reserved_set.aggregate(Sum('status'))['status__sum']:
             #resobj.status = 1
             #resobj.save()
-        if resobj.status == 1:
-            resobj.status = 0
-            resobj.save()
-        else:
-            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'Request already revoked/pending. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        #if resobj.status == 1:
+            #resobj.status = 0
+            #resobj.save
+        resobj.delete()
+        #else:
+            #return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  #"text":'Request already revoked/pending. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,

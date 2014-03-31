@@ -151,7 +151,13 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <h4>
                     Available To</h4>
                 <p>
-					Both
+					{% if post.men_women == 0 %}
+                        Both
+                    {% elif post.men_women == 1 %}
+                        Women Only
+                    {% else %}
+                        Men Only
+                    {% endif %}
                 </p>
             </div>
            
@@ -172,7 +178,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <div class="user-info-block">
                 <div class="user-heading">
                     <h4>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h4>
-                    <h4><a href="/profile/?id=post.owner.id">Username: {{post.owner.user.username}}</a></h4>
+                    <h4><a href="/profile/?id={{post.owner.id}}">Username: {{post.owner.user.username}}</a></h4>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      
@@ -183,31 +189,36 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                     
                     
     {% if rider.user.username==post.owner.user.username %}
+        <script>
+            console.log({{reserved_list|length}});
+        </script>
         {% for reserved in reserved_list %}
-		      {%if reserved_obj.status==0 %}          
+		      {%if reserved.status==0 %}          
                     
 			        
 		          <h4>Reserve Requests</h4>
-		          <ul>
-			     <p><li>Reserve Request by <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></p> <button class="btn btn-primary inline" onclick="window.location.href='/accept/'">Accept</button> <button class="btn btn-primary inline" onlcick="window.location.href='/revoke/'">Cancel</button>
-		          </ul>
+<!-- 		          <ul> -->
+			     <p><li>Reserve Request by <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p>
+			     <button id="button1" class="btn btn-primary inline" onclick="window.location.href='/accept/?resid={{reserved.id}}'">Accept</button>
+			     <button id="button1" class="btn btn-primary inline" onclick="window.location.href='/revoke/?resid={{reserved.id}}'">Cancel</button>
+<!-- 		          </ul> -->
 	          {%endif%}
 	      {%endfor%}
             
             {% for reserved in reserved_list %}
-                {%if reserved_obj.status==1 %}       
+                {%if reserved.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
 			         <h4>Accepted Requests</h4>
 		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
             {%endfor%}
         
-<button class="btn btn-primary" type="" onclick="window.location.href='edit_post_page'">Edit Post</button>          
+<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>          
             
      
 <!--{% if rider.user.username!=post.owner.user.username %}
@@ -266,7 +277,6 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
     
   {% else %}
     <p>You are already reserved on this post and confirmed.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
     <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
   {% endif %}
 {% endif %}
