@@ -30,7 +30,7 @@ class Rider(models.Model):
     phone = models.CharField(max_length=15)
     #email = models.CharField(max_length=200)
     gender = models.CharField(max_length=1)
-    car_number = models.CharField(max_length=20, default=None)
+    car_number = models.CharField(max_length=20)
     
     #path to image
     image = models.CharField(max_length=300, default="http://1.gravatar.com/avatar/7381ac88cc1a7fb5d0756e9698bf9b14?s=1024&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D1024&r=G")
@@ -43,10 +43,10 @@ class Rider(models.Model):
     #1 - Driving License
     #2 - Voter Card
     auth_type = models.CharField(max_length="20", default="None")
-    auth_token = models.CharField(max_length=50, default = " ")
+    auth_token = models.CharField(max_length=200, default = "")
     
     
-    #user_rating = models.IntegerField(default=5)
+    user_rating = models.IntegerField(default=5)
     neg_flags = models.IntegerField(default=0)
     
     #for reset_password
@@ -60,17 +60,27 @@ class Post(models.Model):
     
     owner = models.ForeignKey(Rider, null=False, related_name='owner')
     
-    car_number = models.CharField(max_length=20, default=None)
+    car_number = models.CharField(max_length=20)
     total_seats = models.IntegerField(default=1)
     phone = models.IntegerField(max_length=10)
     fro = models.CharField(max_length=200)
     to = models.CharField(max_length=200)
     date_time = models.DateTimeField('date_time',default=timezone.now())
     
+    
+    
     #0 - No
     #1 - Yes
     ac = models.IntegerField(default=0)
     autoaccept = models.IntegerField(default=0)
+    
+    #pass1 = models.ForeignKey(Rider, related_name='pass1', default=Rider.objects.get(pk=1))
+    #pass2 = models.ForeignKey(Rider, related_name='pass2', default=Rider.objects.get(pk=1))
+    #pass3 = models.ForeignKey(Rider, related_name='pass3', default=Rider.objects.get(pk=1))
+    #pass4 = models.ForeignKey(Rider, related_name='pass4', default=Rider.objects.get(pk=1))
+    #pass5 = models.ForeignKey(Rider, related_name='pass5', default=Rider.objects.get(pk=1))
+    #pass6 = models.ForeignKey(Rider, related_name='pass6', default=Rider.objects.get(pk=1))
+    
     
     #0 - Both
     #1 - Women only

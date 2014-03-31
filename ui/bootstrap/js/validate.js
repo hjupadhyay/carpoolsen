@@ -1,28 +1,28 @@
 $(document).ready(function(){
 
 	var jVal = {
-// 		'gender' : function (){
-// 
-// 			$('body').append('<div id="genderInfo" class="valid"></div>');
-// 
-// 			var genderInfo = $('#genderInfo');
-// 			var ele = $('#f');
-// 			var pos = ele.offset();
-// 
-// 			genderInfo.css({
-// 				top: pos.top+1,
-// 				left: pos.left+ele.outerWidth()+55
-// 			});
-// 
-// 			if($('input[name="gender"]:checked').length == 0) {
-// 				jVal.errors = true;
-// 					genderInfo.removeClass('correct').addClass('error').html('&larr; Please select your Gender!').show();
-// 					ele.removeClass('normal').addClass('wrong');
-// 			} else {
-// 					genderInfo.removeClass('error').addClass('correct').html('&radic; Okay').show();
-// 					ele.removeClass('wrong').addClass('normal');
-// 			}
-// 		},
+		'gender' : function (){
+
+			$('body').append('<div id="genderInfo" class="valid"></div>');
+
+			var genderInfo = $('#genderInfo');
+			var ele = $('#f');
+			var pos = ele.offset();
+
+			genderInfo.css({
+				top: pos.top+1,
+				left: pos.left+ele.outerWidth()+55
+			});
+
+			if($('input[name="gender"]:checked').length == 0) {
+				jVal.errors = true;
+					genderInfo.removeClass('correct').addClass('error').html('&larr; Please select your Gender!').show();
+					ele.removeClass('normal').addClass('wrong');
+			} else {
+					genderInfo.removeClass('error').addClass('correct').html('&radic; Okay').show();
+					ele.removeClass('wrong').addClass('normal');
+			}
+		},
 	  
 		'usern' : function() {
 
