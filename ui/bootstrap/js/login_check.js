@@ -1,6 +1,5 @@
  
 $(document).ready(function(){
-    console.log("LOL")
     var jVal = {
         'loginname' : function(){
             
@@ -32,7 +31,6 @@ $(document).ready(function(){
             data.append("js","1");
             xmlhttp.open("POST","/login_do/",false);
             xmlhttp.send(data);
-            console.log("LOL");
             if(ele.val() == 0 || xmlhttp.responseText=="inv_user"){
                 jVal.errors = true;
                     ele.removeClass('loginokay').addClass('loginwrong');
@@ -62,18 +60,16 @@ $(document).ready(function(){
     };
     
     $('#login').click(function (){
-        console.log("LOLOL");
-//         var obj = $.browser.webkit ? $('body') : $('html');
-//         obj.animate({ scrollTop: $('#loginusername').offset().top }, 750, function (){
-//             jVal.errors = false;
-//             jVal.loginsend();
-//         });
+         var obj = $.browser.webkit ? $('body') : $('html');
+         obj.animate({ scrollTop: $('#loginusername').offset().top }, 750, function (){
+             jVal.errors = false;
+             jVal.loginsend();
+         });
         jVal.errors = false;
         jVal.loginsend();
         return false;
     });
     $('#logout_link').click(function (){
-        console.log("LOL")
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET","/logout_do/",false);
         xmlhttp.send();
