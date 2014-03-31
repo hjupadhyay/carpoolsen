@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.conf.urls.defaults import handler404, handler500
+#from django.conf.urls.defaults import handler404, handler500
 
 from mainapp import views, errors
 
