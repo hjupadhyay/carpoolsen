@@ -22,6 +22,9 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
 #Perform basic checks on user
 
 #send email function
+
+month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
@@ -576,7 +579,7 @@ def cancel_post(request):
 
 @csrf_exempt
 def post_new(request):
-    
+    global month
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
         
@@ -592,7 +595,6 @@ def post_new(request):
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
     
-    month=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     #Date and time format: dd mm yyyy - hh:mm
     date_time=request.REQUEST['date_time']
     date_time=date_time.split(' ')
@@ -657,7 +659,7 @@ def reserve(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+        
     try:
         reserver = request.user.rider
         postid = request.REQUEST['postid']

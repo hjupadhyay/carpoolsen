@@ -659,11 +659,17 @@ def reserve(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+        
     try:
         reserver = request.user.rider
         postid = request.REQUEST['postid']
         postobj = Post.objects.get(pk=postid)
+        
+        if reserver == postobj.owner:
+	    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+										  "text":'<p>You can\'t reserve your own post.</p>\
+										  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        
         entry = Reserved(post = postobj, reserver = reserver)
         
         
