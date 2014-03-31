@@ -172,11 +172,11 @@ def dashboard(request):
     messages = Message.objects.filter(receiver = request.user.rider)
     
     #generate list reserved objects for posts made by user.
-    post_list = Post.objects.filter(owner=request.user.rider)
-    #post_list = []
-    #for x in posts:
+    posts = Post.objects.filter(owner=request.user.rider)
+    post_list = []
+    for x in posts:
         #for reserved in x.reserved_set.filter(status = 1):
-            #post_list.append(reserved)
+        post_list.append(reserved)
     #create jinja template values
     
     retval = check(request)
