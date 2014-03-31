@@ -172,7 +172,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <div class="user-info-block">
                 <div class="user-heading">
                     <h4>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h4>
-                    <h4>Username: {{post.owner.user.username}}</h4>
+                    <h4><a href="/profile/?id=post.owner.id">Username: {{post.owner.user.username}}</a></h4>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      
