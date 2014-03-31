@@ -14,13 +14,20 @@ import uuid
 import jinja2
 import smtplib
 from mainapp.checker import check
+import thread
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
-
 #Dummy request object
 #class Dum:
     #REQUEST = {}
 #Perform basic checks on user
 
+
+#Function to remove old posts of user
+def remove_old_posts(user):
+    for x in Post.objects.filter(owner=user.rider):
+        if x.date_time < datetime.now():
+            x.delete()
+    print "LOL"
 #send email function
 def send_email(msg, entry):
     gmailLogin = 'carpoolsen'
@@ -154,6 +161,10 @@ def dashboard(request):
     retval = check(request)
     if retval <> None:
         return retval
+    
+    #Delete old threads
+    remove_old_posts(request.user)
+    
     #results1 = Message.objects.filter(sender = rider)
     messages = Message.objects.filter(receiver = request.user.rider)
     
@@ -458,6 +469,7 @@ def login_do(request):
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                                 "text":"""<p>Disabled Account.</p>
                                                                                     <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+        
     else:
         # Return an 'invalid login' error message.
         if "js" in request.REQUEST.keys():
