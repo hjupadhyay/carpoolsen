@@ -123,13 +123,13 @@
                         There are no posts by you so far
                         </div>
                         {% endif %}
-                        {% for reserved in post_list %}
                         
+                        {% for reserved in post_list %}
                         <ul>
-                            <li><p><h5>{{ reserved.reserver.user.first_name }} asked to share a ride with you from {{ reserved.post.fro }} to {{ reserved.post.to }} at {{ reserved.post.date_time }}</h5></p></li>
+                            <li><p><h5><a href="/profile/?id={{reserved_obj.reserver.id}}">{{ reserved.reserver.user.first_name }}</a>asked to share a ride with you from {{ reserved.post.fro }} to {{ reserved.post.to }} at {{ reserved.post.date_time }}</h5></p></li>
                         {% endfor %}
                         </ul>
-                          </div>
+                        </div>
                         </div>
                         <div class="tab-pane fade" id="reserve">
                         <div class="scroll_set">
@@ -142,7 +142,7 @@
                             
                         <ul>
                         {% for reserved in reserved_list %}
-                            <li><p><h5>Your reservation from {{ reserved.post.fro }} to {{ reserved.post.to }} with {{ reserved.post.owner.user.first_name }} on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
+                            <li><p><h5>Your <a href="/post_page/?key={{reserved.post.id}}">reservation </a>from {{ reserved.post.fro }} to {{ reserved.post.to }} with {{ reserved.post.owner.user.first_name }} on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
                         {% endfor %}
                         </ul>  
                         </div>  
@@ -267,6 +267,7 @@
     <hr>	
     </div> 
                     
+
 
 
         <div id="footer">
