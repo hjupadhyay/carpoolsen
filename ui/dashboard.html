@@ -114,9 +114,15 @@
                       </ul>
 <!--                      <div id="myTabContent" class="tab-content" style="overflow-y:scroll; height:400px;">-->
                       <div id="myTabContent" class="tab-content">
-<!--                          style="overflow:auto;"-->
+
                         <div class="tab-pane active in" id="post">
                         <div class="scroll_set">
+                        
+                        {% if not post_list %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        There are no posts by you so far
+                        </div>
+                        {% endif %}
                         {% for reserved in post_list %}
                         
                         <ul>
@@ -127,6 +133,13 @@
                         </div>
                         <div class="tab-pane fade" id="reserve">
                         <div class="scroll_set">
+                        
+                        {% if not reserved_list %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        There are no reservations by you so far
+                        </div>
+                        {% endif %}
+                            
                         <ul>
                         {% for reserved in reserved_list %}
                             <li><p><h5>Your reservation from {{ reserved.post.fro }} to {{ reserved.post.to }} with {{ reserved.post.owner.user.first_name }} on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
@@ -152,11 +165,13 @@
                             </div>
                         {% endfor %}
                         
-                        <div>
-                            No Messages 
+                        {% if not messages %}
+                        <div style="display: block; height: 25px; text-align:center; line-height:200px;">
+                        No Messages in Inbox so far.
                         </div>
-                        
-
+                        {% endif %}
+                            
+        
                       </div>
                     </div>
                   </div>
