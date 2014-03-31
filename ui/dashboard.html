@@ -124,9 +124,9 @@
                         </div>
                         {% endif %}
                         
-                        {% for reserved in post_list %}
+                        {% for post in post_list %}
                         <ul>
-                            <li><p><h5><a href="/profile/?id={{reserved_obj.reserver.id}}">{{ reserved.reserver.user.first_name }}</a>asked to share a ride with you from {{ reserved.post.fro }} to {{ reserved.post.to }} at {{ reserved.post.date_time }}</h5></p></li>
+                            <li><p><h5><a href="/profile/?id={{reserved_obj.reserver.id}}">{{ reserved.reserver.user.first_name }}</a>asked to share a ride with you from {{ post.fro }} to {{ post.to }} at {{ post.date_time }}</h5></p></li>
                         {% endfor %}
                         </ul>
                         </div>
