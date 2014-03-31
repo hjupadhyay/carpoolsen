@@ -593,9 +593,10 @@ def post_new(request):
     to = request.REQUEST['to']
     
     #Date and time format: yyyy-mm-dd-hh-mm
-    date=request.REQUEST['date']
-    date=date.split('/')
-    time=request.REQUEST['time']
+    date_time=request.REQUEST['date_time']
+    date_time=date_time.split(' ')
+    date=date_time[0:3]
+    time=date_time[4]
     time=time.split(':')
     #date_time = datetime.datetime(year=int(request.REQUEST['year']),
                                   #month=int(request.REQUEST['month']), 
@@ -604,9 +605,9 @@ def post_new(request):
                                   #minute=int(request.REQUEST['min']), 
                                   #second=0, 
                                   #microsecond=0,)
-    date_time = datetime.datetime(year=date[0],
+    date_time = datetime.datetime(day=date[0],
                                   month=date[1], 
-                                  day=date[2], 
+                                  year=date[2], 
                                   hour=time[0],
                                   minute=time[1], 
                                   second=0, 
