@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 	<meta charset="UTF-8"/>
-        <title>inbox</title>
+        <title>pref</title>
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
@@ -91,13 +91,19 @@
     <div class="container"> 
 	<div class="col-sm-12 col-lg-12">
 	
-            
-	<div id="tab" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio">
-              <a href="#profile" class="btn btn-large btn-info active" data-toggle="tab">Edit Profile</a><br>
-              <a href="#features" class="btn btn-large btn-info" data-toggle="tab">Change Password</a><br>
-              <a href="#requests" class="btn btn-large btn-info" data-toggle="tab">Deactivate Account</a>
+        <div class="col-sm-4 col-lg-4 col-sm-4" >
+	<div id="tab" class="row" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio">
+        
+              <p> <a href="#profile" class="btn btn-info active" data-toggle="tab" style="display: table-cell" style="width:100%;">Edit Profile</a></p>
+  </div>
+        <div id="tab" class="row" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio">
+  
+            <p> <a href="#features" class="btn btn-info" data-toggle="tab" style="display: table-cell" style="width:100%;">Change Password</a></p>
             </div>
-             
+        <div id="tab" class="row" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio">
+            <p> <a href="#requests" class="btn  btn-info" data-toggle="tab" style="display: table-cell" style="width:100%;">Deactivate Account</a></p></table>
+            </div>
+             </div>
             <div class="tab-content col-sm-8 col-lg-8">
               <div class="tab-pane active" id="profile">
                 <br>
@@ -120,7 +126,7 @@
                     <br>
                 <p class="lead">Deactivate Account</p>
                 <div class="row">
-                    <div class="span5">
+                    <div class="span8">
                       <p>Want to deactivate your account??</p> 
                     </div>
                 </div>

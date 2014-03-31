@@ -92,10 +92,10 @@
 	<div class="col-sm-12 col-lg-12">
 	
             
-	<div id="tab" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio">
-              <a href="#profile" class="btn btn-large btn-info active" data-toggle="tab">Edit Profile</a><br>
-              <a href="#features" class="btn btn-large btn-info" data-toggle="tab">Change Password</a><br>
-              <a href="#requests" class="btn btn-large btn-info" data-toggle="tab">Deactivate Account</a>
+	<div id="tab" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio"><table>
+              <tr><a href="#profile" class="btn btn-large btn-info active" data-toggle="tab">Edit Profile</a><br></tr>
+              <tr><a href="#features" class="btn btn-large btn-info" data-toggle="tab">Change Password</a><br></tr>
+              <Tr><a href="#requests" class="btn btn-large btn-info" data-toggle="tab">Deactivate Account</a></tr></table>
             </div>
              
             <div class="tab-content col-sm-8 col-lg-8">
@@ -115,12 +115,12 @@
                     <div class="span8">
                       <p>Want to change your password??</p> 
                     </div>
-              </div>
+              </div></div>
               <div class="tab-pane" id="requests">
                     <br>
                 <p class="lead">Deactivate Account</p>
                 <div class="row">
-                    <div class="span5">
+                    <div class="span8">
                       <p>Want to deactivate your account??</p> 
                     </div>
                 </div>
