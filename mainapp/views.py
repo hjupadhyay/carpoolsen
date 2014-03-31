@@ -1074,7 +1074,32 @@ def tempage(request):
         #return HttpResponse("LOL")
     #else:
         #return HttpResponse("No Lol")
-    return HttpResponse(jinja_environ.get_template('tempage.html').render({'rider':request.user.rider}))
+    #get latest post of rider
+    date_time1 = None
+    date_time2 = None
+    l_p_obj = Post.objects.filter(owner=request.user.rider)
+    l_r_obj = Reserved.objects.filter(reserver=request.user.rider)
+    resobj = None
+    pobj = None
+    if len(l_p_obj) <> 0:
+        l_p_obj = l_p_obj.aggregate(Min('date_time'))
+        date_time1 = l_p_obj['date_time__min']
+        pobj = Post.objects.get(owner=request.user.rider, date_time=date_time1)
+    if len(l_r_obj) <> 0:
+        mindt = None
+        for x in l_r_obj:
+            if mindt == None:
+                resobj = x
+                mindt = x.post.date_time
+            if mindt > x.post.date_time:
+                resobj = x
+                mindt = x.post.date_time
+        date_time2 = mindt
+    if (date_time1-timezone.now()).total_seconds() > 1800:
+        date_time1=None
+    if (date_time2-timezone.now()).total_seconds() > 1800:
+        date_time2=None
+    return HttpResponse(jinja_environ.get_template('timer.html').render({'rider':request.user.rider, "date_time1":date_time1, "date_time2":date_time2, "reserved_obj":resobj, "post_obj": pobj}))
 #temp form checksdef upload_file(request):
 @csrf_exempt
 def upload(request):
