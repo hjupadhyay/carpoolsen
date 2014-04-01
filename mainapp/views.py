@@ -90,6 +90,8 @@ def contactus(request):
     if request.user.is_authenticated():
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
+def pref_page(request):
+    return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
 def faq(request):
     rider = None
     if request.user.is_authenticated():
@@ -139,7 +141,19 @@ def profile(request):
         return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
-
+def invite_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    message = "Hey! Check out this amazing site, we can travel together now !!"
+    try :
+      request.user.rider
+      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
+									    "message": message}))
+    except Exception as e:
+      return HttpResponse(e)
+    
 def inbox_page(request):   
 
     retval = check(request)
@@ -243,7 +257,21 @@ def dashboard(request):
     #return HttpResponse(str(template_values))
     
 
+def settings_page(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider, 'owner':request.user.rider}))
 def post_form(request):
     retval = check(request)
     if retval <> None:
@@ -1186,3 +1214,18 @@ def upload(request):
         else:
             response = "Failed to upload"
     return HttpResponse(response)
+ 
+@csrf_exempt
+def invite_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    message = "Hey! Check out this amazing site, we can travel together now !!"
+    try :
+      request.user.rider
+      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
+									    "message": message}))
+    except Exception as e:
+      return HttpResponse(e)
+  
