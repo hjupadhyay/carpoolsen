@@ -9,15 +9,9 @@ $(document).ready(function(){
 });
 </script>
 <br/>
-<<<<<<< HEAD
-{% if not date_time1 == None and date_time1 > nowtime %}
-<h3>Your next trip in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h3>
-<h2 id="countdown-holder1"></h2>  
-=======
-{% if not date_time1 == None %}
-<h4>Your next <a href="/post_page?key={{post.id}}">trip</a> in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h4>
+{% if not date_time1 == None  %}
+<h4>Your next <a href="/post_page?key={{post_obj.id}}">trip</a> in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h4>
 <h4 id="countdown-holder1"></h4>  
->>>>>>> 53efd29ca0ee356fd421e48242f1e68ec2c9f9dd
 <script>  
     var clock = document.getElementById("countdown-holder1")  
     , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour+5}}, {{date_time1.minute+30}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
@@ -28,15 +22,9 @@ $(document).ready(function(){
     }, 1000);  
 </script>  
 {% endif %}
-<<<<<<< HEAD
-{% if not date_time2 == None and date_time2 > nowtime %}
-<h3>Your next trip in {{reserved_obj.post.owner}}'s vehicle from {{reserved_obj.post.fro}} to {{reserved_obj.post.to}}</h3>
-<h2 id="countdown-holder2"></h2>  
-=======
 {% if not date_time2 == None %}
 <h4 style="display:inline;">Your next <a href="/post_page/?key={{reserved_obj.post.id}}">trip</a> in {{reserved_obj.post.owner}}'s vehicle from {{reserved_obj.post.fro}} to {{reserved_obj.post.to}}</h4>
 <h4 id="countdown-holder2" style="display:inline;"></h4>  
->>>>>>> 53efd29ca0ee356fd421e48242f1e68ec2c9f9dd
 <script>  
     var clock2 = document.getElementById("countdown-holder2")  
     , targetDate2 = new Date({{date_time2.year}}, {{date_time2.month-1}}, {{date_time2.day}}, {{date_time2.hour}}, {{date_time2.minute}}, {{date_time2.second}}, {{date_time2.microsecond}}); // Jan 1, 2050;  
