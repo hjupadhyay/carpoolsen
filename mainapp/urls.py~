@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.conf.urls.defaults import handler404, handler500
+#from django.conf.urls.defaults import handler404, handler500
 
 from mainapp import views, errors
 
@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^profile/', views.profile, name='profile'),
     url(r'^send_verification_email/', views.send_verification_email, name='send_verification_email'),
     url(r'^edit_profile/', views.edit_profile, name='edit_profile'),
-    url(r'^search_username/', views.search_username, name = 'search_username'),
+    url(r'^search_element/', views.search, name = 'search'),
     url(r'^reply/', views.reply, name = 'reply'),
     url(r'^read_message/', views.read_message, name = 'read_message'),
     url(r'^facebook/', views.facebook, name = 'facebook'),
@@ -49,6 +49,7 @@ urlpatterns = patterns('',
     url(r'^forgot_pass_page/', views.forgot_pass_page, name = 'forgot_pass_page'),
     url(r'^reset_pass_page/', views.reset_pass_page, name = 'reset_pass_page'),
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
+    url(r'^pref/', views.pref_page, name = 'pref'),
     
     #temp for check
     url(r'^upload/', views.upload, name='upload'),

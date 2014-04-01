@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script> {% include "bootstrap/js/bootstrap.min.js" %} </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,126 +9,140 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 	<meta charset="UTF-8"/>
-        <title>inbox</title>
+        <title>pref</title>
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-		<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script type="text/javascript">
-            {% include "bootstrap/js/star-rating.js" %}
-            {% include "bootstrap/js/inbox.js" %}
-        </script>
-        <script type="text/javascript">
-            function hideAndShow(element)
-            {
-                var useless = document.getElementById("clicker");
-                useless.style.display = "none";
-                showDivs(element);
-                
-            }
-        </script>
-        <!--{%if 1==2 %}-->
-        <script src="bootstrap/js/star-rating.js" type="text/javascript"></script>
-		<script src="bootstrap/js/inbox.js" type="text/javascript"></script>
-        <!--{% endif %}
-    <!-- Bootstrap core CSS -->
-    <style>
-    {% include "bootstrap/css/bootstrap.min.css" %}
-    {% include "bootstrap/css/profile.css" %}
-    {% include "bootstrap/css/drop-shadow.css" %}
+        <script src="bootstrap/js/pref.js" type="text/javascript"></script>
     
+    <style>
+    {% include "bootstrap/css/star-rating.css" %}
     </style>
     
-    <!--{% if 1==2 %}-->
+    <script>
+    {% include "bootstrap/js/pref.js" %}
+    {% include "bootstrap/js/bootstrap.min.js" %}
+    {% include "bootstrap/js/pref.js" %}
+    </script>
+    
+    <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/profile.css" rel="stylesheet">
+	<link href="bootstrap/css/pref.css" rel="stylesheet">
 	<link href="bootstrap/css/drop-shadow.css" rel="stylesheet">
 	
     <!-- Custom styles for this template -->
     <link href="jumbotron-narrow.css" rel="stylesheet">
-    <!--{% endif %}-->
-    			<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
 
   <body>
-  
-  
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="container">
-            <!-- <div class="row"> -->
-            <div class="span4 well" style="padding-bottom:0">
-                <form accept-charset="UTF-8" action="" method="POST">
-                    <textarea class="span4" id="new_message" name="new_message"
-                    placeholder="Type in your message" rows="5" cols="79"></textarea><br>
-                    <h6 class="pull-right">320 characters remaining</h6>
-                    <button class="btn btn-info" type="submit">Send New Message</button>
-                </form>
-            </div>
-            <!-- </div> -->
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
-  
-  
   {% include "header.html" %}
+ <!-- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
 
-		
-	<div class="jumbotron">
-    <div class="container"> 
-	<div class="col-sm-12 col-lg-12">
-	
-            
-	<div id="tab" class="btn-group col-sm-4 col-lg-4" data-toggle="buttons-radio"><table>
-              <tr><a href="#profile" class="btn btn-large btn-info active" data-toggle="tab">Edit Profile</a><br></tr>
-              <tr><a href="#features" class="btn btn-large btn-info" data-toggle="tab">Change Password</a><br></tr>
-              <Tr><a href="#requests" class="btn btn-large btn-info" data-toggle="tab">Deactivate Account</a></tr></table>
+              <a class="navbar-brand" href="#">CarPool</a>
+                                        <a class="navbar-brand" href="#">DashBoard</a>
+
             </div>
-             
-            <div class="tab-content col-sm-8 col-lg-8">
-              <div class="tab-pane active" id="profile">
-                <br>
-                <p class="lead">Edit Profile</p>
-                <div class="row">
-                  <div class="span8">
-                      <p>Want to change your profile??</p> 
-                    </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="features">
-                    <br>
-                <p class="lead">Change Password</p>
-                <div class="row">
-                    <div class="span8">
-                      <p>Want to change your password??</p> 
-                    </div>
-              </div></div>
-              <div class="tab-pane" id="requests">
-                    <br>
-                <p class="lead">Deactivate Account</p>
-                <div class="row">
-                    <div class="span8">
-                      <p>Want to deactivate your account??</p> 
-                    </div>
-                </div>
-              </div>
-              
-			</div>
-			</div></div></div></div>
-	
-	
+
+
+
+                                <div class="nav navbar-nav navbar-right">
+              <a class="navbar-brand" href="#">Welcome, {{rider.user.first_name!</a>
+              <a class="navbar-brand" href="#">Log Out</a>							
+                                </div>
+
+
+
+
+            </div><!/.navbar-collapse
+          </div>
+        </div> -->
+		
+		
+		
+	<div class="jumbotron">&nbsp<br>
+    <div class="container"><br><center><h3><b>Settings</b></h3></center>&nbsp
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin-menu">
+                <li class="active"><a href="#" data-target-id="edit"><i class="fa fa-edit fa-fw"></i>Edit Profile</a></li>
+                <li><a href="#" data-target-id="Password"><i class="fa fa-list-alt fa-fw"></i>Change Password</a></li>
+                <li><a href="#" data-target-id="Account"><i class="fa fa-file-o fa-fw"></i>Delete account</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 well admin-content" id="edit">
+            <p>
+                Want to edit your profile??
+            </p>
+            <div class="controls">
+                            <center><button type="submit" class="btn btn-success">Go to edit profile</button></center>
+                        </div>
+        </div>
+        <div class="col-md-9 well admin-content" id="Password">
+            <div align="center">
+					<form action="/change_pass/" method="POST">
+      				<div>
+                        <label for="oldpassword">OLD PASSWORD * </label>&nbsp
+                        <div class="input-group">
+                            <input type="password" id="oldpassword" class="form-control" name="oldpass" placeholder="Valid Password"
+                                required autofocus />
+						</div>
+					</div>
+					&nbsp
+					
+					<div>
+                        <label for="newpassword">NEW PASSWORD * </label>&nbsp
+                        <div class="input-group">
+                            <input type="password" id="passwd" class="form-control" name="pass" placeholder="Valid Password"
+                                required autofocus />
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
+						</div>
+					</div>
+       &nbsp
+		
+					<div>
+                        <label for="password">CONFIRM PASSWORD * </label>&nbsp
+                        <div class="input-group">
+                            <input type="password" id="conf_passwd" class="form-control" placeholder="Valid Password"
+                                required autofocus />
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>-->
+						</div>
+					</div>
+					</div>&nbsp
+                        <div class="controls">
+                            <center><button type="submit" class="btn btn-success">Submit</button></center>
+                        </div>
+					</form>
+        </div>
+        <div class="col-md-9 well admin-content" id="Account">
+           <p>READ CAREFULLY BEFORE DELETING YOUR ACCOUNT.</p>&nbsp
+<ul>
+<li>Deleting your account will delete all your personal information (mobile number, address,car number, profile picture, etc.) from Carpool.</li>
+<li>Your username {{rider.user.username}} will be available to any new user who would like to use it.</li>
+<li>You will be removed from all your contacts' lists and they will not be able to reach you from Carpool.</li>
+<li>Once you delete your account, you can't undo it. If you wish to use Carpool in the future, you will have to create another account.</li>
+</ul>
+<div class="controls">
+                            <center><button type="submit" class="btn btn-danger">Delete Account</button></center>
+                        </div>
+        </div>
+    </div>
+</div>
+
+                
+     <!-- /container -->
+
+	</div> 
 	<div id="footer">
           <div class="container">
             <p class="text-muted">&copy; Company 2014</p>
@@ -139,18 +152,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-       
-       <script type="text/javascript">
-        {% include "bootstrap/js/bootstrap.min.js" %}
-        {% include "bootstrap/js/jquery.searchable.js" %}
-       </script>
-       
-       <!--{% if 1==2 %}-->
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-       <script src="bootstrap/js/jquery.searchable.js"></script>
-       <!--{% endif %}-->
-	   <!-- <script src="jquery.js"></script> -->
-        
-
+       <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

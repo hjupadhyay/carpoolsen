@@ -51,7 +51,12 @@ urlpatterns = patterns('',
     url(r'^forgot_pass_page/', views.forgot_pass_page, name = 'forgot_pass_page'),
     url(r'^reset_pass_page/', views.reset_pass_page, name = 'reset_pass_page'),
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
+<<<<<<< HEAD
     url(r'^invite_page/', views.invite_page, name='invite_page'),
+=======
+    url(r'^pref_page/', views.pref_page, name = 'pref_page'),
+    
+>>>>>>> 951ef2bd1593fbc1f813a3fbfd10a6c6ad02c912
     #temp for check
     url(r'^upload/', views.upload, name='upload'),
     url(r'^tempage/', views.tempage, name='tempage'),
