@@ -1087,34 +1087,38 @@ def delete_message(request):
         return retval
     
     rider = request.user.rider
-    mid = request.REQUEST['mid']
-    message = None
-    try:
-        message = Message.objects.get(pk=mid)
-    except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    mids = request.REQUEST['mids']
+    mids=mids.split(', ')
     
-    if message.sender.pk == rider.pk:
-        message.smailbox = 0
-    if message.receiver.pk == rider.pk:
-        message.rmailbox = 0
-    if message.rmailbox + message.smailbox == 0:
-        #This means the message has been deleted from both the sender and the receiver's side.
-        #The message will be deleted after one month
-        #if message.date_time.month - timezone.now().month >= 1:
-            #message.delete()
-        
-        #For now, message will be deleted. In the future, we may implement restoring of messages, in which case
-        #We will keep the delete after one month feature.
-        message.delete()
-    else:
-        message.save()
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'<p>Messege deleted successfully.</p>\
-                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-
-#reply to a message
+    for mid in mids:
+	message = None
+	
+	try:
+	    message = Message.objects.get(pk=int(mid))
+	except:
+	    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+										"text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+	if message.sender.pk == rider.pk:
+	    message.smailbox = 0
+	if message.receiver.pk == rider.pk:
+	    message.rmailbox = 0
+	if message.rmailbox + message.smailbox == 0:
+	    #This means the message has been deleted from both the sender and the receiver's side.
+	    #The message will be deleted after one month
+	    #if message.date_time.month - timezone.now().month >= 1:
+		#message.delete()
+	    
+	    #For now, message will be deleted. In the future, we may implement restoring of messages, in which case
+	    #We will keep the delete after one month feature.
+	    message.delete()
+	else:
+	    message.save()
+	return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+									      "text":'<p>Messege deleted successfully.</p>\
+										  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    
+  #reply to a message
+  
 @csrf_exempt
 def reply(request):
     retval = check(request)
