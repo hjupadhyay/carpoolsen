@@ -49,6 +49,7 @@ urlpatterns = patterns('',
     url(r'^forgot_pass_page/', views.forgot_pass_page, name = 'forgot_pass_page'),
     url(r'^reset_pass_page/', views.reset_pass_page, name = 'reset_pass_page'),
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
+    url(r'^pref_page/', views.pref_page, name = 'pref_page'),
     
     #temp for check
     url(r'^upload/', views.upload, name='upload'),

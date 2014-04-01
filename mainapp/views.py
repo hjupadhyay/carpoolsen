@@ -90,6 +90,8 @@ def contactus(request):
     if request.user.is_authenticated():
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
+def pref_page(request):
+    return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
 def faq(request):
     rider = None
     if request.user.is_authenticated():
