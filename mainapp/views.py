@@ -91,6 +91,10 @@ def contactus(request):
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
 def pref_page(request):
+    retval = check(request)
+    if retval <> None:
+	return retval
+
     return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
 def faq(request):
     rider = None
