@@ -1220,16 +1220,23 @@ def upload(request):
     return HttpResponse(response)
  
 @csrf_exempt
-def invite_page(request):
+def invite(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
-    message = "Hey! Check out this amazing site, we can travel together now !!"
-    try :
-      request.user.rider
-      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
-									    "message": message}))
+      
+    try:
+      email=request.REQUEST['email_id']
+      message=request.REQUEST['message']
+      rider=request.user.rider
+      entry=request.user
+      
+      subject = 'CarPool.com Invitation Email'
+      message=message + "\n\n Click <a href= \"http://localhost:8000\"> here</a> to visit the website."
+      x = send_email(message, entry)
+      
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Email Sent Successfully.</p>\
+                                                                                   <p>Click <a href="/">here</a> to go to the homepage</p>'}))
     except Exception as e:
-      return HttpResponse(e)
-  
+	return HttpResponse(e)
