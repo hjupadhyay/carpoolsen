@@ -203,7 +203,7 @@ def dashboard(request):
     #get latest post of rider
     date_time1 = None
     date_time2 = None
-    l_p_obj = Post.objects.filter(owner=request.user.rider)
+    l_p_obj = Post.objects.filter(owner=request.user.rider, date_time__gte = timezone.now())
     l_r_obj = Reserved.objects.filter(reserver=request.user.rider)
     resobj = None
     pobj = None
@@ -214,6 +214,8 @@ def dashboard(request):
     if len(l_r_obj) <> 0:
         mindt = None
         for x in l_r_obj:
+            if x.post.date_time < timezone.now():
+                continue
             if mindt == None:
                 resobj = x
                 mindt = x.post.date_time
