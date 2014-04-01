@@ -222,7 +222,7 @@ $(document).ready(function(){
                         emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('normal').addClass('wrong');
                 } else{
-// 					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').show();
+					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').hide();
 					ele.removeClass('wrong').addClass('normal');
 			}
             }
