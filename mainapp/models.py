@@ -43,7 +43,7 @@ class Rider(models.Model):
     #1 - Driving License
     #2 - Voter Card
     auth_type = models.CharField(max_length="20", default="None")
-    auth_token = models.CharField(max_length=200, default = "")
+    auth_token = models.CharField(max_length=200, default = "0")
     
     
     user_rating = models.IntegerField(default=5)

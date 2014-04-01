@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url,include
+from django.conf.urls import patterns, url
 #from django.conf.urls.defaults import handler404, handler500
 
 from mainapp import views, errors
@@ -32,9 +32,8 @@ urlpatterns = patterns('',
     url(r'^change_pass/', views.change_pass, name = 'change_pass'),
     url(r'^forgot_pass/', views.forgot_pass, name = 'forgot_pass'),
 
-    #url(r'^invite/', views.invite, name='invite'),
+    url(r'^invite/', views.invite, name='invite'),
 
-    #url(r'^invite/', views.invite, name='invite'),
     url(r'^settings_page/', views.settings_page, name = 'settings_page'),
 
     
@@ -55,7 +54,7 @@ urlpatterns = patterns('',
     url(r'^reset_pass_page/', views.reset_pass_page, name = 'reset_pass_page'),
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
 
-    #url(r'^invite_page/', views.invite_page, name='invite_page'),
+    url(r'^invite_page/', views.invite_page, name='invite_page'),
 
     url(r'^pref_page/', views.pref_page, name = 'pref_page'),
     
