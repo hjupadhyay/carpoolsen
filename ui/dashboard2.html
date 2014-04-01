@@ -15,6 +15,7 @@
             {% include "bootstrap/css/dashboard.css" %}
             {% include "bootstrap/css/bootstrap.css" %}
             {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
+	    {% include "bootstrap/css/backgrnd.css" %}
         </style>
          
        <!-- Bootstrap core CSS -->
@@ -44,7 +45,7 @@
         
         
           
-        <div class="jumbotron">
+        <div class="jumbotron2">
           <div class="container">
 
         <!--<div class="container">
@@ -252,21 +253,14 @@
     </div>
         <center>{% include "timer.html" %}</center>
 
-    </div>
-
-    <hr>	
+    </div>	
 
     </div> 
                     
 
 
 
-        <div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+       {% include "footer.html" %}
 
         <!-- Placed at the end of the document so the pages load faster -->
         

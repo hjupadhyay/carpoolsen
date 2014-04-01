@@ -31,9 +31,12 @@ urlpatterns = patterns('',
     url(r'^facebook/', views.facebook, name = 'facebook'),
     url(r'^change_pass/', views.change_pass, name = 'change_pass'),
     url(r'^forgot_pass/', views.forgot_pass, name = 'forgot_pass'),
-    #url(r'^invite/', views.invite, name='invite'),
-    
-    
+
+    url(r'^invite/', views.invite, name='invite'),
+
+    url(r'^invite/', views.invite, name='invite'),
+    url(r'^settings_page/', views.settings_page, name = 'settings_page'),
+
     
     #Pages
     url(r'^signup_page/', views.signup_page, name='signup_page'),

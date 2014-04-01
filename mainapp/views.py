@@ -91,6 +91,10 @@ def contactus(request):
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
 def pref_page(request):
+    retval = check(request)
+    if retval <> None:
+	return retval
+
     return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
 def faq(request):
     rider = None
@@ -257,7 +261,21 @@ def dashboard(request):
     #return HttpResponse(str(template_values))
     
 
+def settings_page(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
+    #Check if user has an associated rider
+    #(This will be false if the admin logs in)
+    
+    try:
+        request.user.rider
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                              "text":"""
+                                                                                  <p>No Rider associated!.</p>
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider, 'owner':request.user.rider}))
 def post_form(request):
     retval = check(request)
     if retval <> None:
