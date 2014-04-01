@@ -123,54 +123,60 @@
 					<form class="navbar-form navbar-left">
 					<div class="form-group">
 					<ul class="chk-container">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default">
-								<div class="checkbox" style="margin: 0;">
-									<label>
-									<input type="checkbox" id="selectall"/>
-									</label>
-								</div>
-							</button>
-							<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-							</button>-->
-							<!--<ul class="dropdown-menu" role="menu">
-								<li><a id="selectall"href="#">All</a></li>
-								<li><a href="#">None</a></li>
-								<li><a href="#">Read</a></li>
-								<li><a href="#">Unread</a></li>
-							</ul>-->
-						</div>
+						<!-- <div class="btn-group"> -->
+                        <div class="row">
+							<div class="col-md-2">
+                            <div class="checkbox" style="margin: 0;">
+							<label>
+							<input type="checkbox" id="selectall"/>
+							</label>
+                            <!-- </div> -->
+                            <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+                            </button>-->
+                            <!--<ul class="dropdown-menu" role="menu">
+                            <li><a id="selectall"href="#">All</a></li>
+                            <li><a href="#">None</a></li>
+                            <li><a href="#">Read</a></li>
+                            <li><a href="#">Unread</a></li>
+                            </ul>-->
+						      </div>
+                            </div>
 						<!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
                    		<span class="glyphicon glyphicon-refresh"></span>   
 						</button>
-						--><button type="delete" class="btn btn-danger" onclick="delete_messages()">Delete</button>
+						-->
+                            <div class="col-md-5">
+                                <button type="delete" class="btn btn-danger" onclick="delete_messages()">Delete</button>
+                            </div>
+                        </div>
 					</div>
 					</form>
 					</div>
 					<ul>
-						<div class="container" id="searchable-container">
-						{% for message in messages %}
-						<li>
-						<li>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <label>
-                                        <input type="checkbox" class="checkbox1" value="2" id="checkbox{{message.id}}"/>
-                                        {% if message.rmailbox == 2 %}
-                                        <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
-                                        {% elif  message.rmailbox == 1 %}
-                                        <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
-                                        {% endif %}
-                                        
-                                    </label>
-                                    <span class="badge pull-right"></span>
-                                    
+                        <fieldset id = "mychecks">
+    					    <div class="container" id="searchable-container">
+    						{% for message in messages %}
+    						<li>
+    						<li>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            <input type="checkbox" class="checkbox1" value="2" id="checkbox{{message.id}}" onclick="cc({{message.id}});" />
+                                            {% if message.rmailbox == 2 %}
+                                            <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
+                                            {% elif  message.rmailbox == 1 %}
+                                            <a style= "font-weight:bold" id="mlist_entry{{message.id}}" href="javascript:;" onclick="hideAndShow({{message.id}});">Message from {{ message.sender }} on {{ message.date_time.day }}/{{ message.date_time.month }}/{{ message.date_time.year }} at {{ message.date_time.hour }}:{{ message.date_time.minute }}</a>
+                                            {% endif %}
+                                            
+                                        </label>
+                                        <span class="badge pull-right"></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-						{% endfor %}
-						</div>
+                            </li>
+    						{% endfor %}
+    						</div>
+                        </fieldset>
 					</ul> 
 					</ul>
                 </div>

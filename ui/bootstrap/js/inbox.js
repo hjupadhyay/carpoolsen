@@ -1,3 +1,30 @@
+var list = []
+// the fuction checks the checked msgs and stores them in list
+function cc(id){
+	mid = "checkbox"+id;
+	k = jQuery.inArray(mid,list);
+	if(k==1){
+		var index = list.indexOf(mid);
+		if (index > -1) {
+    		list.splice(index, 1);
+		}else{}
+	}
+	else{
+		list.push(mid);
+	}
+}
+
+function delete_messages()
+{
+	if (list.length != 0){
+	    var xmlhttp = new XMLHttpRequest();
+	    var data = new FormData();
+	    data.append("mids",list.toString());
+	    xmlhttp.open("POST","/delete_message/",true);
+	    xmlhttp.send(data);
+	}
+}
+
 function showDivs(start)
 {
 	var div;
@@ -59,33 +86,44 @@ function showhide()
 //     xmlhttp.open("POST","/read_message/",true);
 //     xmlhttp.send(data);
 //     console.log("loL");
-    
-    
-    
-    
-
 }
+// var list
 
-function delete_messages()
-{
-    //delete_messages
-    //use checkbox{{messageid}}
-}
-    
 $(document).ready(function() {
-    $('#selectall').click(function(event) {  //on click 
-        if(this.checked) { // check select status
-            $('.checkbox1').each(function() { //loop through each checkbox
-                this.checked = true;  //select all checkboxes with class "checkbox1"               
-            });
-        }else{
-            $('.checkbox1').each(function() { //loop through each checkbox
-                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
-            });         
-        }
-    });
-    
+    $('#selectall').click(function() {	//on click
+    	if(this.checked){
+    		{% for message in messages %}
+	    		a = document.getElementById("checkbox{{message.id}}");
+	        	a.checked = true;
+	    	{% endfor %}
+	    }
+    	else{
+    		{% for message in messages %}
+	    		a = document.getElementById("checkbox{{message.id}}");
+	        	a.checked = false;
+	        {% endfor %}
+	    }
+    });   
 });
+
+// $(document).ready(function() {
+//     $('#selectall').click(function() {	//on click
+// 	        alert('here');
+// 	        // if(this.checked) { // check select status
+	            
+// 	        // 	{% for message in messages %}	
+// 	        //     	a = document.getElementById("checkbox{{message.id}}");
+// 	        //     	a.checked = false;
+// 	        //     {% endfor %}
+// 	        // }
+// 	        // }else{
+// 	        // 	{% for message in messages %}   
+// 	        //     	a = document.getElementById("checkbox{{message.id}}");
+// 	        // 		a.checked = true;
+// 	        //     {% endfor %}
+// 	        }
+//     });
+// });
 	 
 /*search*/
 $(function () {
