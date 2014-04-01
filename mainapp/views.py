@@ -214,7 +214,7 @@ def dashboard(request):
     if len(l_r_obj) <> 0:
         mindt = None
         for x in l_r_obj:
-            if x.pos.date_time < timezone.now():
+            if x.post.date_time < timezone.now():
                 continue
             if mindt == None:
                 resobj = x
