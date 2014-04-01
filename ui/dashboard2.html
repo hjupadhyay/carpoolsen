@@ -148,7 +148,7 @@
                         </div>  
                         </div>
                         <div class="tab-pane fade" id="inbox">
-                        
+                        {% if messages %}
                         {% for message in messages %}
                             <ol>
                             <li><p><h5 id="{{message.id}}">{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
@@ -163,13 +163,14 @@
                             <div>
                             </div>
                         {% endfor %}
-                        {% if not messages %}
+                        <button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
+        
+                        {% elif not messages %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
                         No Messages in Inbox so far.
                         </div>
                         {% endif %}
-			<button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
-        
+			
                       </div>
                     </div>
                   </div>
