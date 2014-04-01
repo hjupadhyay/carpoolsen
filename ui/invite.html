@@ -8,6 +8,7 @@
         <style>
             {% include "bootstrap/css/style.css" %}
             {% include "bootstrap/css/bootstrap.min.css" %}
+            {% include "bootstrap/css/checks.css" %}
 /*             % include "jumbotron-narrow.css" % */
             
             
@@ -26,8 +27,8 @@
     <br>
 		<form role="form" class="col-md-8" method="post" action="/invite/">
 			<div class="form-group">
-			<label for="email_id">Email Address (Enter multiple separated by comma(,)</label>
-			<input id="name" name="email_id" type="text" class="form-control" required>
+			<label for="email_id">Email Address (Enter multiple separated by comma(,))</label>
+			<input id="email" name="email_id" type="text" class="form-control" required>
 			
 		</div>
 			<label for="message">Message</label>
@@ -41,5 +42,9 @@
 	</div>
 </div>
 </div>
+<style>
+{% include "bootstrap/js/validate.js" %}
+{% include "bootstrap/js/jquery.min1.js" %}
+</style>
 </body>
 </html>
