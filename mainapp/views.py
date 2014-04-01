@@ -1113,7 +1113,8 @@ def delete_message(request):
     
     rider = request.user.rider
     mids = request.REQUEST['mids']
-    mids=mids.split(',')
+    mids = mids.split(',')
+    print mids
     for mid in mids:
 		message = None
 		
@@ -1137,7 +1138,7 @@ def delete_message(request):
 			message.delete()
 		else:
 			message.save()
-		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
 											"text":'<p>Messege deleted successfully.</p>\
 											<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
 		
