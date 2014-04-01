@@ -35,7 +35,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
   
     <div class="row">
-        <div class="col-md-4 well well-sm">
+        <div class="col-md-4 col-md-offset-4 well well-sm">
             <p> Please Log in to continue </p>
             <legend style="color:blue"><i class="glyphicon glyphicon-arrow-right"></i> LOGIN</legend>
             <form action="/login_do/" method="post" class="form" role="form">
@@ -54,7 +54,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                     <label class="checkbox"><input name = "code" type="checkbox" value="{{ code }}" checked style="opacity:0; position:absolute; left:9999px;"></label>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-6 col-md-offset-3">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
     <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</button>
