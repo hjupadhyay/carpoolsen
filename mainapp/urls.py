@@ -31,6 +31,8 @@ urlpatterns = patterns('',
     url(r'^facebook/', views.facebook, name = 'facebook'),
     url(r'^change_pass/', views.change_pass, name = 'change_pass'),
     url(r'^forgot_pass/', views.forgot_pass, name = 'forgot_pass'),
+    url(r'^invite/', views.invite, name='invite'),
+    
     
     
     #Pages
@@ -49,7 +51,7 @@ urlpatterns = patterns('',
     url(r'^forgot_pass_page/', views.forgot_pass_page, name = 'forgot_pass_page'),
     url(r'^reset_pass_page/', views.reset_pass_page, name = 'reset_pass_page'),
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
-    
+    url(r'^invite_page/', views.invite_page, name='invite_page'),
     #temp for check
     url(r'^upload/', views.upload, name='upload'),
     url(r'^tempage/', views.tempage, name='tempage'),

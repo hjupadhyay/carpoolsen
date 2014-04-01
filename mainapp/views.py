@@ -139,7 +139,19 @@ def profile(request):
         return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
     
-
+def invite_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    message = "Hey! Check out this amazing site, we can travel together now !!"
+    try :
+      request.user.rider
+      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
+									    "message": message}))
+    except Exception as e:
+      return HttpResponse(e)
+    
 def inbox_page(request):   
 
     retval = check(request)
@@ -1186,3 +1198,18 @@ def upload(request):
         else:
             response = "Failed to upload"
     return HttpResponse(response)
+ 
+@csrf_exempt
+def invite_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    
+    message = "Hey! Check out this amazing site, we can travel together now !!"
+    try :
+      request.user.rider
+      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
+									    "message": message}))
+    except Exception as e:
+      return HttpResponse(e)
+  
