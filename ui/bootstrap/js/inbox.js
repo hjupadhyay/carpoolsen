@@ -1,26 +1,26 @@
 var list = []
 // the fuction checks the checked msgs and stores them in list
 function cc(id){
-	mid = "checkbox"+id;
-	k = jQuery.inArray(mid,list);
-	if(k==1){
-		var index = list.indexOf(mid);
+	mid = id;
+	var index = list.indexOf(mid);
+	if(index>-1){
 		if (index > -1) {
     		list.splice(index, 1);
-		}else{}
+		}
 	}
 	else{
 		list.push(mid);
 	}
+	console.log(list.toString());
 }
 
 function delete_messages()
-{
-	if (list.length != 0){
+{	
+	if (list.length > 0){
 	    var xmlhttp = new XMLHttpRequest();
 	    var data = new FormData();
 	    data.append("mids",list.toString());
-	    xmlhttp.open("POST","/delete_message/",true);
+	    xmlhttp.open("POST","/delete_message/",false);
 	    xmlhttp.send(data);
 	}
 }
@@ -94,6 +94,9 @@ $(document).ready(function() {
     	if(this.checked){
     		{% for message in messages %}
 	    		a = document.getElementById("checkbox{{message.id}}");
+	    		if(a.checked == false){
+	    			a.click();
+	    		}
 	        	a.checked = true;
 	    	{% endfor %}
 	    }
@@ -101,6 +104,7 @@ $(document).ready(function() {
     		{% for message in messages %}
 	    		a = document.getElementById("checkbox{{message.id}}");
 	        	a.checked = false;
+	        	list = [];
 	        {% endfor %}
 	    }
     });   
