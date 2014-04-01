@@ -9,7 +9,8 @@
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
     {% include "bootstrap/css/bootstrap.min.css" %}
-        {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
+    {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
+    {% include "bootstrap/css/checks.css" %}
 </style>
     
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -45,13 +46,13 @@
                 <div class="col-md-4">
                 <label for="fro">
                             FROM  </label>
-                    <input class="form-control" name="fro" placeholder="From Location" type="text"
+                    <input class="form-control" name="fro" id="fro" placeholder="From Location" type="text"
                         required autofocus />
                 </div>
                 <div class="col-md-4">
                 <label for="to">
                             TO  </label>
-                    <input class="form-control" name="to" placeholder="To Location" type="text" required />
+                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" required />
                 </div>
            
 			
@@ -67,7 +68,7 @@
                <label for="">
                             DATE & TIME </label>
                 <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                    <input class="form-control" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="" value="" name="date_time" readonly >
+                    <input class="form-control"  id="datetime" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="Date and Time" value="" name="date_time" readonly >
                     
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -80,7 +81,7 @@
 			<div class="col-md-4">
 			<label for="phone">
                             CONTACT ME  </label>
-                    <input class="form-control" name="phone" placeholder="Phone Number" type="text" value="{{rider.phone}}" >
+                    <input class="form-control" name="phone" id="phone" placeholder="Phone Number" type="text" value="{{rider.phone}}" required>
                 </div>
 			</div>
        
@@ -93,7 +94,7 @@
                 <div class="col-md-4">
                 <label for="">
                             CAR NUMBER </label>
-                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{rider.car_number}}">
+                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{rider.car_number}}" required>
                 </div>
 				
 <div class="col-md-4">
@@ -262,7 +263,7 @@
 <div class="col-md-4">
 <label for="cost">
                             COST PER SEAT </label>
-                    <input class="form-control" name="cost" placeholder="Cost in Rupee" type="text" required />
+                    <input class="form-control" name="cost" placeholder="Cost in Rupees" type="text" value="0" required />
                 </div>
 
 </div>
@@ -307,7 +308,9 @@
 	<script type="text/javascript">
             {% include "bootstrap/js/jquery-1.8.3.min.js"%}
 {% include  "bootstrap/js/bootstrap.min.js" %}
-{% include "bootstrap/js/bootstrap-datetimepicker.js" %} </script>
+{% include "bootstrap/js/bootstrap-datetimepicker.js" %}
+{% include "/bootstrap/js/validate.js" %}
+</script>
 <script type="text/javascript">  $('.form_datetime').datetimepicker({
         format:"dd MM yyyy - hh:ii",
         weekStart: 1,
