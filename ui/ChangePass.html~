@@ -13,7 +13,6 @@
     <style>
         {% include "bootstrap/css/bootstrap.min.css" %}
         {% include "bootstrap/css/style.css" %}
-	{% include "bootstrap/css/backgrnd.css" %}
     </style>
     
  
@@ -83,7 +82,12 @@
    
     </div> <!-- /container -->
 				
-{% include "footer.html" %}
+	<div id="footer">
+          <div class="container">
+            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
+            <p class="text-muted">&copy; Carpool 2014</p>
+            </div>
+        </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
