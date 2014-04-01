@@ -658,6 +658,10 @@ def cancel_post(request):
     
     try:
         entry = Post.objects.get(pk=int(postid))
+        if entry.date_time < timezone.now():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Trip has already started, cannot cancel now.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         if entry.owner.user.pk == user.pk:
             if entry.reserved_set.all().aggregate(Sum('status')) > 0:
                 user.rider.neg_flags += 1
@@ -766,8 +770,13 @@ def reserve(request):
         postobj = Post.objects.get(pk=postid)
         
         if reserver == postobj.owner:
-	    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                            "text":'<p>You can\'t reserve your own post.</p>\
+                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        
+        if postobj.date_time < timezone.now():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                           "text":'<p>Trip already started, cannot reserve now.</p>\
                                                                                <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         
         if (reserver.gender=='m' and postobj.men_women==1) or (reserver.gender=='f' and postobj.men_women==2):
@@ -845,6 +854,10 @@ def revoke(request):
         #if resobj.status == 1:
             #resobj.status = 0
             #resobj.save
+        if resobj.post.date_time < timezone.now():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                           "text":'<p>Trip already started, cannot reserve now.</p>\
+                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         resobj.delete()
         #else:
             #return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
@@ -875,6 +888,10 @@ def cancel_res(request):
         else:
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                                   "text":'Invalid User. Please go back or click <a href="/">here</a> to go to the homepage'}))
+        if resobj.post.date_time < timezone.now():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                           "text":'<p>Trip already started, cannot reserve now.</p>\
+                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         #entry = Reserved(post = postobj, reserver = reserver)
         
     except Exception as e:
@@ -936,8 +953,11 @@ def search_do(request):
                                           microsecond=0,)
     
     men_women=request.REQUEST['men_women']
-    
-    results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women))
+    results = []
+    if men_women <> "0":
+        results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women))
+    else:
+        results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time)
     template_values = {
         "rider":rider,
         'result_list':results,
@@ -971,7 +991,9 @@ def edit_post(request):
     if postobj.owner.user.username <> owner.user.username:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                               "text":'Invalid User. Please go back or click <a href="/">here</a> to go to the homepage'}))
-    
+    if postobj.date_time < timezone.now():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'The trip has started, cannot edit post anymore. Please go back or click <a href="/">here</a> to go to the homepage'}))
     #owner = request.user.rider
     car_number = request.REQUEST['car_number']
     total_seats = int(request.REQUEST['total_seats'])

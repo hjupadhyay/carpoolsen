@@ -23,4 +23,5 @@ formatting
 *Post page -> Auto accept
 *wish to cancel -> cancel
 *bold username
+Old posts = not changable
 TEll user about neg flags warning
