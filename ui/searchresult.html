@@ -57,7 +57,8 @@
             <th>Date</th>
             <th>Time</th>
             <th>Cost(INR)</th>
-            <th>Negative Flags</th>            
+            <th>Negative Flags</th>
+            <th>Authentication</th>
             <th class="text-center">Action</th>
             
         </tr>
@@ -70,6 +71,11 @@
                 <td>{{ post.date_time.time() }}</td>
                 <td>{{ post.cost }}</td>
                 <td><center>{{ post.owner.neg_flags }}</td>
+                {% if post.owner.auth_token == 0 %}
+                <td><center>Yes</td>
+                {% else %}
+                <td><center>No</td>
+                {% endif %}
                 
                 {% if not rider == None %}
                 <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Show Details</a> </td>

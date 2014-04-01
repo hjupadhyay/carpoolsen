@@ -59,6 +59,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <div class="container drop-shadow">
     <div class="centered">
         <h2>Post Details</h2>
+        {% if post.autoaccept == 1 %}
+        <h5>Your reservation will be automatically accepted</h5>
+        {% else %}
+        <h5>Your reservation will have to be confirmed by the owner</h5>
+        {% endif %}
             <br>
             <br>
     </div>
@@ -182,8 +187,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      
- 
-<input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}">
+ <h5><a href="/faq#Q7">Negative flags: {{post.owner.neg_flags}}</a></h5>
+ {% if post.owner.auth_token=="0" %}
+ <h5>*Non-Authenticated user*</h5>
+ {% endif %}
+<!-- <input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}"> -->
                     
 <!-- put rating system here -->                    
                     
@@ -218,7 +226,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	            {%endif%}
             {%endfor%}
         
-<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>          
+<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
+<button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
             
      
 <!--{% if rider.user.username!=post.owner.user.username %}
@@ -298,11 +307,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 </div>
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Post</button>
     
   {% else %}
     <p>You are already reserved on this post and confirmed.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Wish to cancel?</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Post</button>
   {% endif %}
 {% endif %}
 

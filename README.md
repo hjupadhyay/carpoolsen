@@ -18,3 +18,9 @@ UTC issue
 (* Settings page *)
 (* change password *)
 formatting
+
+
+*Post page -> Auto accept
+*wish to cancel -> cancel
+*bold username
+TEll user about neg flags warning

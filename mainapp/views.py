@@ -9,7 +9,7 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-from django.db.models import Count, Min, Sum, Avg
+from django.db.models import Count, Min, Sum, Avg, Max
 import uuid
 import jinja2
 import smtplib
@@ -34,12 +34,12 @@ def remove_old_posts(user):
 
 month=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-def send_email(msg, entry):
+def send_email(msg, email):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
     fro = gmailLogin + "@gmail.com"
     
-    to = entry.email
+    to = email
     
     try:
         server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
@@ -67,7 +67,7 @@ def send_verification_email(request):
     click on the following link to verify (or copy paste it in your browser if needed)\n\n\
     http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
     
-    x = send_email(msg, entry)
+    x = send_email(msg, entry.email)
     if x[0]==0:
         return x[1]
     
@@ -90,10 +90,6 @@ def contactus(request):
     if request.user.is_authenticated():
         rider = request.user.rider
     return HttpResponse(jinja_environ.get_template('ContactUs.html').render({"rider":rider}))
-def pref_page(request):
-    retval = check(request)
-    if retval <> None:
-	return retval
 
     return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
 def faq(request):
@@ -144,13 +140,15 @@ def profile(request):
     except:
         return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
-    
+
+@csrf_exempt
 def invite_page(request):
     retval = check(request)
     if retval <> None:
         return retval
     
     message = "Hey! Check out this amazing site, we can travel together now !!"
+
     try :
       request.user.rider
       return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
@@ -509,7 +507,7 @@ def verify(request):
                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
 
 
-#Called when a user clicks logout button.
+#Called when a user clicks button.
 def logout_do(request):
     logout(request)
     redirect_url = "/"
@@ -597,7 +595,7 @@ def forgot_pass(request):
     http://localhost:8000/reset_pass_page/?reset_pass=%s&email=%s\n\n\
     If you have not requested for a reset of password, please ignore.' % (subject, user.rider.reset_pass, user.email)
     
-    x = send_email(msg, user)
+    x = send_email(msg, user.email)
     if x[0] == 0:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'Could not process request, please try again later by going back or clicking <a href="/">here</a> to go to the homepage'}))
@@ -661,6 +659,8 @@ def cancel_post(request):
     try:
         entry = Post.objects.get(pk=int(postid))
         if entry.owner.user.pk == user.pk:
+            if entry.reserved_set.all().aggregate(Sum('status')) > 0:
+                user.rider.neg_flags += 1
             #Delete all reserved entries for that post too
             for y in entry.reserved_set.all():
                 #SMS notification
@@ -671,10 +671,11 @@ def cancel_post(request):
                                                                                   "text":'<p>Not enough permissions.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
     except Exception as e:
-        return HttpResponse(e + "<a href="/"> Click here to go to Home Page </a>")
+        return HttpResponse(e)
+    #+ "<a href="/"> Click here to go to Home Page </a>")
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+                                                                          "text":'Post Cancelled successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 @csrf_exempt
 def post_new(request):
@@ -903,32 +904,36 @@ def search_do(request):
     #date = request.REQUEST['date_time'].split(" ")
 
     #Date and time format: dd mm yyyy - hh:mm
-    start_date_time=request.REQUEST['start_date_time']
-    start_date_time=start_date_time.split(' ')
-    startdate=start_date_time[0:3]
-    starttime=start_date_time[4]
-    starttime=starttime.split(':')
-    start_date_time = datetime.datetime(day=int(startdate[0]),
-                                  month=month.index(startdate[1]), 
-                                  year=int(startdate[2]), 
-                                  hour=int(starttime[0]),
-                                  minute=int(starttime[1]), 
-                                  second=0, 
-                                  microsecond=0,)
+    start_date_time=Post.objects.all().aggregate(Min('date_time'))['date_time__min']
+    if request.REQUEST['start_date_time']<>'':
+        start_date_time=request.REQUEST['start_date_time']
+        start_date_time=start_date_time.split(' ')
+        startdate=start_date_time[0:3]
+        starttime=start_date_time[4]
+        starttime=starttime.split(':')
+        start_date_time = datetime.datetime(day=int(startdate[0]),
+                                            month=month.index(startdate[1]), 
+                                            year=int(startdate[2]), 
+                                            hour=int(starttime[0]),
+                                            minute=int(starttime[1]), 
+                                            second=0, 
+                                            microsecond=0,)
 
     #Date and time format: dd mm yyyy - hh:mm
-    end_date_time=request.REQUEST['end_date_time']
-    end_date_time=end_date_time.split(' ')
-    enddate=end_date_time[0:3]
-    endtime=end_date_time[4]
-    endtime=endtime.split(':')
-    end_date_time = datetime.datetime(day=int(enddate[0]),
-                                  month=month.index(enddate[1]), 
-                                  year=int(enddate[2]), 
-                                  hour=int(endtime[0]),
-                                  minute=int(endtime[1]), 
-                                  second=0, 
-                                  microsecond=0,)
+    end_date_time=Post.objects.all().aggregate(Max('date_time'))['date_time__max']
+    if request.REQUEST['end_date_time']<>'':
+        end_date_time=request.REQUEST['end_date_time']
+        end_date_time=end_date_time.split(' ')
+        enddate=end_date_time[0:3]
+        endtime=end_date_time[4]
+        endtime=endtime.split(':')
+        end_date_time = datetime.datetime(day=int(enddate[0]),
+                                          month=month.index(enddate[1]), 
+                                          year=int(enddate[2]), 
+                                          hour=int(endtime[0]),
+                                          minute=int(endtime[1]), 
+                                          second=0, 
+                                          microsecond=0,)
     
     men_women=request.REQUEST['men_women']
     
@@ -1085,34 +1090,38 @@ def delete_message(request):
         return retval
     
     rider = request.user.rider
-    mid = request.REQUEST['mid']
-    message = None
-    try:
-        message = Message.objects.get(pk=mid)
-    except:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    mids = request.REQUEST['mids']
+    mids=mids.split(', ')
     
-    if message.sender.pk == rider.pk:
-        message.smailbox = 0
-    if message.receiver.pk == rider.pk:
-        message.rmailbox = 0
-    if message.rmailbox + message.smailbox == 0:
-        #This means the message has been deleted from both the sender and the receiver's side.
-        #The message will be deleted after one month
-        #if message.date_time.month - timezone.now().month >= 1:
-            #message.delete()
-        
-        #For now, message will be deleted. In the future, we may implement restoring of messages, in which case
-        #We will keep the delete after one month feature.
-        message.delete()
-    else:
-        message.save()
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'<p>Messege deleted successfully.</p>\
-                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-
-#reply to a message
+    for mid in mids:
+		message = None
+		
+		try:
+			message = Message.objects.get(pk=int(mid))
+		except:
+			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+											"text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
+		if message.sender.pk == rider.pk:
+			message.smailbox = 0
+		if message.receiver.pk == rider.pk:
+			message.rmailbox = 0
+		if message.rmailbox + message.smailbox == 0:
+			#This means the message has been deleted from both the sender and the receiver's side.
+			#The message will be deleted after one month
+			#if message.date_time.month - timezone.now().month >= 1:
+			#message.delete()
+			
+			#For now, message will be deleted. In the future, we may implement restoring of messages, in which case
+			#We will keep the delete after one month feature.
+			message.delete()
+		else:
+			message.save()
+		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+											"text":'<p>Messege deleted successfully.</p>\
+											<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+		
+  #reply to a message
+  
 @csrf_exempt
 def reply(request):
     retval = check(request)
@@ -1173,6 +1182,31 @@ def facebook(request):
     return HttpResponse(jinja_environ.get_template('facebook.html').render({"rider":request.user.rider, "text": request.get_full_path()}))
 
 
+def delete_account(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    #checking
+    if request.REQUEST['username'] <> request.user.username or request.REQUEST['email'] <> request.user.email <> request.REQUEST['car_number'] <> request.user.rider.car_number:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'<p>Message sent successfully.</p>\
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    for x in Message.objects.filter(sender=request.user.rider):
+        x.delete()
+    for x in Message.objects.filter(receiver=request.user.rider):
+        x.delete()
+    for x in Reserved.objects.filter(reserver=request.user.rider):
+        x.delete()
+    for x in Post.objects.filter(owner=request.user.rider):
+        x.delete()
+    request.user.rider.delete()
+    request.user.delete()
+    logout(request)
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
+                                                                          "text":'<p>Account Deleted Successfully.</p>\
+                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+
+
 #Testing functions:
 def tempage(request):
     retval = check(request)
@@ -1220,16 +1254,29 @@ def upload(request):
     return HttpResponse(response)
  
 @csrf_exempt
-def invite_page(request):
+def invite(request):
+
     retval = check(request)
     if retval <> None:
         return retval
-    
-    message = "Hey! Check out this amazing site, we can travel together now !!"
-    try :
-      request.user.rider
-      return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
-									    "message": message}))
+      
+    try:
+      email=request.REQUEST['email_id']
+      email=email.split(',')
+      
+      for i in range(0,len(email)):
+	email[i]=email[i].strip();
+	
+      rider=request.user.rider
+      message=request.REQUEST['message']
+      subject = 'CarPool.com Invitation Email'
+      message="Subject:CarPool.com Invitation \n\n" + message + "\n\n Click http://localhost:8000 to visit the website."
+      
+      for i in range(0,len(email)):
+	x = send_email(message, email[i])
+      
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Emails Sent Successfully.</p>\
+                                                                                   <p>Click <a href="/">here</a> to go to the homepage</p>'}))
     except Exception as e:
-      return HttpResponse(e)
-  
+	return HttpResponse(e)

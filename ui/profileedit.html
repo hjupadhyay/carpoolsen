@@ -15,6 +15,7 @@
         {% include "bootstrap/css/bootstrap.min.css" %}
         {% include "bootstrap/css/profile.css" %}
         {% include "bootstrap/css/drop-shadow.css" %}
+        {% include "bootstrap/css/checks.css" %}
     </style>
     
     <!-- Bootstrap core CSS -->
@@ -56,7 +57,7 @@
                     				
 					<div class="container">
 	<div class="row">
-		 <form class="form-horizontal" action="/edit_profile/" method="POST">
+		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST">
 <!--             <fieldset> -->
                 
                 <div class="control-group">
@@ -76,14 +77,14 @@
                     <label class="control-label">First Name</label>
                     <br/>
                     
-                    <input id="first-name" name="first_name" type="text" placeholder="First name" class="input-xlarge" value="{{ rider.user.first_name }}">
+                    <input id="first_name" name="first_name" type="text" placeholder="First name" class="input-xlarge" value="{{ rider.user.first_name }}">
                     
                 </div>
 				<div class="control-group">
                     <label class="control-label">Last Name</label>
                     <br/>
                     
-                    <input id="last-name" name="last_name" type="text" placeholder="Last name" class="input-xlarge" value = "{{ rider.user.last_name }}">
+                    <input id="last_name" name="last_name" type="text" placeholder="Last name" class="input-xlarge" value = "{{ rider.user.last_name }}">
                     
                 </div>
                 
@@ -107,21 +108,21 @@
                 <div class="control-group">
                     <label class="control-label">Email</label>
                     <div class="controls">
-                        <input id="Email" name="email" type="text" placeholder="Email" class="input-xlarge" value = "{{ rider.user.email }}">
+                        <input id="email" name="email" type="text" placeholder="Email" class="input-xlarge" value = "{{ rider.user.email }}">
                     </div>
                 </div>
                 
 				<div class="control-group">
                     <label class="control-label">Phone No.</label>
                     <div class="controls">
-                        <input id="Phone No." name="phone" type="text" placeholder="Phone No." class="input-xlarge" value = "{{ rider.phone }}">
+                        <input id="phone_no" name="phone" type="text" placeholder="Phone No." class="input-xlarge" value = "{{ rider.phone }}">
                     </div>
                 </div>
                 
                 <div class="control-group">
                     <label class="control-label">Vehicle No.</label>
                     <div class="controls">
-                        <input id="Vehicle no." name="car_number" type="text" placeholder="vehicle no." class="input-xlarge" value = "{{ rider.car_number }}">
+                        <input id="vehicle_no" name="car_number" type="text" placeholder="vehicle no." class="input-xlarge" value = "{{ rider.car_number }}">
                     </div>
                 </div>
 				
@@ -140,11 +141,11 @@
                             var valueToSelect = document.getElementById('{{ rider.auth_type }}');
                             element.value = valueToSelect.value;
                         </script>
-                        <input id="ID No." name="auth_token" type="text" placeholder="ID No."class="input-xlarge" value = "{{ rider.auth_token }}">
+                        <input id="id_no" name="auth_token" type="text" placeholder="ID No."class="input-xlarge" value = "{{ rider.auth_token }}">
                     </div>
                 </div>
                 <br>
-            <button type = "submit" class="btn btn-primary center-block">Done</button>
+            <button id = "editprofile" type = "submit" class="btn btn-primary center-block">Done</button>
 <!--             </fieldset> -->
         </form>
 	</div>
@@ -178,6 +179,9 @@
 <!--        <script src="bootstrap/js/bootstrap.min.js"></script> -->
        <script>
         {% include "bootstrap/js/bootstrap.min.js" %}
+        {% include "bootstrap/js/editprofile.js" %}
+        {% include "bootstrap/js/jquery.min1.js" %}
+
        </script>
   </body>
 </html>
