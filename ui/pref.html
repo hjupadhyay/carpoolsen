@@ -133,7 +133,7 @@
 <li>Once you delete your account, you can't undo it. If you wish to use Carpool in the future, you will have to create another account.</li>
 </ul>
 <div class="controls">
-                            <center><button type="submit" class="btn btn-danger">Delete Account</button></center>
+                            <center><button type="button" onclick='window.location.href="/delete_account?username={{rider.user.username}}&email={{rider.user.email}}&car_number={{rider.car_number}}"' class="btn btn-danger">Delete Account</button></center>
                         </div>
         </div>
     </div>
