@@ -1079,7 +1079,7 @@ def read_message(request):
 	return HttpResponse("1")
     except Exception as e:
         return HttpResponse("0"+str(e))
-        
+@csrf_exempt
 def delete_message(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -1091,21 +1091,20 @@ def delete_message(request):
     
     rider = request.user.rider
     mids = request.REQUEST['mids']
-    mids=mids.split(', ')
-    
+    mids=mids.split(',')
     for mid in mids:
 		message = None
 		
 		try:
 			message = Message.objects.get(pk=int(mid))
-		except:
+ 		except:
 			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
 											"text":'No such message exists!. Please go back or click <a href="/">here</a> to go to the homepage'}))
-		if message.sender.pk == rider.pk:
-			message.smailbox = 0
+		# if message.sender.pk == rider.pk:
+			# message.smailbox = 0
 		if message.receiver.pk == rider.pk:
 			message.rmailbox = 0
-		if message.rmailbox + message.smailbox == 0:
+		# if message.rmailbox + message.smailbox == 0:
 			#This means the message has been deleted from both the sender and the receiver's side.
 			#The message will be deleted after one month
 			#if message.date_time.month - timezone.now().month >= 1:
