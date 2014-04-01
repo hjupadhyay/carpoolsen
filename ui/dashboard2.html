@@ -46,7 +46,6 @@
           
         <div class="jumbotron">
           <div class="container">
-        {% include "timer.html" %}
 
         <!--<div class="container">
                                         <button type="button" class="btn btn-default  btn-default1 btn-lg btn3d">Post A New Trip</button>
@@ -195,64 +194,68 @@
                     <div class="col-md-9">
                         <input type="text" class="form-control" placeholder="Location" name="fro">
                     </div>
-          <br><br>
+          <br><br><br>
                     <div class="col-md-3 " align="right">TO</div>
                     <div class="col-md-9">
                         <input type="text" class="form-control" placeholder="Location" name="to">
                     </div>
           <br> <br>
-                
+        <br>
         <div class="col-md-3"align="right" >DATE & TIME </div>            
+          
         <div class="col-md-9">
         <div class="row">
-        <div class="col-md-6">
+        
         <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                    <input  style="font-size:10px" class="form-control" id="date_time" name="start_date_time" style="background-color:white; cursor:default;" size="9" type="text"   "value="" placeholder= "Start Date/Time "  >
+                    <input  style="font-size:10px" class="form-control" id="date_time" name="start_date_time" style="background-color:white; cursor:default;" size="9" type="text"  value="" placeholder="Start Date/Time">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
-            </div>
-    
-        <div class="col-md-6">
+        
+        
+        
         <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                    <input style="font-size:10px"  class="form-control" id="date_time" name="end_date_time" style="background-color:white; font-size:12px cursor:default;" size="16" type="text"   "value="" placeholder="End Date/Time">
+                    <input style="font-size:10px"  class="form-control" id="date_time" name="end_date_time" style="background-color:white; font-size:12px cursor:default;" size="16" type="text" value="" placeholder="End Date/Time">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
-        </div>
+        
         
     </div>
     </div>
           
-        <br><br>
+        <br><br><br><br>
                 
             <div class="col-md-3" align="right" for="radios" >GENDER</div>
             <div class="col-md-9">
             
-                    <label class="radio-inline">
+                    
                             <input type="radio" value="2" name="men_women">
                                 Only Men
                             </input>
-                    </label>
-                    <label class="radio-inline">
+                    
+                    
                             <input type="radio" value="1" name="men_women">
                                 Only Women
                             </input>
-                    </label>
-                    <label class="radio-inline">
+                    
+                    
                             <input type="radio" value="0" name="men_women">
                                 Both
                             </input>
-                    </label>
+                    
                     </div>
                  
-        <br><br>
+        <br><br><br>
                 <button type="submit" class="btn btn-default center-block" name="submit">Submit</button>
             </form> 
         </div>
     </div>
     </div>
+        <center>{% include "timer.html" %}</center>
+
     </div>
 
     <hr>	
+
     </div> 
                     
 

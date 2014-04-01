@@ -9,18 +9,26 @@ $(document).ready(function(){
 });
 </script>
 <br/>
-{% if not date_time1 == None  %}
+{% if not date_time1 == None %}
+<script>
+console.log({{nowtime}});
+console.log({{date_time1}});
+</script>
 <h4>Your next <a href="/post_page?key={{post_obj.id}}">trip</a> in your own vehicle from {{post_obj.fro}} to {{post_obj.to}}</h4>
 <h4 id="countdown-holder1"></h4>  
 <script>  
     var clock = document.getElementById("countdown-holder1")  
     , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour+5}}, {{date_time1.minute+30}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
-    
     clock.innerHTML = countdown(targetDate).toString();  
     setInterval(function(){  
+    
     clock.innerHTML = countdown(targetDate).toString();  
+    if (clock.innerHTML.length == 0)
+    setInterval(function() { window.location.href = document.URL; }, 1000);
     }, 1000);  
+    
 </script>  
+
 {% endif %}
 {% if not date_time2 == None %}
 <h4 style="display:inline;">Your next <a href="/post_page/?key={{reserved_obj.post.id}}">trip</a> in {{reserved_obj.post.owner}}'s vehicle from {{reserved_obj.post.fro}} to {{reserved_obj.post.to}}</h4>
@@ -32,6 +40,9 @@ $(document).ready(function(){
     clock2.innerHTML = countdown(targetDate2).toString();  
     setInterval(function(){  
     clock2.innerHTML = countdown(targetDate2).toString();  
+    if (clock2.innerHTML.length == 0)
+    setInterval(function() { window.location.href = document.URL; }, 1000);
     }, 1000);  
+    
 </script>  
 {% endif %}
