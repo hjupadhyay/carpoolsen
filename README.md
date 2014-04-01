@@ -20,7 +20,7 @@ UTC issue
 formatting
 
 
-Post page -> Auto accept
-wish to cancel -> cancel
-bold username
+*Post page -> Auto accept
+*wish to cancel -> cancel
+*bold username
 TEll user about neg flags warning
