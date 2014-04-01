@@ -34,12 +34,12 @@ def remove_old_posts(user):
 
 month=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-def send_email(msg, entry):
+def send_email(msg, email):
     gmailLogin = 'carpoolsen'
     gmailPas = 'qwertqwert!'
     fro = gmailLogin + "@gmail.com"
     
-    to = entry.email
+    to = email
     
     try:
         server = smtplib.SMTP_SSL('smtp.googlemail.com',465)
@@ -67,7 +67,7 @@ def send_verification_email(request):
     click on the following link to verify (or copy paste it in your browser if needed)\n\n\
     http://localhost:8000/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, entry.rider.verified)
     
-    x = send_email(msg, entry)
+    x = send_email(msg, entry.email)
     if x[0]==0:
         return x[1]
     
@@ -144,13 +144,15 @@ def profile(request):
     except:
         return HttpResponse(jinja_environ.get_template('profile.html').render({"rider":request.user.rider, "profiler":request.user.rider}))
     #return HttpResponse(request.user.first_name + " " + request.user.last_name + "'s Profile Page")
-    
+
+@csrf_exempt
 def invite_page(request):
     retval = check(request)
     if retval <> None:
         return retval
     
     message = "Hey! Check out this amazing site, we can travel together now !!"
+
     try :
       request.user.rider
       return HttpResponse(jinja_environ.get_template('invite.html').render({"rider": request.user.rider,
@@ -597,7 +599,7 @@ def forgot_pass(request):
     http://localhost:8000/reset_pass_page/?reset_pass=%s&email=%s\n\n\
     If you have not requested for a reset of password, please ignore.' % (subject, user.rider.reset_pass, user.email)
     
-    x = send_email(msg, user)
+    x = send_email(msg, user.email)
     if x[0] == 0:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'Could not process request, please try again later by going back or clicking <a href="/">here</a> to go to the homepage'}))
@@ -1221,22 +1223,28 @@ def upload(request):
  
 @csrf_exempt
 def invite(request):
+
     retval = check(request)
     if retval <> None:
         return retval
       
     try:
       email=request.REQUEST['email_id']
-      message=request.REQUEST['message']
-      rider=request.user.rider
-      entry=request.user
+      email=email.split(',')
       
+      for i in range(0,len(email)):
+	email[i]=email[i].strip();
+	
+      rider=request.user.rider
+      message=request.REQUEST['message']
       subject = 'CarPool.com Invitation Email'
-      message=message + "\n\n Click <a href= \"http://localhost:8000\"> here</a> to visit the website."
-      x = send_email(message, entry)
+      message="Subject:CarPool.com Invitation \n\n" + message + "\n\n Click http://localhost:8000 to visit the website."
+      
+      for i in range(0,len(email)):
+	x = send_email(message, email[i])
       
       return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>Email Sent Successfully.</p>\
+                                                                                  "text":'<p>Emails Sent Successfully.</p>\
                                                                                    <p>Click <a href="/">here</a> to go to the homepage</p>'}))
     except Exception as e:
 	return HttpResponse(e)
