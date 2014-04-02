@@ -45,7 +45,7 @@
         
         
           
-        <div class="jumbotron2 jumbotron">
+        <div class="jumbotron2">
           <div class="container">
 
         <!--<div class="container">
@@ -161,16 +161,16 @@
                                     message.innerHTML = message.innerHTML.substring(0,40) + "...";
                             </script>
                             </ol>  
-                            <div>
-                            <button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
-                            </div>
+                            
                         {% endfor %}
                         
                         {% if not messages %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
                         No Messages in Inbox so far.
                         </div>
-                        {% endif %}
+                        {% endif %}<div>
+                            <button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
+                            </div>
                             
         
                       </div>

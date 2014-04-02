@@ -10,7 +10,7 @@
     {% include "bootstrap/css/star-rating.min.css" %}
     {% include "bootstrap/css/extra.css" %}
     {% include "bootstrap/css/bootstrap-theme.css" %}
-</style>
+   </style>
 <!-- CSS dependencies -->
 
     <meta charset="utf-8">
@@ -58,7 +58,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         {% if post.autoaccept == 1 %}
         <h5 style="color: blue;">All reservations on this post will be automatically accepted</h5>
         {% else %}
-        <h5 style="color:red;">All reservations on this post will have to be confirmed by the owner</h5>
+        <h5 style="color:red;">All reservations on this post will be confirmed by the owner</h5>
         {% endif %}
             <br>
             <br>
@@ -174,7 +174,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
             <div class="user-image">
-                <img src="http://i3.kym-cdn.com/photos/images/masonry/000/672/573/605.jpg" class="column" style="height:140px; width:140px; align:center;">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQoAjhBuCjGc3JJb0HLIKePs15GE09p8_wfy7BW2LtoeuTSo-eQKg" class="column" style="height:140px; width:140px; align:center;">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
@@ -322,18 +322,15 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 </div>
     
 </div>
+
 <!-- JS dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
 <!-- bootbox code -->
 <script> {% include "bootstrap/js/bootbox.js" %}</script>
 <br><br><br>    
-<div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/"><font size=3>About Us</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/"><font size=3>FAQs</font></a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/"><font size=3>Contact Us</font></a></p>
-            <p class="text-muted"><font size=3>&copy; Carpool 2014</font></p>
-            </div>
-        </div>
+
+
     
 </body>
 </html>
