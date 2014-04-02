@@ -142,7 +142,15 @@
                             
                         <ul>
                         {% for reserved in reserved_list %}
+                            {% if reserved.post.status == 2 %}
+                            <li>
+                                <p><h5>Your reservation from {{ reserved.post.fro }} to {{reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{reserved.post.owner.user.first_name}}</a> on {{reserved.post.date_time}} has been Cancelled.</h5><p>
+                                <p><h5><a href="#" onclick="search_similar()">Search&nbspfor&nbspsimilar&nbsptrips</a>&nbsp&nbsp&nbsp<a href="#" onclick="dismiss()">Dismiss</a></h5></p>
+                                <p><h6>Have to go through a lot of trouble due to this cancellation? You can <a href="/report_user?id={{reserved.post.owner.id}}">report</a> the user in that case</h6></p>
+                            </li>
+                            {% else %}
                             <li><p><h5>Your <a href="/post_page/?key={{reserved.post.id}}">reservation </a>from {{ reserved.post.fro }} to {{ reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{ reserved.post.owner.user.first_name }}</a> on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
+                            {% endif %}
                         {% endfor %}
                         </ul>  
                         </div>  
@@ -287,6 +295,8 @@
     
     </script>
 		
-      </body>
+	
+    
+    </body>
 	  
     </html>
