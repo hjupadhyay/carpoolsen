@@ -40,4 +40,4 @@ Outbox
 (* *Post page -> Auto accept *)
 (* *wish to cancel -> cancel *)
 (* *bold username *)
-<!-- Old posts = not changable -->
+(* <!-- Old posts = not changable --> *)
