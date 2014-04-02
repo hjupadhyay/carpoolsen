@@ -15,7 +15,8 @@ import jinja2
 import smtplib
 from mainapp.checker import check
 import thread
-jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
+from jinja2.ext import loopcontrols
+jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols]);
 #Dummy request object
 #class Dum:
     #REQUEST = {}
