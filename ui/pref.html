@@ -81,13 +81,115 @@
                 <li><a href="#" data-target-id="Account"><i class="fa fa-file-o fa-fw"></i>Delete account</a></li>
             </ul>
         </div>
-        <div class="col-md-9 well admin-content" id="edit">
-            <p align="center">
-                Want to edit your profile?
-            </p>
-            <div class="controls">
-                            <center><button type="submit" class="btn btn-success" id="myButton">Go to edit profile</button></center>
-                        </div>
+        
+		<div class="col-md-9 well admin-content" id="edit">
+        <center>     <div class="row marketing">
+	  	<div class="user-image">
+            <img src= "{{ rider.image }}" alt="Profile Photo here" height="150" width="150">
+                </div>
+<!-- 			<div style="height:400px; width:100%; clear:both;"></div> -->
+			<div class="user-info-block">
+                <div class="user-heading">
+                    				
+					<!-- <div class="container">
+	<div class="row"> -->
+		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST">
+<!--             <fieldset> -->
+                
+                <div class="control-group">
+                    <label class="control-label">Change Profile Photo:</label>
+                    <br>
+                    <input type="file" name="image">
+                    <button type="submit">Upload</button>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Username</label>
+                    <br/>
+                    
+                    <h5>{{ rider.user.username }}</h5>
+                    
+                </div>
+                <div class="control-group">
+                    <label class="control-label">First Name</label>
+                    <br/>
+                    
+                    <input id="first_name" name="first_name" type="text" placeholder="First name" class="input-xlarge" value="{{ rider.user.first_name }}">
+                    
+                </div>
+				<div class="control-group">
+                    <label class="control-label">Last Name</label>
+                    <br/>
+                    
+                    <input id="last_name" name="last_name" type="text" placeholder="Last name" class="input-xlarge" value = "{{ rider.user.last_name }}">
+                    
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">Gender</label>
+                    <div class="controls">
+                        <select id="Gender" name="gender" class="input-xlarge">
+<!--                             <option value="" selected="selected">Please select a value</option> -->
+                            <option id = "m" value="m">Male</option>
+                            <option id = "f" value="f">Female</option>
+                        </select>
+                        <script>
+                            var element = document.getElementById('Gender');
+                            var valueToSelect = document.getElementById('{{ rider.gender }}');
+                            element.value = valueToSelect.value;
+                        </script>
+					</div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <input id="email" name="email" type="text" placeholder="Email" class="input-xlarge" value = "{{ rider.user.email }}">
+                    </div>
+                </div>
+                
+				<div class="control-group">
+                    <label class="control-label">Phone No.</label>
+                    <div class="controls">
+                        <input id="phone_no" name="phone" type="text" placeholder="Phone No." class="input-xlarge" value = "{{ rider.phone }}">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">Vehicle No.</label>
+                    <div class="controls">
+                        <input id="vehicle_no" name="car_number" type="text" placeholder="vehicle no." class="input-xlarge" value = "{{ rider.car_number }}">
+                    </div>
+                </div>
+				
+				<div class="control-group">
+                    <label class="control-label">Authentication</label>
+                    <div class="controls">
+						<select id="auth_type" name="auth_type" class="input-xlarge">
+                            <option id="None" value="None" >Please select a type</option>
+                            <option id="PAN" value="PAN">PAN</option>
+                            <option id="UID" value="UID">UID</option>
+							<option id="Voter ID" value="Voter ID">Voter ID</option>
+							<option id="Other" value="Other">Other</option>
+                        </select>
+                        <script>
+                            var element = document.getElementById('auth_type');
+                            var valueToSelect = document.getElementById('{{ rider.auth_type }}');
+                            element.value = valueToSelect.value;
+                        </script>
+                        <input id="id_no" name="auth_token" type="text" placeholder="ID No."class="input-xlarge" value = "{{ rider.auth_token }}">
+                    </div>
+                </div>
+                <br>
+            <button id = "editprofile" type = "submit" class="btn btn-success">Done</button>
+<!--             </fieldset> -->
+        </form>
+	</div>
+<!-- 	
+</div>
+				</div> -->
+				</div>
+		</div>
+		</center>
         </div>
         <div class="col-md-9 well admin-content" id="Password">
             <div align="center">
@@ -162,5 +264,12 @@
         location.href = "/change_pass/";
     };
 </script>
+
+<script>
+        {% include "bootstrap/js/bootstrap.min.js" %}
+        {% include "bootstrap/js/editprofile.js" %}
+        {% include "bootstrap/js/jquery.min1.js" %}
+
+       </script>
   </body>
 </html>
