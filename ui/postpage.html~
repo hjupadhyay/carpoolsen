@@ -222,7 +222,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	            {%endif%}
             {%endfor%}
 <br>
-<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?postid={{post.id}}'">Edit Post</button>
+<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
 <button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
             
      
@@ -245,14 +245,13 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 {% elif reserved_obj==None %}
     <br><br>        
     <p><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button></p>            
-    
+   <h4>Accepted Requests</h4> 
 <!--    <p><button class="btn btn-primary">Rate</button></p>-->
        {% for reserved in reserved_list %}
                 {%if reserved_obj.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
-			         <h4>Accepted Requests</h4>
 		              <ul>
 			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
 		              </ul>
@@ -263,19 +262,20 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
   
 {% else %}
 <!--    <button class="btn btn-primary">Rate</button>-->
-                {% for reserved in reserved_list %}
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button>
+			         <h4>Accepted Requests</h4>
+				{% for reserved in reserved_list %}
                 {%if reserved_obj.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
-			         <h4>Accepted Requests</h4>
+
 		              <ul>
 			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
             {%endfor%}
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button>
             <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -291,7 +291,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>
-                <button class="btn btn-info" type="submit" onclick='window.location.href='/send_message/?to=post.owner.user.username''>Send New Message</button>
+                <button class="btn btn-info" type="submit" onclick="window.location.href='/send_message/?to=post.owner.user.username'">Send New Message</button>
             </form>
         </div>
 		<!-- </div> -->
@@ -331,8 +331,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <script> {% include "bootstrap/js/bootbox.js" %}</script>
 <br><br><br>    
 
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/js/bootstrap.js"></script>
+<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="bootstrap/js/bootstrap.js"></script> -->
     
 </body>
 </html>
