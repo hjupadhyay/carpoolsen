@@ -245,7 +245,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 {% elif reserved_obj==None %}
     <br><br>        
-    <p><button class="btn btn-primary">Message</button></p>            
+    <p><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button></p>            
     
 <!--    <p><button class="btn btn-primary">Rate</button></p>-->
        {% for reserved in reserved_list %}
@@ -289,10 +289,10 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 		<!-- <div class="row"> -->
 		<div class="span4 well" style="padding-bottom:0">
             <form accept-charset="UTF-8" action="" method="POST">
-                <textarea class="span4" id="new_message" name="new_message"
+                <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>
-                <button class="btn btn-info" type="submit">Send New Message</button>
+                <button class="btn btn-info" type="submit" onclick='window.location.href='/send_message/?to=post.owner.user.username''>Send New Message</button>
             </form>
         </div>
 		<!-- </div> -->
