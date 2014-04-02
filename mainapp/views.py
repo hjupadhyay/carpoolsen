@@ -850,7 +850,7 @@ def accept(request):
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Accepted request. Please go back or click <a href="/">here</a> to go to the homepage'}))
+                                                                          "text":'Accepted request. Click <a href="/">here</a> to go back to the post.'}))
 
 def revoke(request):
     #if request.method == 'GET':
@@ -889,7 +889,7 @@ def revoke(request):
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'<p>Cancelled reservation successfully.</p>\
-                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+                                                                              <p>Click <a href="/">here</a> to go back to the post</p>'}))
 
 def cancel_res(request):
     #if request.method == 'GET':
@@ -1066,7 +1066,7 @@ def edit_post(request):
     
     postobj.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Post edited successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
+                                                                          "text":'Post edited successfully. Click <a href="/">here</a> to the post details page'}))
 
 
 def send_message(request):
