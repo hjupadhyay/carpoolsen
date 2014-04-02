@@ -303,11 +303,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 </div>
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Post</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
     
   {% else %}
     <p>You are already reserved on this post and confirmed.</p>
-    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Post</button>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
   {% endif %}
 {% endif %}
 
