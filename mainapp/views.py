@@ -1207,7 +1207,7 @@ def search(request):
                 return HttpResponse("1")
             return HttpResponse("0")
         elif request.REQUEST['search'] == 'email':
-            if len(User.objects.filter(email=request.REQUEST['email'])) == 0:
+            if len(User.objects.filter(email=request.REQUEST['email'])) <> 0:
                 return HttpResponse("1")
             else:
                 return HttpResponse("0")
