@@ -57,6 +57,8 @@
             {% if not rider == None %}
             <th>Driver</th>
             {% endif %}
+            <th>From</th>
+            <th>To</th>
             <th>Date</th>
             <th>Time</th>
             <th>Cost(INR)</th>
@@ -72,6 +74,8 @@
                 {% if not rider == None %}
                 <td>{{ post.owner.user.first_name }} </td>
                 {% endif %}
+                <td>{{ post.fro }}</td>
+                <td>{{ post.to }}</td>
                 <td>{{ post.date_time.date() }}</td>
                 <td>{{ post.date_time.time() }}</td>
                 <td>{{ post.cost }}</td>
