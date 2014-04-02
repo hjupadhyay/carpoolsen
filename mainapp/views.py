@@ -1011,7 +1011,7 @@ def edit_post(request):
     postid = request.REQUEST['postid']
     postobj = None
     try:
-        postobj = Post.objects.get(pk=postid)
+        postobj = Post.objects.get(pk=postid, status__lte=1, date_time__gte=timezone.now())
     except Exception as e:
         return HttpResponse(e)
     
@@ -1248,7 +1248,60 @@ def delete_account(request):
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                           "text":'<p>Account Deleted Successfully.</p>\
                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+@csrf_exempt
+def invite(request):
 
+    retval = check(request)
+    if retval <> None:
+        return retval
+      
+    try:
+        email=request.REQUEST['email_id']
+        email=email.split(',')
+        email = set(email)[0]
+        for i in range(0,len(email)):
+            email[i]=email[i].strip();
+            
+        rider=request.user.rider
+        message=request.REQUEST['message']
+        #subject = 'CarPool.com Invitation Email'
+        message="Subject:CarPool.com Invitation\n" + rider.user.first_name + " " + rider.user.last_name + " has invited you to join CarPoolSen!\n\n" + rider.user.first_name + " says:\n" + message + "\n\nClick http://localhost:8000 to visit the website."
+      
+        for i in range(0,len(email)):
+            x = send_email(message, email[i])
+        try:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Emails Sent Successfully.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        except:
+            pass
+    except Exception as e:
+        try:
+            return HttpResponse(e)
+        except:
+            pass
+
+#@csrf_exempt
+def report_user(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    if 'user' not in request.REQUEST.keys():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Invalid user.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    user = User.objects.filter(username=request.REQUEST['user'])
+    if len(user)==0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Invalid user.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    user = user[0]
+    user.rider.user_rating += 1
+    user.rider.save()
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                          "text":'<p>User reported successfully.</p>\
+                                                                              <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
 
 #Testing functions:
 def tempage(request):
@@ -1295,36 +1348,4 @@ def upload(request):
         else:
             response = "Failed to upload"
     return HttpResponse(response)
- 
-@csrf_exempt
-def invite(request):
 
-    retval = check(request)
-    if retval <> None:
-        return retval
-      
-    try:
-        email=request.REQUEST['email_id']
-        email=email.split(',')
-        email = set(email)[0]
-        for i in range(0,len(email)):
-            email[i]=email[i].strip();
-            
-        rider=request.user.rider
-        message=request.REQUEST['message']
-        #subject = 'CarPool.com Invitation Email'
-        message="Subject:CarPool.com Invitation\n" + rider.user.first_name + " " + rider.user.last_name + " has invited you to join CarPoolSen!\n\n" + rider.user.first_name + " says:\n" + message + "\n\nClick http://localhost:8000 to visit the website."
-      
-        for i in range(0,len(email)):
-            x = send_email(message, email[i])
-        try:
-            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>Emails Sent Successfully.</p>\
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-        except:
-            pass
-    except Exception as e:
-        try:
-            return HttpResponse(e)
-        except:
-            pass
