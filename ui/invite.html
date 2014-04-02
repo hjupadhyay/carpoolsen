@@ -69,7 +69,10 @@ function send_mails()
     document.getElementById("message").style = "display:none";
     document.getElementById("button").style = "display:none";
     xmlhttp.onreadystatechange = function() {
-        document.getElementById("text").innerHTML = '<p><h4>Your messages have been sent successfully.</h4><p><p><h4>Click <a href="/">here</a> to go back to the homepage</h4></p>';
+        if (xmlhttp.readystate == this.DONE)
+        {
+            document.getElementById("text").innerHTML = '<p><h4>Your messages have been sent successfully.</h4><p><p><h4>Click <a href="/">here</a> to go back to the homepage</h4></p>';
+        }
     }
 }
 </script>

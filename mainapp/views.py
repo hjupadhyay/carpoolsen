@@ -1000,7 +1000,7 @@ def search_do(request):
 def edit_post(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
-        
+    
     retval = check(request)
     if retval <> None:
         return retval
@@ -1031,15 +1031,20 @@ def edit_post(request):
     #to = request.REQUEST['to']
     autoaccept = request.REQUEST['autoaccept']
     
-    #Date and time format: yyyy-mm-dd-hh-mm
-    date_time = request.REQUEST['date_time'].split("-")
-    date_time = datetime.datetime(year=int(date_time[0]),
-                                  month=int(date_time[1]),
-                                  day=int(date_time[2]),
-                                  hour=int(date_time[3]), 
-                                  minute=int(date_time[4]),
+    date_time=request.REQUEST['date_time']
+    date_time=date_time.split(' ')
+    date=date_time[0:3]
+    time=date_time[4]
+    time=time.split(':')
+    
+    date_time = datetime.datetime(day=int(date[0]),
+                                  month=month.index(date[1]), 
+                                  year=int(date[2]), 
+                                  hour=int(time[0]),
+                                  minute=int(time[1]), 
                                   second=0, 
                                   microsecond=0,)
+    
     ac = int(request.REQUEST['ac'])
     men_women = int(request.REQUEST['men_women'])
     available_to = int(request.REQUEST['available_to'])
@@ -1304,10 +1309,10 @@ def invite(request):
     try:
         email=request.REQUEST['email_id']
         email=email.split(',')
-      
+        email = set(email)[0]
         for i in range(0,len(email)):
             email[i]=email[i].strip();
-	
+            
         rider=request.user.rider
         message=request.REQUEST['message']
         #subject = 'CarPool.com Invitation Email'
@@ -1315,9 +1320,14 @@ def invite(request):
       
         for i in range(0,len(email)):
             x = send_email(message, email[i])
-      
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":'<p>Emails Sent Successfully.</p>\
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        try:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>Emails Sent Successfully.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        except:
+            pass
     except Exception as e:
-        return HttpResponse(e)
+        try:
+            return HttpResponse(e)
+        except:
+            pass
