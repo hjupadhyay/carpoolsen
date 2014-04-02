@@ -35,17 +35,17 @@ $(document).ready(function(){
 			var ele = $('#last_name');
 			var pos = ele.offset();
 
-			fname.css({
+			lname.css({
 				top: pos.top-2,
 				left: pos.left+ele.outerWidth()+5
 			});
 
 			if(ele.val().length == 0) {
 				jVal.errors = true;
-				fname.removeClass('correct').addClass('error').html('&larr; Input Something').show();
+				lname.removeClass('correct').addClass('error').html('&larr; Input Something').show();
 				ele.removeClass('editchange').addClass('wrong');
 			} else {
-				fname.hide();
+				lname.hide();
 				ele.removeClass('wrong').addClass('editchange');
 			}
 			
@@ -174,7 +174,7 @@ $(document).ready(function(){
 
     $('#editprofile').click(function (){
         var obj = $.browser.webkit ? $('body') : $('html');
-        obj.animate({ scrollTop: $('#last_name').offset().top }, 750, function (){
+        obj.animate({ scrollTop: $('#profileform').offset().top }, 750, function (){
             jVal.errors = false;
             jVal.firstn();
 	    jVal.lastn();
