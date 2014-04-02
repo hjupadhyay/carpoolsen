@@ -207,7 +207,7 @@ $(document).ready(function(){
 			var patt = /^.+@.+[.].{2,}$/i;
             var xmlhttp = new XMLHttpRequest();
             var data = new FormData();
-            data.append("car_number",ele.val());
+            data.append("email",ele.val());
             data.append("search","email");
             xmlhttp.open("POST","/search_element/",true);
             xmlhttp.send(data);
@@ -267,6 +267,37 @@ $(document).ready(function(){
                 }
             }
 		},
+        
+        'car_no' : function() {
+
+            $('body').append('<div id="carno" class="valid"></div>');
+
+            var carno = $('#carno');
+            var ele = $('#car_number');
+            var pos = ele.offset();
+
+            carno.css({
+                top: pos.top+1,
+                left: pos.left+ele.outerWidth()+40
+            });
+            
+            var patt = /(^\s|\s{2,}|\s$)/i;
+
+            if(ele.val().length == 0) {
+                jVal.errors = true;
+                    carno.removeClass('correct').addClass('error').html('&larr; Input Something').show();
+                    ele.removeClass('normal').addClass('wrong');
+            } else {
+                if(patt.test(ele.val())) {
+                jVal.errors = true;
+                    carno.removeClass('correct').addClass('error').html('&larr; Illegal spaces').show();
+                    ele.removeClass('normal').addClass('wrong');                    
+                } else {
+                    carno.hide();
+                    ele.removeClass('wrong').addClass('normal');
+            }
+            }
+        },
 
         'sendIt' : function (){
             if(!jVal.errors) {
@@ -288,6 +319,7 @@ $(document).ready(function(){
             jVal.conf_passwd();
             jVal.email();
             jVal.phone();
+            jVal.car_no();
             jVal.sendIt();
         });
         return false;
@@ -301,5 +333,6 @@ $(document).ready(function(){
 	$('#confirmpassword').change(jVal.conf_passwd);
 	$('#email').change(jVal.email);
 	$('#phone').change(jVal.phone);
+    $('#car_number').change(jVal.car_no);
 
 });

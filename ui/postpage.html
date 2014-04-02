@@ -212,7 +212,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	      {%endfor%}
 			<h4><align='center'>Accepted Requests<align='center'></h4>
             {% for reserved in reserved_list %}
-                {%if reserved.status==1 %}       
+                {% if reserved.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
@@ -220,11 +220,20 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
-	            {%endif%}
-            {%endfor%}
+	            {% endif %}
+            {% endfor %}
 <br>
 <button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
 <button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
+{% for reserved in reserved_list %}
+    {% if reserved.status==1 %}
+        <div style="color:red">
+        <p><h5>You have accepted passengers.</p>
+        <p><h5>Cancelling/Editing this post now may result in a <a href="/faq#Q7">negative flag</a>.</h5></p>
+        </div>
+        {% break %}
+    {% endif %}
+{% endfor %}
             
      
 <!--{% if rider.user.username!=post.owner.user.username %}
@@ -272,7 +281,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 -->
 
 		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
@@ -288,7 +297,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         <!-- <div class="container"> -->
 		<!-- <div class="row"> -->
 		<div class="span4 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="" method="POST">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
                 <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>
