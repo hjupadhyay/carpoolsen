@@ -15,7 +15,7 @@ formatting
 New columns Sort
 UTC issue
 <!-- REPORT USER -->
-TEll user about neg flags warning
+<!-- TEll user about neg flags warning -->
 
 
 <!-- EDIT_POST_PAGE -->
