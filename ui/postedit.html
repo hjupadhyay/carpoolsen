@@ -49,13 +49,12 @@
                 <div class="col-md-4">
                 <label for="fro">
                             FROM  </label>
-                    <input class="form-control" name="fro" id="fro" placeholder="From Location" type="text" value="{{ post.fro }}"
-                        required autofocus />
+                        <p><font size="4"> {{post.fro}} </font></p>
                 </div>
                 <div class="col-md-4">
                 <label for="to">
                             TO  </label>
-                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" value="{{ post.to }}" required />
+				<p><font size="4"> {{post.to}} </font></p>
                 </div>
            
 			
@@ -71,7 +70,7 @@
                <label for="">
                             DATE & TIME </label>
                 <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                    <input class="form-control"  id="datetime" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="Date and Time" value="{{ post.date_time }}" name="date_time" readonly >
+                    <input class="form-control"  id="datetime" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="Date and Time" name="date_time" readonly >
                     
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -162,7 +161,7 @@
                             SEATS AVAILABLE  </label>
 				<select class="form-control" name="total_seats">
 <!--   <option selected="selected">{{ total_seats }}</option> -->
-  <option value="1">1</option>
+  <option value="1" selected>1</option>
   <option value="2">2</option>
   <option value="3">3</option>
   <option value="4">4</option>
