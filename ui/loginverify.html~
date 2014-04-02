@@ -22,31 +22,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 };
 
 </script>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">CarPool</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-<!--               <input type="text" placeholder="Email" class="form-control"> -->
-            </div>
-            <div class="form-group">
-<!--               <input type="password" placeholder="Password" class="form-control"> -->
-            </div>
-<!--             <button type="submit" class="btn btn-success">Log in</button> -->
-<!--             <button type="submit" class="btn btn-primary">Sign up</button> -->
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
+{% include "header.html" %}
 <div class="jumbotron" style="width:100%; height:100%">
       <div class="container">
         
@@ -59,9 +35,9 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
   
     <div class="row">
-        <div class="col-md-4 well well-sm">
+        <div class="col-md-4 col-md-offset-4 well well-sm">
             <p> Please Log in to continue </p>
-            <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> LOGIN</legend>
+            <legend style="color:blue"><i class="glyphicon glyphicon-arrow-right"></i> LOGIN</legend>
             <form action="/login_do/" method="post" class="form" role="form">
             <div class="row">
                 <div class="col-md-12">
@@ -72,16 +48,16 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <br>
                 <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" name="password" placeholder="password" type="text">
+                    <input class="form-control" name="password" placeholder="password" type="text" required>
                 </div>
                 <div>
                     <label class="checkbox"><input name = "code" type="checkbox" value="{{ code }}" checked style="opacity:0; position:absolute; left:9999px;"></label>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-6 col-md-offset-3">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</span></button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</button>
   </div>
 </div>
        
@@ -99,12 +75,12 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
  </div>
 <!-- JS dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
  
 <!-- bootbox code -->
 <script src="bootstrap/js/bootbox.js"></script>
 
-<div id="footer">
+        <div id="footer">
           <div class="container">
             <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
             <p class="text-muted">&copy; Carpool 2014</p>

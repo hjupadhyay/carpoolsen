@@ -13,7 +13,9 @@
     <style>
         {% include "bootstrap/css/bootstrap.min.css" %}
         {% include "bootstrap/css/style.css" %}
+	{% include "bootstrap/css/backgrnd.css" %}
     </style>
+
     <script type="text/javascript">
         function signup()
         {
@@ -35,7 +37,7 @@
 
     {% include "header.html" %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron2">
       <div class="container">
         <div class="row">
         <div class="col-md-6">
@@ -55,8 +57,8 @@
 				<p><font size="2">Not an outright fee as such. This website is mainly supported by advertisements. Also, we charge a small percentage from whatever the users earn from the people sharing their vehicle. This helps us pay for servers and coffee that keeps us awake when we work on improving the website!</font></p>
 				<p><font color="black">Q6. Is there a cost involved with hitching a ride?</font></p>
 				<p><font size="2">Users offering you a ride may or may not ask for a nominal fee. We suggest recommended prices to every user posting a ride based on the length of the trip and other parameters like vehicle quality (Air-Conditioned or not etc). It is up to the poster to follow these recommendations or not. Some may not charge anything at all. We as such don't charge anything from someone just making a reservation for a trip.</font></p>
-				<p><font color="black">Q6. Is there a cost involved with hitching a ride?</font></p>
-				<p><font size="2">Users offering you a ride may or may not ask for a nominal fee. We suggest recommended prices to every user posting a ride based on the length of the trip and other parameters like vehicle quality (Air-Conditioned or not etc). It is up to the poster to follow these recommendations or not. Some may not charge anything at all. We as such don't charge anything from someone just making a reservation for a trip.</font></p>
+				<p id="Q7"><font color="black">Q7. Is there a way to rate users?</font></p>
+				<p><font size="2">Yes. The website uses <i>Negative Flags</i> which are system generated negative ratings given to a user when the user does an action which is inconvenient to others. These actions mainly include cancelling or editing a post after there are already one or more reservations on it.</font></p>
 				<p><font color="black"> My question still remains unanswered..</p>
 				<p><font size="2">Head over to the <a href="/contactus/"><i>Contact Us</i></a> page and we have listed ways to contact us. We'll be happy to help in any way possible.</font></p>
 			</div>  
@@ -68,12 +70,7 @@
    
     </div> <!-- /container -->
 				
-	<div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+    {% include "footer.html" %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

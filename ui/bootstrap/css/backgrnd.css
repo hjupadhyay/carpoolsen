@@ -28,4 +28,17 @@ background-image:url("http://www.brewsterwallcovering.com/data/default/images/ca
 background-color:#eee;
 }
 
-
+@media screen and (min-width: 768px) {
+  .jumbotron2 {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .container .jumbotron2 {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .jumbotron2 h1,
+  .jumbotron2 .h1 {
+    font-size: 63px;
+  }
+}

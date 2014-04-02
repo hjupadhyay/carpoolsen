@@ -8,53 +8,32 @@
     {% include "bootstrap/css/bootstrap.css" %}
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/bootstrap-theme.css" %}
+    {% include "bootstrap/css/backgrnd.css" %}
+	
 </style>
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+<!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css"> -->
 </head>
 <body>
 <div>
 </div>
 <script>
-
-function onClick(){
-bootbox.confirm("<br>Are you sure to cancel?", function(result) {
-if (result === false) {
-document.getElementById("hr").innerHTML = "You pressed Cancel"
-} else {
-document.getElementById("hr").innerHTML = "Pressed O.K";
-}
-})
-};
-
+// window.setTimeout(function() {
+// location.href = "{{ redirect_url }}";
+// }, 2000);
+// function onClick(){
+// bootbox.confirm("<br>Are you sure to cancel?", function(result) {
+// if (result === false) {
+// document.getElementById("hr").innerHTML = "You pressed Cancel"
+// } else {
+// document.getElementById("hr").innerHTML = "Pressed O.K";
+// }
+// })
+// };
 </script>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">CarPool</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-<!--               <input type="text" placeholder="Email" class="form-control"> -->
-            </div>
-            <div class="form-group">
-<!--               <input type="password" placeholder="Password" class="form-control"> -->
-            </div>
-<!--             <button type="submit" class="btn btn-success">Log in</button> -->
-<!--             <button type="submit" class="btn btn-primary">Sign up</button> -->
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-<div class="jumbotron" style="width:100%; height:100%">
+{% include "header.html" %}
+<div class="jumbotron2" style="width:100%; height:100%">
       <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -75,20 +54,16 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
  </div>
 <!-- JS dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
  
 <!-- bootbox code -->
-<script src="bootstrap/js/bootbox.js"></script>
+<!-- <script src="bootstrap/js/bootbox.js"></script> -->
 
-         <div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+      {% include "footer.html" %}
 
 
 <script>
+{% include "bootstrap/js/bootstrap.min.js" %}
 </script>
 </body>
 </html>

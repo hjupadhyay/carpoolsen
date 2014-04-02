@@ -17,6 +17,7 @@
     
     <style>
     {% include "bootstrap/css/star-rating.css" %}
+    {% include "bootstrap/css/backgrnd.css" %}
     </style>
     
     <script>
@@ -70,7 +71,7 @@
 		
 		
 		
-	<div class="jumbotron">&nbsp<br>
+	<div class="jumbotron2">&nbsp<br>
     <div class="container"><br><center><h3><b>Settings</b></h3></center>&nbsp
     <div class="row">
         <div class="col-md-3">
@@ -143,11 +144,7 @@
      <!-- /container -->
 
 	</div> 
-	<div id="footer">
-          <div class="container">
-            <p class="text-muted">&copy; Company 2014</p>
-          </div>
-        </div>
+	{% include "footer.html" %}
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

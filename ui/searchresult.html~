@@ -55,6 +55,7 @@
             <th>ID</th>
             {% if not rider == None %}
             <th>Driver</th>
+            {% endif %}
             <th>Date</th>
             <th>Time</th>
             <th>Cost(INR)</th>
