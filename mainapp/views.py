@@ -233,7 +233,7 @@ def dashboard(request):
     date_time1 = None
     date_time2 = None
     l_p_obj = Post.objects.filter(owner=request.user.rider, date_time__gte = timezone.now(), status__lte=1)
-    l_r_obj = Reserved.objects.filter(reserver=request.user.rider, status__lte=1)
+    l_r_obj = Reserved.objects.filter(reserver=request.user.rider, status__lte=)
     resobj = None
     pobj = None
     if len(l_p_obj) <> 0:
