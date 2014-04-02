@@ -85,9 +85,6 @@
 			</div>
        
 		
-   
-
-
                 <div class="row">
                 <div class="col-md-2"> </div>
                 <div class="col-md-4">
@@ -99,11 +96,16 @@
 <div class="col-md-4">
 <label for="">CAR TYPE  </label>
  <select class="form-control" name="ac" >
-  <option selected="selected">{{ post.ac }}</option>
-  <option  value="1">AC</option>
+  {% if post.ac==1 %}
+<!--   <option selected="selected">{{ post.ac }}</option> -->
+  <option  value="1" selected="selected">AC</option>
   <option value="0">Non-AC</option>
+  {% else %}
+  <option  value="1">AC</option>
+  <option value="0" selected="selected">Non-AC</option>
+  {% endif %}
 </select>
-                    </div>
+                </div>
                 </div>
 <br>
 
@@ -113,11 +115,21 @@
                 <div class="col-md-4">
                 <label for="men_women">
                             CAN BE RESERVED BY </label>
-                    <select class="form-control" name="men_women" >
-  <option selected="selected ">{{ post.men_women }}</option>
+                    <select class="form-control" name="men_women">
+<!--   <option selected="selected ">{{ post.men_women }}</option> -->
+  {% if post.men_women==0 %}
   <option value="2">Men</option>
   <option value="1">Women</option>
+  <option value="0" selected>Both</option>
+  {% elif post.men_women==1 %}
+  <option value="2">Men</option>
+  <option value="1" selected>Women</option>
   <option value="0">Both</option>
+  {% else %}  
+  <option value="2" selected>Men</option>
+  <option value="1">Women</option>
+  <option value="0">Both</option>
+  {%endif%}
   
 </select>
                 </div>
@@ -126,118 +138,18 @@
 				<label for="available_to">
                             CAN BE VIEWED BY  </label>
                    <select class="form-control" name="available_to">
-  <option selected="selected">{{ available_to }}</option>
-  <option value="0" >All</option>
+  {% if post.available_to==0 %}
+  <option value="0" selected>All</option>
   <option value="1">Facebook Friends Only</option>
+  {%else%}
+  <option value="0">All</option>
+  <option value="1" selected>Facebook Friends Only</option>
+  {%endif%}
 </select>
 </div>                                         
                 </div>            
                 <br>
 
-<!--      
-                
-            <div class="row">
-                <div class="col-md-6">
-                    hr : 
-                                
-                    <select class="form-control" id = "hour" name = "hour">
-                    
-                        <script>
-                            for(var i=0; i<=12; i++){
-                                var select = document.getElementById("hour");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                         <!--{% for hr in hrange %}
-                            <option value={{hr}} name="hour">{{ hr }}</option>
-                         {% endfor %}-->
-                        
-                        <!--<option value="01" name="hour">01</option>
-                        
-                        <option value="03" name="hour">03</option>
-                        <option value="04" name="hour">04</option>
-                        <option value="05" name="hour">05</option>
-                    </select>
-                    min : 
-                    <select class="form-control" id = "min" name = "min">
-                        <script>
-                            for(var i=0; i<=60; i++){
-                                var select = document.getElementById("min");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="hour">01</option>
-                        <option value="hour">02</option>
-                        <option value="hour">03</option>
-                        <option value="hour">04</option>
-                        <option value="hour">05</option>                    
-                    </select>
-                </div>
-			
-                <div class="col-md-6">
-                    dd : 
-                    <select class="form-control" id = "day" name = "day">
-                        <script>
-                            for(var i=1; i<=31; i++){
-                                var select = document.getElementById("day");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    mm : 
-                    <select class="form-control" id = "month" name = "month">
-                        <script>
-                            for(var i=1; i<=12; i++){
-                                var select = document.getElementById("month");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    yyyy : 
-                    <select class="form-control" id = "year" name = "year">
-                        <script>
-                            for(var i= 2014; i<=2016; i++){
-                                var select = document.getElementById("year");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                
-                        <!--
-                        <option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    
-                </div>
-            </div>
--->
 		
 		<div class="row">
 		<div class="col-md-2"> </div>
@@ -245,8 +157,8 @@
 				<div class="col-md-4">
 				<label for="total_seats">
                             SEATS AVAILABLE  </label>
-				<select class="form-control" name="total_seats" >
-  <option selected="selected">{{ total_seats }}</option>
+				<select class="form-control" name="total_seats">
+<!--   <option selected="selected">{{ total_seats }}</option> -->
   <option value="1">1</option>
   <option value="2">2</option>
   <option value="3">3</option>
@@ -271,18 +183,11 @@
 <br>
 
 
-
-
-
-<!--<label class="checkbox" for="smsnotify">
-      <input type="checkbox" name="sms_notif" id="Travelwith-1" value="1">
-      Would like to recieve SMS if anyone requests for reservation
-    </label>-->
                 
 <div class="col-md-2"> </div>
 <div class="col-md-4"> 
 <label class="checkbox" for="acceptance">
-      <input type="checkbox" name="autoaccept" id="Travelwith-1" value="{{ post.autoaccept }}">
+      <input type="checkbox" name="autoaccept" id="Travelwith-1">
         Reserve automatically (without approval)
     </label>
  </div>
