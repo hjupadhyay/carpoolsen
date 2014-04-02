@@ -42,10 +42,7 @@ Outbox
 (* *Post page -> Auto accept *)
 (* *wish to cancel -> cancel *)
 (* *bold username *)
-<<<<<<< HEAD
 (* <!-- Old posts = not changable --> *)
-=======
-<!-- Old posts = not changable -->
 
 Bugs found by me(Abhishek Kumar){
 (* 	edit profile not working *)

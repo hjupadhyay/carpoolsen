@@ -16,7 +16,7 @@ New columns Sort
 UTC issue
 Footers are now screwed.
 NegFlags arent getting set
-Reserve confirm updates are coming twice (or not), pata nai
+(* Reserve confirm updates are coming twice (or not), pata nai *)
 Make Mesage list on dashboard unordered
 header dropdown not working on invite_page
 after editing my post on edit_post_page, submitting throws an error (TIMEZONE FIXING, VINODH is DOING THAT)

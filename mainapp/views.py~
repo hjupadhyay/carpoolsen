@@ -677,7 +677,7 @@ def cancel_post(request):
                                                                                   "text":'<p>Trip has already started, cannot cancel now.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         #if entry.owner.user.pk == user.pk:
-		if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
+        if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
 			entry.owner.neg_flags += 1
 			
                 
@@ -851,7 +851,7 @@ def accept(request):
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Accepted request. Click <a href="/">here</a> to go back to the post.'}))
+                                                                          "text":'Accepted request. Click <a href="/post_page/?key={{postobj.id}}">here</a> to go back to the post.'}))
 
 def revoke(request):
     #if request.method == 'GET':
