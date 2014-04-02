@@ -979,14 +979,14 @@ def search_do(request):
     results = []
     if men_women <> "0":
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro=fro, to=to, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)
         else:
-            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
     else:
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro=fro, to=to, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, status__lte=1)
         else:
-            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
     template_values = {
         "rider":rider,
         'result_list':results,
