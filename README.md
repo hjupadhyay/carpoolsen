@@ -14,11 +14,16 @@ NEW_TODO
 formatting
 New columns Sort
 UTC issue
-<!-- REPORT USER -->
-<!-- TEll user about neg flags warning -->
+Footers are now screwed.
+NegFlags arent getting set
+Reserve confirm updates are coming twice
+Make Mesage list on dashboard unordered
+None Reserved (random) users arent able to send message from postpage.
+(* <!-- REPORT USER --> *)
+(* <!-- TEll user about neg flags warning --> *)
 
 
-<!-- EDIT_POST_PAGE -->
+(* <!-- EDIT_POST_PAGE --> *)
 (* POST_PAGE -> Message form popup *)
 (* MESSAGE_DELETE *)
 (* forgot password buttons *)-

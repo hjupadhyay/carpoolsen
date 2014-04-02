@@ -676,14 +676,14 @@ def cancel_post(request):
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Trip has already started, cannot cancel now.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-        if entry.owner.user.pk == user.pk:
-            if entry.reserved_set.all().aggregate(Sum('status')) > 0:
-                user.rider.neg_flags += 1
-            
+        #if entry.owner.user.pk == user.pk:
+        if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
+			entry.owner.neg_flags += 1
+			
+                
             #set status to canceled
-            entry.status = 2
-            entry.save()
-            
+			entry.status = 2
+			entry.save()
             
             #Delete all reserved entries for that post too
             #for y in entry.reserved_set.all():

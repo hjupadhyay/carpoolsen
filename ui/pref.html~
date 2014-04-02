@@ -71,7 +71,7 @@
 		
 		
 		
-	<div class="jumbotron2">&nbsp<br>
+	<div class="jumbotron2" id='headerdiv'>&nbsp<br>
     <div class="container"><br><center><h3><b>Settings</b></h3></center>&nbsp
     <div class="row">
         <div class="col-md-3">
@@ -91,8 +91,8 @@
 			<div class="user-info-block">
                 <div class="user-heading">
                     				
-					<!-- <div class="container">
-	<div class="row"> -->
+					<!-- <div class="container"> -->
+	<div class="row">
 		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST">
 <!--             <fieldset> -->
                 
@@ -103,34 +103,38 @@
                     <button type="submit">Upload</button>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Username</label>
-                    <br/>
+                    <label class="control-label col-xs-3">Username</label>
+                    <div class="col-xs-9">
                     
                     <h5>{{ rider.user.username }}</h5>
-                    
+                    </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">First Name</label>
-                    <br/>
+                    <label class="control-label col-xs-3">First Name</label>
+                    <div class="controls col-xs-9">
                     
-                    <input id="first_name" name="first_name" type="text" placeholder="First name" class="input-xlarge" value="{{ rider.user.first_name }}">
-                    
-                </div>
+                    <input id="first_name" name="first_name" type="text" placeholder="First name" class="form-control" value="{{ rider.user.first_name }}">
+                    </div>
+                </div>&nbsp
 				<div class="control-group">
-                    <label class="control-label">Last Name</label>
-                    <br/>
+                    <label class="control-label col-xs-3">Last Name</label>
+                    <div class="col-xs-9">
                     
-                    <input id="last_name" name="last_name" type="text" placeholder="Last name" class="input-xlarge" value = "{{ rider.user.last_name }}">
-                    
+                    <input id="last_name" name="last_name" type="text" placeholder="Last name" class="form-control" value = "{{ rider.user.last_name }}">
+                    </div>
                 </div>
-                
+                &nbsp
                 <div class="control-group">
-                    <label class="control-label">Gender</label>
-                    <div class="controls">
-                        <select id="Gender" name="gender" class="input-xlarge">
+                    <label class="control-label col-xs-3">Gender</label>
+                    <div class="controls col-xs-9">
+                        <select id="Gender" name="gender" class="form-control">
 <!--                             <option value="" selected="selected">Please select a value</option> -->
-                            <option id = "m" value="m">Male</option>
+							{%if rider.gender=='m' %}
+                            <option id = "m" value="m" selected>Male</option>
                             <option id = "f" value="f">Female</option>
+							{% else %}
+                            <option id = "m" value="m">Male</option>
+                            <option id = "f" value="f" selected>Female</option>
                         </select>
                         <script>
                             var element = document.getElementById('Gender');
@@ -138,33 +142,33 @@
                             element.value = valueToSelect.value;
                         </script>
 					</div>
-                </div>
+                </div>&nbsp
                 
                 <div class="control-group">
-                    <label class="control-label">Email</label>
-                    <div class="controls">
-                        <input id="email" name="email" type="text" placeholder="Email" class="input-xlarge" value = "{{ rider.user.email }}">
+                    <label class="control-label col-xs-3">Email</label>
+                    <div class="controls col-xs-9">
+                        <input id="email" name="email" type="text" placeholder="Email" class="form-control" value = "{{ rider.user.email }}">
                     </div>
-                </div>
+                </div>&nbsp
                 
 				<div class="control-group">
-                    <label class="control-label">Phone No.</label>
-                    <div class="controls">
-                        <input id="phone_no" name="phone" type="text" placeholder="Phone No." class="input-xlarge" value = "{{ rider.phone }}">
+                    <label class="control-label col-xs-3">Phone No.</label>
+                    <div class="controls col-xs-9">
+                        <input id="phone_no" name="phone" type="text" placeholder="Phone No." class="form-control" value = "{{ rider.phone }}">
                     </div>
-                </div>
+                </div>&nbsp
                 
                 <div class="control-group">
-                    <label class="control-label">Vehicle No.</label>
-                    <div class="controls">
-                        <input id="vehicle_no" name="car_number" type="text" placeholder="vehicle no." class="input-xlarge" value = "{{ rider.car_number }}">
+                    <label class="control-label col-xs-3">Vehicle No.</label>
+                    <div class="controls col-xs-9">
+                        <input id="vehicle_no" name="car_number" type="text" placeholder="vehicle no." class="form-control" value = "{{ rider.car_number }}">
                     </div>
-                </div>
+                </div>&nbsp
 				
 				<div class="control-group">
-                    <label class="control-label">Authentication</label>
-                    <div class="controls">
-						<select id="auth_type" name="auth_type" class="input-xlarge">
+                    <label class="control-label col-xs-3">Authentication</label>
+                    <div class="controls col-xs-9">
+						<select id="auth_type" name="auth_type" class="form-control">
                             <option id="None" value="None" >Please select a type</option>
                             <option id="PAN" value="PAN">PAN</option>
                             <option id="UID" value="UID">UID</option>
@@ -176,17 +180,17 @@
                             var valueToSelect = document.getElementById('{{ rider.auth_type }}');
                             element.value = valueToSelect.value;
                         </script>
-                        <input id="id_no" name="auth_token" type="text" placeholder="ID No."class="input-xlarge" value = "{{ rider.auth_token }}">
+                        <input id="id_no" name="auth_token" type="text" placeholder="ID No."class="form-control" value = "{{ rider.auth_token }}">
                     </div>
                 </div>
-                <br>
+                &nbsp
             <button id = "editprofile" type = "submit" class="btn btn-success">Done</button>
 <!--             </fieldset> -->
         </form>
 	</div>
-<!-- 	
+	
 </div>
-				</div> -->
+				<!-- </div> -->
 				</div>
 		</div>
 		</center>
