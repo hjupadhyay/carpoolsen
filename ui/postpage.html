@@ -49,12 +49,12 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 </script>
 {% include "header.html" %}
-<div class="jumbotron2" style="width:100%; height:100%"> <br>
-      <div class="container">
-        <center>
+<div class="jumbotron2" style="	background-image: url('http://www.brewsterwallcovering.com/data/default/images/catalog/original/420-87111.jpg')"> <br>
+      <div class="container" >
+        
         <div class="row">
-<div class="container drop-shadow">
-    <div class="centered">
+	<div class="container drop-shadow" style="background-color:#fff">
+	<div class="centered">
         <h2>Post Details</h2>
         {% if post.autoaccept == 1 %}
         <h5 style="color: blue;">All reservations on this post will be automatically accepted</h5>
@@ -63,7 +63,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         {% endif %}
             <br>
             <br>
-    </div>
+	</div>
         
         <div class="col-md-3">
             <div class="blockquote-box blockquote-info clearfix">
@@ -166,10 +166,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             
           
    </div>
+
     
     
     <div class="col-md-6"> 
-<div class="contain col-xs-12">
+<div class="contain col-xs-12"  style="background-color:#fff">
     
 <div class="centered" style="padding:5px">
 
@@ -299,6 +300,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
       </div>
       </div>
   </div>
+
 </div>
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
@@ -311,16 +313,13 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 {% endif %}
 
             
- <br>
-<br>					
-</center>	
+ 	
 
-<div id = "hr"></div>
 
- 
+
+
 </div>
-    
-</div>
+</div>    
 
 {% include "footer.html" %}
 
@@ -329,10 +328,9 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
 <!-- bootbox code -->
 <script> {% include "bootstrap/js/bootbox.js" %}</script>
-<br><br><br>    
-
+<!--  -->
 <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
 <!-- <script src="bootstrap/js/bootstrap.js"></script> -->
-    
+  
 </body>
 </html>
