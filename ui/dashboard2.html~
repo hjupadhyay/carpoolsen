@@ -107,9 +107,9 @@
 <!--                    <div class="modal-body">-->
                     <div class="well" style="height:400px;">
                       <ul class="nav nav-tabs">
-                        <li class="active"><a href="#post" data-toggle="tab">My posts ({{ post_list|length }})</a></li>
-                        <li><a href="#reserve" data-toggle="tab">Reserve Updates ({{ reserved_list|length }})</a></li>
-                        <li><a href="#inbox" data-toggle="tab">Inbox ({{ messages|length }})</a></li>
+                        <li id="tab_post" class="active"><a href="#post" data-toggle="tab">My posts ({{ post_list|length }})</a></li>
+                        <li id="tab_reserve" ><a href="#reserve" data-toggle="tab">Reserve Updates ({{ reserved_list|length }})</a></li>
+                        <li id="tab_inbox"><a href="#inbox" data-toggle="tab">Inbox ({{ messages|length }})</a></li>
                       </ul>
 <!--                      <div id="myTabContent" class="tab-content" style="overflow-y:scroll; height:400px;">-->
                       <div id="myTabContent" class="tab-content">
@@ -142,7 +142,15 @@
                             
                         <ul>
                         {% for reserved in reserved_list %}
+                            {% if reserved.post.status == 2 %}
+                            <li>
+                                <p><h5>Your reservation from {{ reserved.post.fro }} to {{reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{reserved.post.owner.user.first_name}}</a> on {{reserved.post.date_time}} has been Cancelled.</h5><p>
+                                <p><h5><a href="/search_do?fro={{reserved.post.fro}}&to={{reserved.post.to}}&men_women={{reserved.post.men_women}}&start_date_time=&end_date_time=">Search&nbspfor&nbspsimilar&nbsptrips</a>&nbsp&nbsp&nbsp<a href="#" onclick="dismiss({{reserved.id}})">Dismiss</a></h5></p>
+                                <p><h6>Have to go through a lot of trouble due to this cancellation? You can <a href="/report_user?id={{reserved.post.owner.id}}">report</a> the user in that case</h6></p>
+                            </li>
+                            {% else %}
                             <li><p><h5>Your <a href="/post_page/?key={{reserved.post.id}}">reservation </a>from {{ reserved.post.fro }} to {{ reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{ reserved.post.owner.user.first_name }}</a> on {{ reserved.post.date_time }} is {% if reserved.status %} Confirmed {% else %} Waiting Approval {% endif %}</h5></p></li>
+                            {% endif %}
                         {% endfor %}
                         </ul>  
                         </div>  
@@ -228,12 +236,12 @@
             
                     
                             <input type="radio" value="2" name="men_women">
-                                Only Men
+                                Men
                             </input>
                     
                     
                             <input type="radio" value="1" name="men_women">
-                                Only Women
+                                Women
                             </input>
                     
                     
@@ -286,7 +294,18 @@
     });
     
     </script>
-		
-      </body>
+	<script>
+        function dismiss(x)
+        {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET","/cancel_res?resid=" + x,false);
+            xmlhttp.send();
+            window.location.replace(document.URL);
+            document.getElementById("tab_post").class=""/*
+            document.getElementById("tab_reserve").class="active"*/
+            
+        }
+	</script>
+    </body>
 	  
     </html>
