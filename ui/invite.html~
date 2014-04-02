@@ -1,0 +1,45 @@
+<html>
+<head>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <link href="bootstrap/css/style.css" rel="stylesheet">
+     
+      
+        <style>
+            {% include "bootstrap/css/style.css" %}
+            {% include "bootstrap/css/bootstrap.min.css" %}
+/*             % include "jumbotron-narrow.css" % */
+            
+            
+        </style>
+</head>
+<body>
+{% include "header.html" %}
+<div class="container">
+<div class="form-group">
+    <div class="row" style="vertical-align: middle; ">
+    <div class="col-md-4">
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+		<form role="form" class="col-md-4" method="post" action="/invite/">
+			<div class="form-group">
+			<label for="email_id">Email Address (Enter multiple separated by comma(,)</label>
+			<input id="name" name="email_id" type="text" class="form-control" required>
+			
+		</div>
+			<label for="message">Message</label>
+			<textarea id="message" name="message" class="form-control" required>{{message}}</textarea>
+			<br>
+		<div class="controls">
+		<button type="submit" class="btn btn-success" id="button">Submit</button>
+		</div>
+		</form>
+    
+	</div>
+</div>
+</div>
+</body>
+</html>
