@@ -996,7 +996,7 @@ def search_do(request):
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
     #return HttpResponse(len(results))
     
-
+@csrf_exempt
 def edit_post(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')

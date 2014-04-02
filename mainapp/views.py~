@@ -979,14 +979,14 @@ def search_do(request):
     results = []
     if men_women <> "0":
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro=fro, to=to, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)
         else:
-            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
     else:
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro=fro, to=to, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, status__lte=1)
         else:
-            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
     template_values = {
         "rider":rider,
         'result_list':results,
@@ -996,7 +996,7 @@ def search_do(request):
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
     #return HttpResponse(len(results))
     
-
+@csrf_exempt
 def edit_post(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -1044,16 +1044,6 @@ def edit_post(request):
     men_women = int(request.REQUEST['men_women'])
     available_to = int(request.REQUEST['available_to'])
     
-    #entry = Post(owner=owner, 
-                 #car_number=car_number, 
-                 #total_seats=total_seats, 
-                 #phone=phone, 
-                 #fro=fro, 
-                 #to=to,
-                 #date_time=date_time, 
-                 #ac=ac,
-                 #men_women=men_women,
-                 #available_to=available_to)
     if total_seats < postobj.reserved_set.aggregate(Sum('status'))['status__sum']:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                               "text":'You already have more reserved users than seats. Please go back or click <a href="/">here</a> to go to the homepage'}))
@@ -1061,8 +1051,8 @@ def edit_post(request):
     postobj.car_number = car_number
     postobj.total_seats = total_seats
     postobj.phone = phone
-    postobj.fro = fro
-    postobj.to = to
+    #postobj.fro = fro
+    #postobj.to = to
     postobj.date_time = date_time
     postobj.ac = ac
     postobj.men_women = men_women

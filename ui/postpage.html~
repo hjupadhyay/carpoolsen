@@ -209,21 +209,20 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <!-- 		          </ul> -->
 	          {%endif%}
 	      {%endfor%}
-            
+			<h4><align='center'>Accepted Requests<align='center'></h4>
             {% for reserved in reserved_list %}
                 {%if reserved.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
-			         <h4>Accepted Requests</h4>
 		              <ul>
 			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
             {%endfor%}
-        
-<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
+<br>
+<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?postid={{post.id}}'">Edit Post</button>
 <button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
             
      
@@ -292,7 +291,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>
-                <button class="btn btn-info" type="submit" onclick='window.location.href='/send_message/?to=post.owner.user.username'>Send New Message</button>
+                <button class="btn btn-info" type="submit" onclick='window.location.href='/send_message/?to=post.owner.user.username''>Send New Message</button>
             </form>
         </div>
 		<!-- </div> -->
