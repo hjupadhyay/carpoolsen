@@ -11,16 +11,23 @@ To Do:
 
 NEW_TODO
 
-EDIT_POST_PAGE
-POST_PAGE -> Message form popup
+formatting
+New columns Sort
+UTC issue
+<!-- REPORT USER -->
+<!-- TEll user about neg flags warning -->
+
+
+<!-- EDIT_POST_PAGE -->
+(* POST_PAGE -> Message form popup *)
 (* MESSAGE_DELETE *)
 (* forgot password buttons *)-
-UTC issue
+
 (* Settings page *)
 (* change password *)
-formatting
 
-New columns Sort
+
+
 
 (* Notif to reserver on post cancel/edit *)
 Outbox
@@ -28,5 +35,4 @@ Outbox
 (* *Post page -> Auto accept *)
 (* *wish to cancel -> cancel *)
 (* *bold username *)
-Old posts = not changable
-TEll user about neg flags warning
+<!-- Old posts = not changable -->

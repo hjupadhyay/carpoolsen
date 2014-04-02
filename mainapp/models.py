@@ -46,7 +46,7 @@ class Rider(models.Model):
     auth_token = models.CharField(max_length=200, default = "0")
     
     
-    user_rating = models.IntegerField(default=5)
+    user_rating = models.IntegerField(default=0)
     neg_flags = models.IntegerField(default=0)
     
     #for reset_password
