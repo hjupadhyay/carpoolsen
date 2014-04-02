@@ -1,4 +1,4 @@
-carpoolsen
+(* carpoolsen *)
 ==========
 To Do:
 
@@ -19,9 +19,12 @@ UTC issue
 (* change password *)
 formatting
 
+Notif to reserver on post cancel/edit
+Remove Driver field in search
 
-*Post page -> Auto accept
-*wish to cancel -> cancel
-*bold username
+
+(* *Post page -> Auto accept *)
+(* *wish to cancel -> cancel *)
+(* *bold username *)
 Old posts = not changable
 TEll user about neg flags warning

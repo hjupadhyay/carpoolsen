@@ -11,7 +11,7 @@
         <script type="text/javascript" src="bootstrap/js/searchresults.js"></script>
         <script type="text/javascript">
         <!--
-        var TSort_Data = new Array ('block_main', 'i','s','d', 'd','i', 'f');
+        var TSort_Data = new Array ('block_main', 'i','s','d', 's','i', 'i','s' );
         tsRegister();
         // -->
         </script>
@@ -24,10 +24,10 @@
 
 <div class="container reserveAlign">
         <h2>Search Results</h2>
-							<p><h4>Here are the search results from {{ searched.fro }} to {{ searched.to }}</h4></p>
-							<p><h4> Click on the reserve button to book a trip</h4></p>
-								 
-                <div class="btn-group">
+			<p><h4>Here are the search results from {{ searched.fro }} to {{ searched.to }}</h4></p>
+			<p><h4> Click on the Show Details button to view details about a trip</h4></p>
+						 
+                <!-- <div class="btn-group">
                     <button type="button" class="btn btn-primary btn-xl">Sort By</button>
                     <button type="button" class="btn btn-primary dropdown-toggle btn-xl" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -40,7 +40,7 @@
                         <li class="divider"></li>
                         <li><a href="#block_main">Negative Flags</a></li>
                    </ul>
-                </div>
+                </div> -->
                 
 </div>
       
@@ -53,11 +53,13 @@
     <thead>
         <tr>
             <th>ID</th>
+            {% if not rider == None %}
             <th>Driver</th>
             <th>Date</th>
             <th>Time</th>
             <th>Cost(INR)</th>
-            <th>Negative Flags</th>            
+            <th>Negative Flags</th>
+            <th>Authentication</th>
             <th class="text-center">Action</th>
             
         </tr>
@@ -65,11 +67,18 @@
         {% for post in result_list %}
         <tr>
                 <td>1</td>
+                {% if not rider == None %}
                 <td>{{ post.owner.user.first_name }} </td>
+                {% endif %}
                 <td>{{ post.date_time.date() }}</td>
                 <td>{{ post.date_time.time() }}</td>
                 <td>{{ post.cost }}</td>
                 <td><center>{{ post.owner.neg_flags }}</td>
+                {% if post.owner.auth_token == 0 %}
+                <td><center>Yes</td>
+                {% else %}
+                <td><center>No</td>
+                {% endif %}
                 
                 {% if not rider == None %}
                 <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Show Details</a> </td>

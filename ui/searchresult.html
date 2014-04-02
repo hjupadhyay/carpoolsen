@@ -25,7 +25,7 @@
 <div class="container reserveAlign">
         <h2>Search Results</h2>
 			<p><h4>Here are the search results from {{ searched.fro }} to {{ searched.to }}</h4></p>
-			<p><h4> Click on the reserve button to book a trip</h4></p>
+			<p><h4> Click on the Show Details button to view details about a trip</h4></p>
 						 
                 <!-- <div class="btn-group">
                     <button type="button" class="btn btn-primary btn-xl">Sort By</button>
@@ -53,7 +53,9 @@
     <thead>
         <tr>
             <th>ID</th>
+            {% if not rider == None %}
             <th>Driver</th>
+            {% endif %}
             <th>Date</th>
             <th>Time</th>
             <th>Cost(INR)</th>
@@ -66,7 +68,9 @@
         {% for post in result_list %}
         <tr>
                 <td>1</td>
+                {% if not rider == None %}
                 <td>{{ post.owner.user.first_name }} </td>
+                {% endif %}
                 <td>{{ post.date_time.date() }}</td>
                 <td>{{ post.date_time.time() }}</td>
                 <td>{{ post.cost }}</td>
