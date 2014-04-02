@@ -114,7 +114,7 @@ def edit_profile_page(request):
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                               "text":'No Rider associated!.\
                                                                                   Please go back or click <a href="/">here</a> to go to the homepage'}))
-    return HttpResponse(jinja_environ.get_template('profileedit.html').render({"rider":request.user.rider}))
+    return HttpResponse(jinja_environ.get_template('pref.html').render({"rider":request.user.rider}))
     
 def edit_post_page(request):
 	retval = check(request)

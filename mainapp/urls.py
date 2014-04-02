@@ -53,7 +53,7 @@ urlpatterns = patterns('',
     url(r'^change_pass_page/', views.change_pass_page, name = 'change_pass_page'),
     url(r'^invite_page/', views.invite_page, name='invite_page'),
     url(r'^settings_page/', views.settings_page, name = 'settings_page'),
-    url(r'^edit_post_page/', views.edit_post_page, name = 'edit_post_page'),
+    #url(r'/', views.settings_page, name = 'settings_page'),
     
  	
     #temp for check

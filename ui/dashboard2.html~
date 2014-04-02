@@ -144,7 +144,7 @@
                         {% for reserved in reserved_list %}
                             {% if reserved.post.status == 2 %}
                             <li>
-                                <p><h5>Your reservation from {{ reserved.post.fro }} to {{reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{reserved.post.owner.user.first_name}}</a> on {{reserved.post.date_time}} has been Cancelled.</h5><p>
+                                <p><h5>Your reservation from {{ reserved.post.fro }} to {{reserved.post.to }} with <a href="/profile?id={{reserved.post.owner.id}}">{{reserved.post.owner.user.first_name}}</a> on {{reserved.post.date_time.date()}} at {{reserved.post.date_time.time()}} has been Cancelled.</h5><p>
                                 <p><h5><a href="/search_do?fro={{reserved.post.fro}}&to={{reserved.post.to}}&men_women={{reserved.post.men_women}}&start_date_time=&end_date_time=">Search&nbspfor&nbspsimilar&nbsptrips</a>&nbsp&nbsp&nbsp<a href="#" onclick="dismiss({{reserved.id}})">Dismiss</a></h5></p>
                                 <p><h6>Have to go through a lot of trouble due to this cancellation? You can <a href="/report_user?id={{reserved.post.owner.id}}">report</a> the user in that case</h6></p>
                             </li>
@@ -236,12 +236,12 @@
             
                     
                             <input type="radio" value="2" name="men_women">
-                                Men
+                                Only Men
                             </input>
                     
                     
                             <input type="radio" value="1" name="men_women">
-                                Women
+                                Only Women
                             </input>
                     
                     

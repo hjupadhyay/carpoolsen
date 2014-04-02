@@ -28,6 +28,7 @@
             {% include "bootstrap/css/profile.css" %}
             {% include "bootstrap/css/star-rating.min.css" %}
             {% include "bootstrap/css/drop-shadow.css" %}
+	    {% include "bootstrap/css/backgrnd.css" %}
 /*             % include "jumbotron-narrow.css" % */
             
             
@@ -65,7 +66,7 @@
   <body>
     {% include "header.html" %}
 		
-	<div class="jumbotron" >
+	<div class="jumbotron2" >
 	  <div class="container" align = "center">    
 	    <div class="col-lg-6 col-lg-offset-3"><div class="conatiner drop-shadow">
 		<div class="jumbotron extra" align = "center" style= "margin-left:400">
@@ -128,7 +129,7 @@
 <!-- 				<h3>Profile complete<span class="pull-right"><div> -->
                 <br>
                 {% if profiler.user.username == rider.user.username %}
-        	    <button class="btn btn-primary" onclick="window.location.href='/edit_profile_page/'">Edit Profile</a></button>
+        	    <button class="btn btn-primary" onclick="window.location.href='/settings_page/#headdiv'">Edit Profile</a></button>
         	    {% endif %}
         	</div></span></h3>
 
@@ -141,12 +142,8 @@
          
      <!-- /container -->
 
-<div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+{% include "footer.html" %}
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
