@@ -271,7 +271,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 -->
 
 		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
@@ -287,7 +287,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         <!-- <div class="container"> -->
 		<!-- <div class="row"> -->
 		<div class="span4 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="" method="POST">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
                 <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>

@@ -1068,7 +1068,7 @@ def edit_post(request):
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Post edited successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
-
+@csrf_exempt
 def send_message(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
@@ -1086,10 +1086,7 @@ def send_message(request):
         entry = Message(sender = sender, receiver = receiver, message = message)
         entry.save()
     except Exception as e:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
-                                                                              "text":"""<p>505 Internal Error</p>
-                                                                                  <p>""" + e + """</p>
-                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage"""}))
+        return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Message Sent. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
