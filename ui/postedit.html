@@ -27,6 +27,7 @@
     
 </head>
 <body>
+
 {%include "header.html" %}
 
 <br>
@@ -41,7 +42,7 @@
         <div align="center">
             <legend><span class="glyphicon glyphicon-arrow-th"></span> Edit Your Trip Details!</legend>
             </div>
-            <form action="/post_new/" method="post" class="form" role="form">
+            <form action="/edit_post/" method="post" class="form" role="form">
             <div align="center">
             <h3><b>Edit Your Trip's Details</b></h3>
             </div>
@@ -211,20 +212,17 @@
 
     </div></div>
     </div>
-
+<br>
+<br>
 
 
 	
 	<script type="text/javascript" src="./bootstrap/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        //language:  'fr',
-     
 
-	<script type="text/javascript">
-            {% include "bootstrap/js/jquery-1.8.3.min.js"%}
+<script type="text/javascript">
+{% include "bootstrap/js/jquery-1.8.3.min.js"%}
 {% include  "bootstrap/js/bootstrap.min.js" %}
 {% include "bootstrap/js/bootstrap-datetimepicker.js" %}
 {% include "/bootstrap/js/validate.js" %}
@@ -240,11 +238,6 @@
     });
 
 	</script>
-
-
-
-    
-    </script>
 
 {% include "footer.html" %}
 </body>
