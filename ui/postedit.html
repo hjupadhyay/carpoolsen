@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Edit Details</title>
+<title>Edit Trip Details</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -9,42 +9,52 @@
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
     {% include "bootstrap/css/bootstrap.min.css" %}
-    {% include "bootstrap/css/backgrnd.css" %}
+    {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
+    {% include "bootstrap/css/checks.css" %}
 </style>
     
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="./bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <link href="jumbotron.css" rel="stylesheet">
-	
     
 			
 
     
 </head>
 <body>
-    <div class="container" class="jumbotron2" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">
-        <br>
+    <div class="container" class="jumbotron" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">
+=======
+{%include "header.html" %}
+   <!-- <div class="container" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">-->
+       
 
+  <div class = "container" padding-left: 300>
   
     <div class="row">
-        
-            <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-arrow-right"></i></a> Edit Details</legend>
-            <form action="http://localhost:8000/post_new/" method="post" class="form" role="form">
+        <div align="center">
+            <legend><span class="glyphicon glyphicon-arrow-th"></span> Edit Your Trip Details!</legend>
+            </div>
+            <form action="/post_new/" method="post" class="form" role="form">
+            <div align="center">
+            <h3>Edit Your Trip Details</h3>
+            </div>
             <div class="row">
-                <div class="col-md-5">
-                    <label class="control-label">From</label>
-                    </br>
-                        <input class="form-control" name="fro" placeholder="From" type="text" placeholder="From" class="input-xlarge" value="{{ rider.from }}"
-                            required autofocus />
+            <br>
+            <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="fro">
+                            FROM  </label>
+                    <input class="form-control" name="fro" id="fro" placeholder="From Location" type="text" value="{{ post.fro }}"
+                        required autofocus />
                 </div>
-                <div class="col-md-5">
-                    <label class="control-label">To</label>
-                    </br>
-                        <input class="form-control" name="to" placeholder="To" type="text" placeholder="To" class="input-xlarge" value="{{ rider.to }}" required />
+                <div class="col-md-4">
+                <label for="to">
+                            TO  </label>
+                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" value="{{ post.to }}" required />
                 </div>
            
 			
@@ -54,195 +64,119 @@
 		<br>
 		
 		<div class="row">
- <div class="col-md-5">
+		<div class="col-md-2"> </div>
+ <div class="col-md-4">
 		<div class="form-group">
-               <label class="control-label">Date and Time</label>
-               </br>
-                    <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                        <input class="form-control" style="background-color:white" size="16" type="text"  placeholder="click on the side to set date" class="input-xlarge" value="{{ post.date_time }}">
+               <label for="">
+                            DATE & TIME </label>
+                <div class="input-group date form_datetime "  data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control"  id="datetime" style="background-color:white; cursor:default;" size="16" type="text"  placeholder="Date and Time" value="{{ post.date_time }}" name="date_time" readonly >
                     
-    					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    </div>
-				<input type="hidden" id="dtp_input1" value="" />
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
             </div>
 			</div>
-			<div class="col-md-5">
-                    <input class="form-control" name="phone" placeholder="Phone Number" type="text" >
+			
+			
+			
+			<div class="col-md-4">
+			<label for="phone">
+                            CONTACT ME  </label>
+                    <input class="form-control" name="phone" id="phone" placeholder="Phone Number" type="text" value="{{post.owner.phone}}" required>
                 </div>
 			</div>
        
 		
-   
-
-
                 <div class="row">
-                
-                <div class="col-md-5">
-                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" >
+                <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="">
+                            CAR NUMBER </label>
+                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{post.car_number}}" required>
                 </div>
-				<div class="col-md-5">
-                     <select class="form-control" name="ac" >
-  <option selected="selected">Car Type</option>
-  <option  value="0">AC</option>
-  <option value="1">Non-AC</option>
+				
+<div class="col-md-4">
+<label for="">CAR TYPE  </label>
+ <select class="form-control" name="ac" >
+  {% if post.ac==1 %}
+<!--   <option selected="selected">{{ post.ac }}</option> -->
+  <option  value="1" selected="selected">AC</option>
+  <option value="0">Non-AC</option>
+  {% else %}
+  <option  value="1">AC</option>
+  <option value="0" selected="selected">Non-AC</option>
+  {% endif %}
 </select>
-                    </div>
+                </div>
                 </div>
 <br>
 
                 <div class="row">
                 
-                
-                <div class="col-md-5">
-                    <select class="form-control" name="men_women" >
-  <option selected="selected ">Allow</option>
-  <option value="0">Men</option>
+                <div class="col-md-2"> </div>
+                <div class="col-md-4">
+                <label for="men_women">
+                            CAN BE RESERVED BY </label>
+                    <select class="form-control" name="men_women">
+<!--   <option selected="selected ">{{ post.men_women }}</option> -->
+  {% if post.men_women==0 %}
+  <option value="2">Men</option>
   <option value="1">Women</option>
-  <option value="2">Both</option>
+  <option value="0" selected>Both</option>
+  {% elif post.men_women==1 %}
+  <option value="2">Men</option>
+  <option value="1" selected>Women</option>
+  <option value="0">Both</option>
+  {% else %}  
+  <option value="2" selected>Men</option>
+  <option value="1">Women</option>
+  <option value="0">Both</option>
+  {%endif%}
   
 </select>
                 </div>
 				
-				<div class="col-md-5">
+				<div class="col-md-4">
+				<label for="available_to">
+                            CAN BE VIEWED BY  </label>
                    <select class="form-control" name="available_to">
-  <option selected="selected">Available to</option>
-  <option value="0" >All</option>
-  <option value="1">Friends Only</option>
+  {% if post.available_to==0 %}
+  <option value="0" selected>All</option>
+  <option value="1">Facebook Friends Only</option>
+  {%else%}
+  <option value="0">All</option>
+  <option value="1" selected>Facebook Friends Only</option>
+  {%endif%}
 </select>
-</div>
-                
-               
-                
-                                
-                </div>
-            
+</div>                                         
+                </div>            
                 <br>
 
-<!--      
-                
-            <div class="row">
-                <div class="col-md-6">
-                    hr : 
-                                
-                    <select class="form-control" id = "hour" name = "hour">
-                    
-                        <script>
-                            for(var i=0; i<=12; i++){
-                                var select = document.getElementById("hour");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                         <!--{% for hr in hrange %}
-                            <option value={{hr}} name="hour">{{ hr }}</option>
-                         {% endfor %}-->
-                        
-                        <!--<option value="01" name="hour">01</option>
-                        
-                        <option value="03" name="hour">03</option>
-                        <option value="04" name="hour">04</option>
-                        <option value="05" name="hour">05</option>
-                    </select>
-                    min : 
-                    <select class="form-control" id = "min" name = "min">
-                        <script>
-                            for(var i=0; i<=60; i++){
-                                var select = document.getElementById("min");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="hour">01</option>
-                        <option value="hour">02</option>
-                        <option value="hour">03</option>
-                        <option value="hour">04</option>
-                        <option value="hour">05</option>                    
-                    </select>
-                </div>
-			
-                <div class="col-md-6">
-                    dd : 
-                    <select class="form-control" id = "day" name = "day">
-                        <script>
-                            for(var i=1; i<=31; i++){
-                                var select = document.getElementById("day");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    mm : 
-                    <select class="form-control" id = "month" name = "month">
-                        <script>
-                            for(var i=1; i<=12; i++){
-                                var select = document.getElementById("month");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                        
-                        <!--<option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    yyyy : 
-                    <select class="form-control" id = "year" name = "year">
-                        <script>
-                            for(var i= 2014; i<=2016; i++){
-                                var select = document.getElementById("year");
-                                var option = document.createElement("OPTION");
-                                select.options.add(option);
-                                option.text = i;
-                                option.value = i;
-                            }
-                        </script>
-                
-                        <!--
-                        <option value="Date">2</option>
-                        <option value="Date">3</option>
-                        <option value="Date">4</option>
-                        <option value="Date">5</option>
-                    </select>
-                    
-                </div>
-            </div>
--->
 		
 		<div class="row">
+		<div class="col-md-2"> </div>
 		 
-
-				<div class="col-md-5">
-				<select class="form-control" name="total_seats" >
-  <option selected="selected">Seats Available</option>
+				<div class="col-md-4">
+				<label for="total_seats">
+                            SEATS AVAILABLE  </label>
+				<select class="form-control" name="total_seats">
+<!--   <option selected="selected">{{ total_seats }}</option> -->
   <option value="1">1</option>
-  <option value="1">2</option>
-  <option value="1">3</option>
-  <option value="1">4</option>
-  <option value="1">5</option>
-  <option value="1">6</option>
-  <option value="1">8</option>
-  <option value="1">9</option>
-  <option value="1">10</option>
-  <option value="1">11</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
 </select>
 </div>
-<div class="col-md-5">
-                    <input class="form-control" name="cost" placeholder="Cost" type="text" required />
+<div class="col-md-4">
+<label for="cost">
+                            COST PER SEAT </label>
+                    <input class="form-control" name="cost" placeholder="Cost in Rupees" type="text" value="{{ post.cost }}" required />
                 </div>
 
 </div>
@@ -251,37 +185,32 @@
 <br>
 
 
-
-
-
-<label class="checkbox" for="smsnotify">
-      <input type="checkbox" name="sms_notif" id="Travelwith-1" value="1">
-      Would like to recieve SMS if anyone requests for reservation
-    </label>
                 
-
+<div class="col-md-2"> </div>
+<div class="col-md-4"> 
 <label class="checkbox" for="acceptance">
-      <input type="checkbox" name=autoaccept id="Travelwith-1" value="1">
+      <input type="checkbox" name="autoaccept" id="Travelwith-1">
         Reserve automatically (without approval)
     </label>
-                
-<div class="control group">
-<hr class="colorgraph">
-<div class="col-md-5">
+ </div>
+
+<div class="col-md-1"> </div>
+<div class="col-md-11" align="center">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-ok-sign"></span>Done</span></button>
+  &nbsp &nbsp 
+<button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg"> Submit Post </span></button>
   </div>
-</div>
 </div>
 
 </fieldset>
       
 	  </form>
 
+    </div></div>
     </div>
 
-{% include "footer.html" %}
+
 
 	
 	<script type="text/javascript" src="./bootstrap/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
@@ -290,16 +219,29 @@
 <script type="text/javascript">
     $('.form_datetime').datetimepicker({
         //language:  'fr',
+     
+
+	<script type="text/javascript">
+            {% include "bootstrap/js/jquery-1.8.3.min.js"%}
+{% include  "bootstrap/js/bootstrap.min.js" %}
+{% include "bootstrap/js/bootstrap-datetimepicker.js" %}
+{% include "/bootstrap/js/validate.js" %}
+</script>
+<script type="text/javascript">  $('.form_datetime').datetimepicker({
+        format:"dd MM yyyy - hh:ii",
         weekStart: 1,
         todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
     });
+
 	</script>
 
 
+
+    
+    </script>
 </body>
 </html>

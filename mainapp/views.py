@@ -115,7 +115,20 @@ def edit_profile_page(request):
                                                                               "text":'No Rider associated!.\
                                                                                   Please go back or click <a href="/">here</a> to go to the homepage'}))
     return HttpResponse(jinja_environ.get_template('profileedit.html').render({"rider":request.user.rider}))
+    
+def edit_post_page(request):
+	retval = check(request)
+	if retval <> None:
+		return retval
 
+	try:
+		rider=request.user.rider
+		key=request.REQUEST['key']
+		postobj=Post.objects.get(id=key)
+		return HttpResponse(jinja_environ.get_template('postedit.html').render({"rider":request.user.rider, 'post':postobj}))
+	except Exception as e:
+		return HttpResponse(e)
+		
 def profile(request):
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))

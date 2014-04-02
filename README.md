@@ -10,10 +10,11 @@ To Do:
 
 
 NEW_TODO
+
 EDIT_POST_PAGE
 POST_PAGE -> Message form popup
-MESSAGE_DELETE
-forgot password buttons
+(* MESSAGE_DELETE *)
+(* forgot password buttons *)
 UTC issue
 (* Settings page *)
 (* change password *)
@@ -22,8 +23,6 @@ formatting
 Notif to reserver on post cancel/edit
 Outbox
 (* Remove Driver field in search *)
-
-
 (* *Post page -> Auto accept *)
 (* *wish to cancel -> cancel *)
 (* *bold username *)
