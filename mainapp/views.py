@@ -1027,8 +1027,8 @@ def edit_post(request):
     car_number = request.REQUEST['car_number']
     total_seats = int(request.REQUEST['total_seats'])
     phone = request.REQUEST['phone']
-    fro = request.REQUEST['fro']
-    to = request.REQUEST['to']
+    #fro = request.REQUEST['fro']
+    #to = request.REQUEST['to']
     autoaccept = request.REQUEST['autoaccept']
     
     #Date and time format: yyyy-mm-dd-hh-mm
@@ -1044,16 +1044,6 @@ def edit_post(request):
     men_women = int(request.REQUEST['men_women'])
     available_to = int(request.REQUEST['available_to'])
     
-    #entry = Post(owner=owner, 
-                 #car_number=car_number, 
-                 #total_seats=total_seats, 
-                 #phone=phone, 
-                 #fro=fro, 
-                 #to=to,
-                 #date_time=date_time, 
-                 #ac=ac,
-                 #men_women=men_women,
-                 #available_to=available_to)
     if total_seats < postobj.reserved_set.aggregate(Sum('status'))['status__sum']:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                               "text":'You already have more reserved users than seats. Please go back or click <a href="/">here</a> to go to the homepage'}))
@@ -1061,8 +1051,8 @@ def edit_post(request):
     postobj.car_number = car_number
     postobj.total_seats = total_seats
     postobj.phone = phone
-    postobj.fro = fro
-    postobj.to = to
+    #postobj.fro = fro
+    #postobj.to = to
     postobj.date_time = date_time
     postobj.ac = ac
     postobj.men_women = men_women
