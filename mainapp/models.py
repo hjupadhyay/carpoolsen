@@ -67,7 +67,11 @@ class Post(models.Model):
     to = models.CharField(max_length=200)
     date_time = models.DateTimeField('date_time',default=timezone.now())
     
-    
+    #status of post
+    #0 - scheduled
+    #1 - ongoing -> yet to be implemented
+    #2 - cancelled
+    status = models.IntegerField(default=0)
     
     #0 - No
     #1 - Yes
