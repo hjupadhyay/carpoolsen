@@ -57,7 +57,7 @@
 
 
                                 <div class="nav navbar-nav navbar-right">
-              <a class="navbar-brand" href="#">Welcome, {{rider.user.first_name!</a>
+              <a class="navbar-brand" href="#">Welcome, {{rider.user.first_name}}!</a>
               <a class="navbar-brand" href="#">Log Out</a>							
                                 </div>
 
@@ -81,11 +81,11 @@
             </ul>
         </div>
         <div class="col-md-9 well admin-content" id="edit">
-            <p>
-                Want to edit your profile??
+            <p align="center">
+                Want to edit your profile?
             </p>
             <div class="controls">
-                            <center><button type="submit" class="btn btn-success">Go to edit profile</button></center>
+                            <center><button type="submit" class="btn btn-success" id="myButton">Go to edit profile</button></center>
                         </div>
         </div>
         <div class="col-md-9 well admin-content" id="Password">
@@ -120,7 +120,7 @@
 					</div>
 					</div>&nbsp
                         <div class="controls">
-                            <center><button type="submit" class="btn btn-success">Submit</button></center>
+                            <center><button type="submit" class="btn btn-success" id="myButton2">Submit</button></center>
                         </div>
 					</form>
         </div>
@@ -128,12 +128,12 @@
            <p>READ CAREFULLY BEFORE DELETING YOUR ACCOUNT.</p>&nbsp
 <ul>
 <li>Deleting your account will delete all your personal information (mobile number, address,car number, profile picture, etc.) from Carpool.</li>
-<li>Your username {{rider.user.username}} will be available to any new user who would like to use it.</li>
+<li>Your username <b>{{rider.user.username}}</b> will be available to any new user who would like to use it.</li>
 <li>You will be removed from all your contacts' lists and they will not be able to reach you from Carpool.</li>
 <li>Once you delete your account, you can't undo it. If you wish to use Carpool in the future, you will have to create another account.</li>
 </ul>
 <div class="controls">
-                            <center><button type="submit" class="btn btn-danger">Delete Account</button></center>
+                            <center><button type="button" onclick='window.location.href="/delete_account?username={{rider.user.username}}&email={{rider.user.email}}&car_number={{rider.car_number}}"' class="btn btn-danger">Delete Account</button></center>
                         </div>
         </div>
     </div>
@@ -153,5 +153,17 @@
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
        <script src="bootstrap/js/bootstrap.min.js"></script>
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+       <script src="bootstrap/js/bootstrap.min.js"></script>
+	   <script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "/edit_profile_page/";
+    };
+</script>
+<script type="text/javascript">
+    document.getElementById("myButton2").onclick = function () {
+        location.href = "/change_pass/";
+    };
+</script>
   </body>
 </html>

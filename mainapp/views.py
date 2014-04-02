@@ -214,7 +214,7 @@ def dashboard(request):
     messages = Message.objects.filter(receiver = request.user.rider)
     
     #generate list reserved objects for posts made by user.
-    posts = Post.objects.filter(owner=request.user.rider)
+    posts = Post.objects.filter(owner=request.user.rider, status__lte=1)
     post_list = []
     for x in posts:
         #for reserved in x.reserved_set.all():
@@ -298,7 +298,7 @@ def post_page(request):
     if retval <> None:
         return retval
         
-    postobj=Post.objects.get(pk=request.REQUEST['key'])
+    postobj=Post.objects.get(pk=request.REQUEST['key'], status__lte=1)
     reserved=postobj.reserved_set.aggregate(Sum('status'))['status__sum']
     
     x=postobj.date_time
@@ -678,11 +678,17 @@ def cancel_post(request):
         if entry.owner.user.pk == user.pk:
             if entry.reserved_set.all().aggregate(Sum('status')) > 0:
                 user.rider.neg_flags += 1
+            
+            #set status to canceled
+            entry.status = 2
+            entry.save()
+            
+            
             #Delete all reserved entries for that post too
-            for y in entry.reserved_set.all():
+            #for y in entry.reserved_set.all():
                 #SMS notification
-                y.delete()
-            entry.delete()
+                #y.delete()
+            #entry.delete()
         else:
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Not enough permissions.</p>\
@@ -749,6 +755,10 @@ def post_new(request):
     
     #Check for duplicate phone number here
     
+    #Check for empty car number
+    if car_number.strip() == '':
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'Invalid Car number. Please go back or click <a href="/">here</a> to go to the homepage'}))
     entry = Post(owner=owner, 
                  car_number=car_number, 
                  total_seats=total_seats,
@@ -934,7 +944,7 @@ def search_do(request):
     #date = request.REQUEST['date_time'].split(" ")
 
     #Date and time format: dd mm yyyy - hh:mm
-    start_date_time=Post.objects.all().aggregate(Min('date_time'))['date_time__min']
+    start_date_time=Post.objects.filter(status__lte=1).aggregate(Min('date_time'))['date_time__min']
     if request.REQUEST['start_date_time']<>'':
         start_date_time=request.REQUEST['start_date_time']
         start_date_time=start_date_time.split(' ')
@@ -950,7 +960,7 @@ def search_do(request):
                                             microsecond=0,)
 
     #Date and time format: dd mm yyyy - hh:mm
-    end_date_time=Post.objects.all().aggregate(Max('date_time'))['date_time__max']
+    end_date_time=Post.objects.filter(status__lte=1).aggregate(Max('date_time'))['date_time__max']
     if request.REQUEST['end_date_time']<>'':
         end_date_time=request.REQUEST['end_date_time']
         end_date_time=end_date_time.split(' ')
@@ -968,9 +978,15 @@ def search_do(request):
     men_women=request.REQUEST['men_women']
     results = []
     if men_women <> "0":
-        results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women))
+        if end_date_time==None or start_date_time==None:
+            results = Post.objects.filter(fro=fro, to=to, men_women=int(men_women), status__lte=1)
+        else:
+            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
     else:
-        results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time)
+        if end_date_time==None or start_date_time==None:
+            results = Post.objects.filter(fro=fro, to=to, status__lte=1)
+        else:
+            results = Post.objects.filter(fro=fro, to=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
     template_values = {
         "rider":rider,
         'result_list':results,

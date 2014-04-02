@@ -23,5 +23,5 @@
 <div class="footer">
 	<link = white>
         <div class = 'left' style="color: #FFFFFF">&nbsp &nbsp &nbsp &nbsp &nbsp&copy; Carpool 2014</div>
-	<div class = 'right' style="color: #FFFFFF"><a href="/aboutus/" style="color: #CC0000">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp</div?
+	<div class = 'right' style="color: #FFFFFF"><a href="/aboutus/" style="color: #FFFFFF">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/" style="color: #FFFFFF">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/" style="color: #FFFFFF">Contact Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp</div?
 </div>

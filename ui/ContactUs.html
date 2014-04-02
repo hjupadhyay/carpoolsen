@@ -17,6 +17,7 @@
     <style>
         {% include "bootstrap/css/bootstrap.min.css" %}
         {% include "bootstrap/css/style.css" %}
+	{% include "bootstrap/css/backgrnd.css" %}
     </style>
     
  
@@ -37,11 +38,11 @@
        {% include "header.html" %}
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron2">
       <div class="container">
         <div class="row">
         <div class="col-md-6">
-        		
+        	<br>	
       		<div class="container">
     
 				<h2>Contact Us</h2>
@@ -57,12 +58,7 @@
    
     </div> <!-- /container -->
 				
-	<div id="footer">
-          <div class="container">
-            <p><a href="/aboutus/">About Us</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/faq/">FAQs</a>&nbsp &nbsp &nbsp &nbsp &nbsp<a href="/contactus/">Contact Us</a></p>
-            <p class="text-muted">&copy; Carpool 2014</p>
-            </div>
-        </div>
+	{% include "footer.html" %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
