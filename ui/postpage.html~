@@ -19,16 +19,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="admin" >
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+<!--     <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
 
      
  
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!--     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
-    <link href="sticky-footer.css" rel="stylesheet">
+<!--     <link href="jumbotron.css" rel="stylesheet"> -->
+<!--     <link href="sticky-footer.css" rel="stylesheet"> -->
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 
   </head>
@@ -49,12 +49,12 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 </script>
 {% include "header.html" %}
-<div class="jumbotron2" style="width:100%; height:100%"> <br>
-      <div class="container">
-        <center>
+<div class="jumbotron2" style="	background-image: url('http://www.brewsterwallcovering.com/data/default/images/catalog/original/420-87111.jpg')"> <br>
+      <div class="container" >
+        
         <div class="row">
-<div class="container drop-shadow">
-    <div class="centered">
+	<div class="container drop-shadow" style="background-color:#fff">
+	<div class="centered">
         <h2>Post Details</h2>
         {% if post.autoaccept == 1 %}
         <h5 style="color: blue;">All reservations on this post will be automatically accepted</h5>
@@ -63,7 +63,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         {% endif %}
             <br>
             <br>
-    </div>
+	</div>
         
         <div class="col-md-3">
             <div class="blockquote-box blockquote-info clearfix">
@@ -166,10 +166,11 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             
           
    </div>
+
     
     
     <div class="col-md-6"> 
-<div class="contain col-xs-12">
+<div class="contain col-xs-12"  style="background-color:#fff">
     
 <div class="centered" style="padding:5px">
 
@@ -211,7 +212,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	      {%endfor%}
 			<h4><align='center'>Accepted Requests<align='center'></h4>
             {% for reserved in reserved_list %}
-                {%if reserved.status==1 %}       
+                {% if reserved.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
@@ -219,11 +220,20 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
-	            {%endif%}
-            {%endfor%}
+	            {% endif %}
+            {% endfor %}
 <br>
 <button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
 <button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
+{% for reserved in reserved_list %}
+    {% if reserved.status==1 %}
+        <div style="color:red">
+        <p><h5>You have accepted passengers.</p>
+        <p><h5>Cancelling/Editing this post now may result in a <a href="/faq#Q7">negative flag</a>.</h5></p>
+        </div>
+        {% break %}
+    {% endif %}
+{% endfor %}
             
      
 <!--{% if rider.user.username!=post.owner.user.username %}
@@ -244,16 +254,16 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 {% elif reserved_obj==None %}
     <br><br>        
-    <p><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button></p>            
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>            
    <h4>Accepted Requests</h4> 
 <!--    <p><button class="btn btn-primary">Rate</button></p>-->
        {% for reserved in reserved_list %}
-                {%if reserved_obj.status==1 %}       
+                {%if reserved.status==1 %}       
 <!--
                     <div class="blockquote-box blockquote-danger clearfix">
 -->
 		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
+			             <li>User <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a> is accepted.</li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
@@ -262,7 +272,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
   
 {% else %}
 <!--    <button class="btn btn-primary">Rate</button>-->
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message Me</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>
 			         <h4>Accepted Requests</h4>
 				{% for reserved in reserved_list %}
                 {%if reserved_obj.status==1 %}       
@@ -271,7 +281,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 -->
 
 		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved_obj.reserver.pk}}">{{reserved_obj.reserver.user.first_name}} {{reserved_obj.reserver.user.last_name}}</a></li>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
 <!--	               </div>-->
 	            {%endif%}
@@ -287,7 +297,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         <!-- <div class="container"> -->
 		<!-- <div class="row"> -->
 		<div class="span4 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="" method="POST">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
                 <textarea class="span4" id="message" name="message"
                 placeholder="Type in your message" rows="5" cols="60"></textarea>
                 <br>
@@ -299,6 +309,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
       </div>
       </div>
   </div>
+
 </div>
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
@@ -311,16 +322,13 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 {% endif %}
 
             
- <br>
-<br>					
-</center>	
+ 	
 
-<div id = "hr"></div>
 
- 
+
+
 </div>
-    
-</div>
+</div>    
 
 {% include "footer.html" %}
 
@@ -329,10 +337,9 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
 <!-- bootbox code -->
 <script> {% include "bootstrap/js/bootbox.js" %}</script>
-<br><br><br>    
-
+<!--  -->
 <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
 <!-- <script src="bootstrap/js/bootstrap.js"></script> -->
-    
+  
 </body>
 </html>

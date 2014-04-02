@@ -129,9 +129,13 @@
                     <div class="controls col-xs-9">
                         <select id="Gender" name="gender" class="form-control">
 <!--                             <option value="" selected="selected">Please select a value</option> -->
-							{%if rider.gender==0 %}
-                            <option id = "m" value="m">Male</option>
+							{%if rider.gender=='m' %}
+                            <option id = "m" value="m" selected>Male</option>
                             <option id = "f" value="f">Female</option>
+							{% else %}
+                            <option id = "m" value="m">Male</option>
+                            <option id = "f" value="f" selected>Female</option>
+                            {% endif %}
                         </select>
                         <script>
                             var element = document.getElementById('Gender');
