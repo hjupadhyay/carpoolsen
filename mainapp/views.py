@@ -125,7 +125,7 @@ def edit_post_page(request):
 		rider=request.user.rider
 		key=request.REQUEST['key']
 		postobj=Post.objects.get(id=key)
-		return HttpResponse(jinja_environ.get_template('postedit.html').render({"rider":request.user.rider}))
+		return HttpResponse(jinja_environ.get_template('postedit.html').render({"rider":request.user.rider, 'post':postobj}))
 	except Exception as e:
 		return HttpResponse(e)
 		

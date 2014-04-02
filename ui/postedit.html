@@ -52,7 +52,7 @@
                 <div class="col-md-4">
                 <label for="to">
                             TO  </label>
-                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" value="{{ psot.to }}" required />
+                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" value="{{ post.to }}" required />
                 </div>
            
 			
@@ -80,7 +80,7 @@
 			<div class="col-md-4">
 			<label for="phone">
                             CONTACT ME  </label>
-                    <input class="form-control" name="phone" id="phone" placeholder="Phone Number" type="text" value="{{rider.phone}}" required>
+                    <input class="form-control" name="phone" id="phone" placeholder="Phone Number" type="text" value="{{post.owner.phone}}" required>
                 </div>
 			</div>
        
@@ -93,7 +93,7 @@
                 <div class="col-md-4">
                 <label for="">
                             CAR NUMBER </label>
-                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{rider.car_number}}" required>
+                    <input class="form-control" name="car_number" placeholder="Car Number" type="text" value="{{post.car_number}}" required>
                 </div>
 				
 <div class="col-md-4">
