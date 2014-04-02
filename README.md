@@ -16,9 +16,9 @@ New columns Sort
 UTC issue
 Footers are now screwed.
 NegFlags arent getting set
-Reserve confirm updates are coming twice
+Reserve confirm updates are coming twice (or not), pata nai
 Make Mesage list on dashboard unordered
-None Reserved (random) users arent able to send message from postpage.
+(* None Reserved (random) users arent able to send message from postpage. *)
 (* <!-- REPORT USER --> *)
 (* <!-- TEll user about neg flags warning --> *)
 

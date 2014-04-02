@@ -253,8 +253,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <br> 
 
 {% elif reserved_obj==None %}
-    <br><br>        
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>            
+<!--     <br><br>         -->
+    <button class="btn btn-primary" data-toggle="modal" data-target="#Modal">Message the Driver</button>            
    <h4>Accepted Requests</h4> 
 <!--    <p><button class="btn btn-primary">Rate</button></p>-->
        {% for reserved in reserved_list %}
@@ -276,10 +276,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 			         <h4>Accepted Requests</h4>
 				{% for reserved in reserved_list %}
                 {%if reserved_obj.status==1 %}       
-<!--
-                    <div class="blockquote-box blockquote-danger clearfix">
--->
-
+                
 		              <ul>
 			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
 		              </ul>
@@ -287,7 +284,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	            {%endif%}
             {%endfor%}
             <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -309,8 +307,32 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
       </div>
       </div>
   </div>
-
+  </div>
+  
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="container"> -->
+		<!-- <div class="row"> -->
+		<div class="span4 well" style="padding-bottom:0">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
+                <textarea class="span4" id="message" name="message"
+                placeholder="Type in your message" rows="5" cols="60"></textarea>
+                <br>
+                <button class="btn btn-info" type="submit" onclick="window.location.href='/send_message/?to=post.owner.user.username'">Send New Message</button>
+            </form>
+        </div>
+		<!-- </div> -->
+		<!-- </div> -->
+      </div>
+      </div>
+  </div>
 </div>
+
   {% if reserved_obj.status==0 %}
     <p> You have already sent a reservation request which is pending approval.</p>
     <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
