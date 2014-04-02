@@ -1312,22 +1312,22 @@ def invite(request):
         return retval
       
     try:
-      email=request.REQUEST['email_id']
-      email=email.split(',')
+        email=request.REQUEST['email_id']
+        email=email.split(',')
       
-      for i in range(0,len(email)):
-	email[i]=email[i].strip();
+        for i in range(0,len(email)):
+            email[i]=email[i].strip();
 	
-      rider=request.user.rider
-      message=request.REQUEST['message']
-      subject = 'CarPool.com Invitation Email'
-      message="Subject:CarPool.com Invitation \n\n" + message + "\n\n Click http://localhost:8000 to visit the website."
+        rider=request.user.rider
+        message=request.REQUEST['message']
+        #subject = 'CarPool.com Invitation Email'
+        message="Subject:CarPool.com Invitation\n" + rider.user.first_name + " " + rider.user.last_name + " has invited you to join CarPoolSen!\n\n" + rider.user.first_name + " says:\n" + message + "\n\nClick http://localhost:8000 to visit the website."
       
-      for i in range(0,len(email)):
-	x = send_email(message, email[i])
+        for i in range(0,len(email)):
+            x = send_email(message, email[i])
       
-      return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>Emails Sent Successfully.</p>\
-                                                                                   <p>Click <a href="/">here</a> to go to the homepage</p>'}))
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'<p>Emails Sent Successfully.</p>\
+                                                                                  <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
     except Exception as e:
-	return HttpResponse(e)
+        return HttpResponse(e)
