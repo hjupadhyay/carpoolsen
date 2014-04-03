@@ -21,7 +21,7 @@ UTC issue: INSTALL PYTZ PACKAGE
 (* NegFlags arent getting set *)
 (* Reserve confirm updates are coming twice (or not), pata nai *)
 (* Make Mesage list on dashboard unordered *)
-header dropdown not working on invite_page
+//header dropdown not working on invite_page
 after editing my post on edit_post_page, submitting throws an error (TIMEZONE FIXING, VINODH is DOING THAT)
 (* None Reserved (random) users arent able to send message from postpage. *)
 (* <!-- REPORT USER --> *)

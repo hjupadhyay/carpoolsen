@@ -1054,11 +1054,18 @@ def edit_post(request):
                                                                               "text":'The trip has started, cannot edit post anymore. Please go back or click <a href="/">here</a> to go to the homepage'}))
     #owner = request.user.rider
     car_number = request.REQUEST['car_number']
+    if car_number.strip() == '':
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'Invalid Car number. Please go back or click <a href="/">here</a> to go to the homepage'}))
     total_seats = int(request.REQUEST['total_seats'])
     phone = request.REQUEST['phone']
     #fro = request.REQUEST['fro']
     #to = request.REQUEST['to']
-    autoaccept = request.REQUEST['autoaccept']
+    autoaccept = 0
+    try:
+        autoaccept += int(request.REQUEST['autoaccept'])
+    except:
+        pass
     
     date_time=request.REQUEST['date_time']
     date_time=date_time.split(' ')
