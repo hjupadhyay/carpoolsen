@@ -679,14 +679,14 @@ def cancel_post(request):
         if entry.owner.user.pk == user.pk:
 			print "LOL"
 			if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
-				rider=entry.owner
-				rider.neg_flags += 1
+				owner=entry.owner
+				owner.neg_flags += 1
 			
                 
             #set status to canceled
 				entry.status = 2
-				entry.save()
-				rider.save()
+				owner.save()
+				owner.save()
             
             #Delete all reserved entries for that post too
             #for y in entry.reserved_set.all():
@@ -1085,11 +1085,16 @@ def send_message(request):
     
     sender = request.user.rider
     try:
-        receiver = User.objects.get(username=request.REQUEST['to']).rider
-        message = request.REQUEST['message']
+		receiver = User.objects.get(username=request.REQUEST['to']).rider
+		message = request.REQUEST['message']
         
-        entry = Message(sender = sender, receiver = receiver, message = message)
-        entry.save()
+		if sender==receiver:
+			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":rider.user.rider, "text": 'Sending messages to self is a sign of narcissism. Click <a href="/">here</a> to go back to homepage.'}))
+
+		else:
+			entry = Message(sender = sender, receiver = receiver, message = message)
+			entry.save()
+			
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,

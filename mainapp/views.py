@@ -1085,11 +1085,16 @@ def send_message(request):
     
     sender = request.user.rider
     try:
-        receiver = User.objects.get(username=request.REQUEST['to']).rider
-        message = request.REQUEST['message']
+		receiver = User.objects.get(username=request.REQUEST['to']).rider
+		message = request.REQUEST['message']
         
-        entry = Message(sender = sender, receiver = receiver, message = message)
-        entry.save()
+		if sender==receiver:
+			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider, "text": 'Sending messages to self is a sign of narcissism. Click <a href="/">here</a> to go back to homepage.'}))
+
+		else:
+			entry = Message(sender = sender, receiver = receiver, message = message)
+			entry.save()
+			
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,

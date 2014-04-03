@@ -15,7 +15,7 @@ formatting
 (* New columns Sort *)
 UTC issue
 Footers are now screwed.
-NegFlags arent getting set
+(* NegFlags arent getting set *)
 (* Reserve confirm updates are coming twice (or not), pata nai *)
 Make Mesage list on dashboard unordered
 header dropdown not working on invite_page
