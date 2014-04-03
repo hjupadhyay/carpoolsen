@@ -177,6 +177,7 @@ $(document).ready(function(){
 			var ele = $('#confirmpassword');
 			var ele2 = $('#password');
 			var pos = ele.offset();
+			jVal.passwd();
 
 			conf_passwd.css({
 				top: pos.top+1,

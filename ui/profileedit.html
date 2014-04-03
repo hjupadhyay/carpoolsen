@@ -58,14 +58,14 @@
                     				
 					<div class="container">
 	<div class="row">
-		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST">
+		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST" enctype=multipart/form-data>
 <!--             <fieldset> -->
                 
                 <div class="control-group">
                     <label class="control-label">Change Profile Photo:</label>
                     <br>
-                    <input type="file" name="image">
-                    <button type="submit">Upload</button>
+                    <input type="file" name="image" id="image">
+                    <button type="button" onclick="upFile()">Upload</button>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Username</label>
@@ -173,12 +173,28 @@
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!--        <script src="bootstrap/js/bootstrap.min.js"></script> -->
-       <script>
+        <script>
         {% include "bootstrap/js/bootstrap.min.js" %}
         {% include "bootstrap/js/editprofile.js" %}
         {% include "bootstrap/js/jquery.min1.js" %}
 
-       </script>
-
+        </script>
+        
+        <script>
+            function upFile()
+            {
+                console.log('uploading file');
+                xhr = new XMLHttpRequest();
+                data = new FormData();
+                data.append( 'file',  document.getElementById("image").files[0] );
+                xhr.open( 'POST', '/edit_profile/', true );
+                xhr.onreadystatechange = function () {
+                console.log(xhr.responseText);
+                };
+                xhr.send( data );
+                }
+            }
+        </script>
+        
   </body>
 </html>

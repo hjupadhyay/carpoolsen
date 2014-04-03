@@ -9,8 +9,8 @@ To Do:
 5. Add Google Maps Api (frontend work, just suggestion prompts, etc. Nothing to be done in backend mostly. Lets see)
 
 
-Rating table not opening but working fine.
-Dashboard list in decreasing order.
+<!-- Rating table not opening but working fine. -->
+<!-- Dashboard list in decreasing order. -->
 NEW_TODO
 
 formatting
@@ -21,7 +21,7 @@ UTC issue: INSTALL PYTZ PACKAGE
 (* NegFlags arent getting set *)
 (* Reserve confirm updates are coming twice (or not), pata nai *)
 (* Make Mesage list on dashboard unordered *)
-//header dropdown not working on invite_page
+//header dropdown not working on settings_page
 after editing my post on edit_post_page, submitting throws an error (TIMEZONE FIXING, VINODH is DOING THAT)
 (* None Reserved (random) users arent able to send message from postpage. *)
 (* <!-- REPORT USER --> *)

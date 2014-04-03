@@ -269,9 +269,9 @@ def dashboard(request):
         if (date_time2-timezone.now()).total_seconds() > 1800:
             date_time2=None
     template_values = {'rider' : request.user.rider,
-                    'messages' : messages,
-                    'post_list' : post_list,
-                    'reserved_list' : Reserved.objects.filter(reserver=request.user.rider),
+                    'messages' : messages[::-1],
+                    'post_list' : post_list[::-1],
+                    'reserved_list' : Reserved.objects.filter(reserver=request.user.rider)[::-1],
                     "date_time1":date_time1,
                     "date_time2":date_time2,
                     "reserved_obj":resobj,
@@ -415,9 +415,10 @@ def edit_profile(request):
                                                                                   <p>No Rider associated!.</p>
                                                                                   <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     
-    #image = request.FILES['image']
-    #image.save('/home/rishav/Desktop/x.jpg',image.readlines(),True)
-    #return HttpResponse('0')
+    #if 'image' in request.FILES.keys():
+        #request.user.rider.imageobj = request.FILES['image']
+        #request.user.rider.save()
+        #return HttpResponse('0')
     
     
     request.user.first_name = request.REQUEST['first_name']

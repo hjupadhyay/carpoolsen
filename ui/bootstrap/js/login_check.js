@@ -29,10 +29,10 @@ $(document).ready(function(){
             data.append("username",ele.val());
             data.append("password",ele2.val());
             data.append("js","1");
-            xmlhttp.open("POST","/login_do/",true);
+            xmlhttp.open("POST","/login_do/",false);
             xmlhttp.send(data);
-            xmlhttp.onreadystatechange = function()
-            {
+//             xmlhttp.onreadystatechange = function()
+//             {
                 if(ele.val() == 0 || xmlhttp.responseText=="inv_user"){
                     jVal.errors = true;
                         ele.removeClass('loginokay').addClass('loginwrong');
@@ -56,7 +56,7 @@ $(document).ready(function(){
                     console.log(document.URL)
                     window.location.replace(document.URL)
                 }
-            }
+//             }
         },
         
     };
