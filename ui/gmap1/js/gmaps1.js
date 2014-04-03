@@ -15,7 +15,7 @@ function gmaps_init(){
   };
 
   // create our map object
-  map = new google.maps.Map(document.getElementById("gmaps-canvas"), options);
+  map = new google.maps.Map(document.getElementById("gmaps-canvas1"), options);
   //map1 = new google.maps.Map(document.getElementById("gmaps-canvas1"), options);
 
   // the geocoder object allows us to do latlng lookup based on address
@@ -49,8 +49,8 @@ function update_map( geometry ) {
 
 // fill in the UI elements with new position data
 function update_ui( address, latLng ) {
-  $('#gmaps-input-address').autocomplete("close");
-  $('#gmaps-input-address').val(address);
+  $('#gmaps-input-address1').autocomplete("close");
+  $('#gmaps-input-address1').val(address);
   //$('#gmaps-output-latitude').html(latLng.lat());
   //$('#gmaps-output-longitude').html(latLng.lng());
 }
@@ -137,21 +137,21 @@ function autocomplete_init() {
   });
 
   // triggered when user presses a key in the address box
-  $("#gmaps-input-address").bind('keydown', function(event) {
+  $("#gmaps-input-address1").bind('keydown', function(event) {
     if(event.keyCode == 13) {
-      geocode_lookup( 'address', $('#gmaps-input-address').val(), true );
+      geocode_lookup( 'address', $('#gmaps-input-address1').val(), true );
 
       // ensures dropdown disappears when enter is pressed
-      $('#gmaps-input-address').autocomplete("disable")
+      $('#gmaps-input-address1').autocomplete("disable")
     } else {
       // re-enable if previously disabled above
-      $('#gmaps-input-address').autocomplete("enable")
+      $('#gmaps-input-address1').autocomplete("enable")
     }
   });
 }; // autocomplete_init
 
 $(document).ready(function() { 
-  if( $('#gmaps-canvas').length  ) {
+  if( $('#gmaps-canvas1').length  ) {
     gmaps_init();
     autocomplete_init();
   };
