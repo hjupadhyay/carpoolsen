@@ -11,6 +11,7 @@
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
     {% include "bootstrap/css/checks.css" %}
+    {% include "bootstrap/css/backgrnd.css" %}
 </style>
     
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -99,7 +100,7 @@
 				
 <div class="col-md-4">
 <label for="">CAR TYPE  </label>
- <select class="form-control" name="ac" >
+ <select class="form-control" name="ac" required>
   <option selected="selected">---</option>
   <option  value="1">AC</option>
   <option value="0">Non-AC</option>
@@ -322,5 +323,9 @@
     });
     
     </script>
+    <br>
+    <Br>
+{% include "footer.html" %}
+
 </body>
 </html>
