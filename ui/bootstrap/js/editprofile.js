@@ -153,7 +153,7 @@ $(document).ready(function(){
                     
                     if(xmlhttp.responseText=="1") {
                         jVal.errors = true;
-                        emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
+                        vehicleInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('editchange').addClass('wrong');
                     } else {
                         vehicleInfo.hide();
