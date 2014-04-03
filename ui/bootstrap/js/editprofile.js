@@ -119,7 +119,7 @@ $(document).ready(function(){
                 } else {
                     if(xmlhttp.responseText=="1") {
                         jVal.errors = true;
-                        emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
+                        phoneInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('editchange').addClass('wrong');
                     } else {
                         phoneInfo.hide();
