@@ -55,7 +55,7 @@ $(document).ready(function(){
                 } else {
                     if(!patt.test(ele.val())) {
                         jVal.errors = true;
-                        uname.removeClass('correct').addClass('error').html('&larr; Only alpha-numeric username allowed').show();
+                        uname.removeClass('correct').addClass('error').html('&larr; Only alpha-numeric username without spaces allowed').show();
                         ele.removeClass('normal').addClass('wrong');
                     } else {
                         if(!pat.test(ele.val())) {
@@ -89,15 +89,23 @@ $(document).ready(function(){
 				top: pos.top+1,
 				left: pos.left+ele.outerWidth()-315
 			});
+            
+            var space = /(^\s|\s{2,}|\s$)/i;
 
 			if(ele.val().length == 0) {
 				jVal.errors = true;
 					fname.removeClass('correct').addClass('error').html('Input Something &rarr;').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
+                if(space.test(ele.val())){
+                    jVal.errors = true;
+                    fname.removeClass('correct').addClass('error').html('No spaces allowed &rarr;').show();
+                    ele.removeClass('normal').addClass('wrong');
+                } else {
 					fname.hide();
 					ele.removeClass('wrong').addClass('normal');
-			}
+                }
+            }
 		},
 		
 		'passwd' : function() {
@@ -205,6 +213,8 @@ $(document).ready(function(){
 			});
 
 			var patt = /^.+@.+[.].{2,}$/i;
+            var space = /\s/g;
+            
             var xmlhttp = new XMLHttpRequest();
             var data = new FormData();
             data.append("email",ele.val());
@@ -217,14 +227,20 @@ $(document).ready(function(){
 					emailInfo.removeClass('correct').addClass('error').html('&larr; Wrong format').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
+                if(space.test(ele.val())) {
+                    jVal.errors = true;
+                    emailInfo.removeClass('correct').addClass('error').html('&larr; wrong use of spaces').show();
+                    ele.removeClass('normal').addClass('wrong');
+                } else {
                 if(xmlhttp.responseText=="1") {
                     jVal.errors = true;
                         emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('normal').addClass('wrong');
-                } else{
-					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').hide();
-					ele.removeClass('wrong').addClass('normal');
-			}
+                    } else{
+                        emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').hide();
+                        ele.removeClass('wrong').addClass('normal');
+                    }
+                }
             }
             }
 		},
@@ -284,9 +300,8 @@ $(document).ready(function(){
             var patt = /(^\s|\s{2,}|\s$)/i;
 
             if(ele.val().length == 0) {
-                jVal.errors = true;
-                    carno.removeClass('correct').addClass('error').html('&larr; Input Something').show();
-                    ele.removeClass('normal').addClass('wrong');
+                    carno.removeClass('correct').addClass('error').html('&larr; Input Something').hide();
+                    ele.removeClass('wrong').addClass('normal');
             } else {
                 if(patt.test(ele.val())) {
                 jVal.errors = true;
