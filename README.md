@@ -9,10 +9,12 @@ To Do:
 5. Add Google Maps Api (frontend work, just suggestion prompts, etc. Nothing to be done in backend mostly. Lets see)
 
 
+Rating table not opening but working fine.
+Dashboard list in decreasing order.
 NEW_TODO
 
 formatting
-User reports only ONCE.
+(* User reports only ONCE. *)
 (* New columns Sort *)
 UTC issue: INSTALL PYTZ PACKAGE
 (*Footers are now screwed.*)

@@ -18,7 +18,6 @@ from django.contrib.auth.models import User
     #def __unicode__(self):  # Python 3: def __str__(self):
         #return self.choice_text
 
-
 class Rider(models.Model):
     
     #current_post = models.ForeignKey(Post)
