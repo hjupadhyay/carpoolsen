@@ -83,7 +83,13 @@ def send_verification_email(request):
 def index(request):
     return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 def signup_page(request):
-    return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
+	if request.user.is_authenticated():
+		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'You are already logged in. You don\'t need to signup now.\
+                                                                               Please go back or click <a href="/">here</a> to go to the homepage'}))
+	else:
+		return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
+		
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render({"rider":None}))
 def contactus(request):
@@ -161,7 +167,7 @@ def invite_page(request):
     if retval <> None:
         return retval
     
-    message = "Hey! Check out this amazing site, we can travel together now !!"
+    message = "Hey! Check out this amazing site, we can travel together now!"
 
     try :
       request.user.rider
@@ -426,7 +432,7 @@ def edit_profile(request):
     request.user.rider.save()
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+                                                                          "text":'Profile edit successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 
 @csrf_exempt
@@ -434,10 +440,13 @@ def signup_do(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
 
+    if request.user.is_authenticated():
+		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,"text":'You are already logged in. You don\'t need to signup now.Please don\'t manipulate our URLs.<p>Click <a href="/">here</a> to go back to signup page.</p>'}))
+    
     username = request.REQUEST['username']
     password = request.REQUEST['password']
     confirmpassword = request.REQUEST['confirmpassword']
-    
+        
     if password <> confirmpassword:
       return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                             "text":"""<p>Passwords don\'t match. Please Enter again.</p>
@@ -1085,11 +1094,16 @@ def send_message(request):
     
     sender = request.user.rider
     try:
-        receiver = User.objects.get(username=request.REQUEST['to']).rider
-        message = request.REQUEST['message']
+		receiver = User.objects.get(username=request.REQUEST['to']).rider
+		message = request.REQUEST['message']
         
-        entry = Message(sender = sender, receiver = receiver, message = message)
-        entry.save()
+		if sender==receiver:
+			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider, "text": 'Sending messages to self is a sign of narcissism. Click <a href="/">here</a> to go back to homepage.'}))
+
+		else:
+			entry = Message(sender = sender, receiver = receiver, message = message)
+			entry.save()
+			
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
