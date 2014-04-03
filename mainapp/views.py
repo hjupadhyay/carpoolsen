@@ -942,7 +942,6 @@ def search_do(request):
     global month
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
-        
     #check for user login
     rider = None
     if request.user.is_authenticated():
@@ -952,6 +951,16 @@ def search_do(request):
         #request.user.rider
     #except:
         #return HttpResponse(jinja_environ.get_template('notice.html').render({"text":'No Rider associated. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
+    #Get batch number
+    batch = 0
+    if 'batch' in request.REQUEST.keys():
+        batch = int(request.REQUEST['batch'])
+    
+    #batch length
+    batchlen=100
+    if 'batchlen' in request.REQUEST.keys():
+        batchlen = int(request.REQUEST['batchlen'])
     
     fro = request.REQUEST['fro']
     to = request.REQUEST['to']
@@ -993,18 +1002,20 @@ def search_do(request):
     results = []
     if men_women <> "0":
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)[batch*batchlen:(batch+1)*batchlen]
         else:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)[batch*batchlen:(batch+1)*batchlen]
     else:
         if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, status__lte=1)[batch*batchlen:(batch+1)*batchlen]
         else:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
+            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)[batch*batchlen:(batch+1)*batchlen]
     template_values = {
         "rider":rider,
         'result_list':results,
-        'searched':Post(to=to, fro=fro)
+        'searched':Post(to=to, fro=fro),
+        'batch':batch,
+        'batchlen':batchlen,
         }
     
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
