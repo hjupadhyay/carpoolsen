@@ -675,50 +675,47 @@ def change_pass(request):
 #Called when a user cancels his post
 @csrf_exempt
 def cancel_post(request):
-    retval = check(request)
-    if retval <> None:
-        return retval
-    #using get for now.
-    user = request.user
-    
-    #Not allowed to delete if user is not logged in. Not called, but to take edge cases into consideration.
-    
-    postid = request.REQUEST['postid']
-    #return HttpResponse(postid)
-    
-    try:
-        entry = Post.objects.get(pk=int(postid))
-        #if entry.date_time < timezone.now():
-            #return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  #"text":'<p>Trip has already started, cannot cancel now.</p>\
-                                                                                      #<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-        if entry.owner.user.pk == user.pk:
-			print "LOL"
+	retval = check(request)
+	if retval <> None:
+		return retval
+	#using get for now.
+	user = request.user
+
+	#Not allowed to delete if user is not logged in. Not called, but to take edge cases into consideration.
+
+	postid = request.REQUEST['postid']
+	#return HttpResponse(postid)
+
+	try:
+		entry = Post.objects.get(pk=int(postid))
+		#if entry.date_time < timezone.now():
+			#return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+																					#"text":'<p>Trip has already started, cannot cancel now.</p>\
+																						#<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+		if entry.owner.user.pk == user.pk:
 			if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
 				owner=entry.owner
-				owner.neg_flags += 1
+				if owner.neg_flags<5:
+					owner.neg_flags += 1
+					owner.save()
+			entry.status = 2
+			entry.save()
 			
-                
-            #set status to canceled
-				entry.status = 2
-				owner.save()
-				owner.save()
-            
-            #Delete all reserved entries for that post too
-            #for y in entry.reserved_set.all():
-                #SMS notification
-                #y.delete()
-            #entry.delete()
-        else:
-			print "LOL"
+			#Delete all reserved entries for that post too
+			#for y in entry.reserved_set.all():
+				#SMS notification
+				#y.delete()
+			#entry.delete()
+
+		else:
 			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>Not enough permissions.</p>\
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-    except Exception as e:
-        return HttpResponse(e)
+																				"text":'<p>Not enough permissions.</p>\
+																					<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+	except Exception as e:
+		return HttpResponse(e)
     #+ "<a href="/"> Click here to go to Home Page </a>")
     
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+	return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Post Cancelled successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 @csrf_exempt
