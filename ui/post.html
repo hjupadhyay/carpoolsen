@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 
+<<<<<<< HEAD
 
 <!-- for google maps -->
  <link type="text/css" href="gmap/styles/main.css" rel="stylesheet" />
@@ -31,6 +32,8 @@
   <!-- till here -->
 
 
+=======
+>>>>>>> parent of 3bf71d1... google maps autocomplete feature added
 <style>
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
@@ -52,12 +55,8 @@
 
     
 </head>
-
-
 <body>
 {%include "header.html" %}
-
-
    <!-- <div class="container" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">-->
         <br>
 
@@ -77,16 +76,13 @@
                 <div class="col-md-4">
                 <label for="fro">
                             FROM  </label>
-<!-- 					<input id='gmaps-input-address' class="form-control" name="fro" placeholder='Start typing a place name...' type="text" required autofocus />
- -->					
-				      <input class="form-control" name="fro" id='gmaps-input-address fro' placeholder='Start typing a place name...' type='text' />
-					<div id='gmaps-canvas' style="height:0px; width:0px;"></div>
+                    <input class="form-control" name="fro" id="fro" placeholder="From Location" type="text"
+                        required autofocus />
                 </div>
                 <div class="col-md-4">
                 <label for="to">
                             TO  </label>
-                    <input class="form-control" name="to" id="gmaps-input-address to" placeholder='Start typing a place name...' type='text' required />
-					<div id='gmaps-canvas' style="height:0px; width:0px;"></div>
+                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" required />
                 </div>
            
 			
