@@ -222,8 +222,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 		          <h4>Reserve Requests</h4>
 <!-- 		          <ul> -->
 			     <p><li>Reserve Request by <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p>
-			     <button id="button1" class="btn btn-primary inline" onclick="window.location.href='/accept/?resid={{reserved.id}}'">Accept</button>
-			     <button id="button1" class="btn btn-primary inline" onclick="window.location.href='/revoke/?resid={{reserved.id}}'">Cancel</button>
+			     <button id="button1" class="btn btn-xs btn-primary inline" onclick="window.location.href='/accept/?resid={{reserved.id}}'">Accept</button>
+			     <button id="button1" class="btn btn-xs btn-primary inline" onclick="window.location.href='/revoke/?resid={{reserved.id}}'">Cancel</button>
 <!-- 		          </ul> -->
 	          {%endif%}
 	      {%endfor%}
