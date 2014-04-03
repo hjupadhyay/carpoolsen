@@ -17,4 +17,5 @@ admin.site.register(Rider)
 admin.site.register(Post)
 admin.site.register(Reserved)
 admin.site.register(Message)
+admin.site.register(Rating)
 

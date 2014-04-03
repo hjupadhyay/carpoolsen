@@ -14,7 +14,17 @@
         {% include "bootstrap/js/validate.js" %}
         {% include "bootstrap/js/jquery.min.js" %}
     </style>
-
+     <link href="bootstrap/css/style.css" rel="stylesheet">
+     
+      
+        <style>
+            {% include "bootstrap/css/style.css" %}
+            {% include "bootstrap/css/bootstrap.min.css" %}
+            {% include "bootstrap/css/checks.css" %}
+            {% include "bootstrap/css/backgrnd.css" %}
+/*             % include "jumbotron-narrow.css" % */
+        </style>
+>>>>>>> 4ddd8a56b7f605ba76a13a631578271a65dd419d
 </head>
 <body>
 {% include "header.html" %}
@@ -50,31 +60,37 @@
 
 
 <script type="text/javascript">
-function send_mails()
-{
-    var xmlhttp = new XMLHttpRequest();
-    var data = new FormData();
-//     console.log(document.getElementById("email").value);
-    data.append("email_id",document.getElementById("email").value);
-    data.append("message",document.getElementById("message").value);
-    xmlhttp.open("POST","/invite/",true);
-    xmlhttp.send(data);
-//     document.write("lol")
-    document.getElementById("text").innerHTML = "<h4>Your messages will be sent shortly. You may either wait for a confirmation, or continue using our website.</h4>";
-    document.getElementById("email_title").style = "display:none";
-    document.getElementById("message_title").style = "display:none";
-    document.getElementById("email").style = "display:none";
-    document.getElementById("message").style = "display:none";
-    document.getElementById("button").style = "display:none";
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readystate == this.DONE)
-        {
-            document.getElementById("text").innerHTML = '<p><h4>Your messages have been sent successfully.</h4><p><p><h4>Click <a href="/">here</a> to go back to the homepage</h4></p>';
-        }
-    }
-}
+// function send_mails()
+// {
+//     var xmlhttp = new XMLHttpRequest();
+//     var data = new FormData();
+// //     console.log(document.getElementById("email").value);
+//     data.append("email_id",document.getElementById("email").value);
+//     data.append("message",document.getElementById("message").value);
+//     xmlhttp.open("POST","/invite/",true);
+//     xmlhttp.send(data);
+// //     document.write("lol")
+//     document.getElementById("text").innerHTML = "<h4>Your messages will be sent shortly. You may either wait for a confirmation, or continue using our website.</h4>";
+//     document.getElementById("email_title").style = "display:none";
+//     document.getElementById("message_title").style = "display:none";
+//     document.getElementById("email").style = "display:none";
+//     document.getElementById("message").style = "display:none";
+//     document.getElementById("button").style = "display:none";
+//     xmlhttp.onreadystatechange = function() {
+//         if (xmlhttp.readystate == this.DONE)
+//         {
+//             document.getElementById("text").innerHTML = '<p><h4>Your messages have been sent successfully.</h4><p><p><h4>Click <a href="/">here</a> to go back to the homepage</h4></p>';
+//         }
+//     }
+// }
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    
+    {% include "bootstrap/js/bootstrap.min.js" %}
+    {% include "bootstrap/js/validate.js" %}
+    
+</script>
 {% include "footer.html" %}
 </body>
 </html>

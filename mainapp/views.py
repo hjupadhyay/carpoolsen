@@ -84,12 +84,15 @@ def index(request):
     return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 def signup_page(request):
 	if request.user.is_authenticated():
-		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":'You are already logged in. You don\'t need to signup now.\
-                                                                               Please go back or click <a href="/">here</a> to go to the homepage'}))
+		logout(request)
+		redirect_url = "/"
+		if 'redirect_url' in request.REQUEST.keys():
+			redirect_url = request.REQUEST['redirect_url']
+		return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":redirect_url}))
+
 	else:
 		return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
-		
+
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render({"rider":None}))
 def contactus(request):
@@ -441,7 +444,11 @@ def signup_do(request):
         #return HttpResponse('invalid request')
 
     if request.user.is_authenticated():
-		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,"text":'You are already logged in. You don\'t need to signup now.Please don\'t manipulate our URLs.<p>Click <a href="/">here</a> to go back to signup page.</p>'}))
+		logout(request)
+		redirect_url = "/"
+		if 'redirect_url' in request.REQUEST.keys():
+			redirect_url = request.REQUEST['redirect_url']
+		return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":redirect_url}))
     
     username = request.REQUEST['username']
     password = request.REQUEST['password']
@@ -457,7 +464,7 @@ def signup_do(request):
     phone = request.REQUEST['phone']
     email = request.REQUEST['email']
     gender = request.REQUEST['gender']
-    
+
     try:
         if len(User.objects.get(email=email))<>0:
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
@@ -668,50 +675,47 @@ def change_pass(request):
 #Called when a user cancels his post
 @csrf_exempt
 def cancel_post(request):
-    retval = check(request)
-    if retval <> None:
-        return retval
-    #using get for now.
-    user = request.user
-    
-    #Not allowed to delete if user is not logged in. Not called, but to take edge cases into consideration.
-    
-    postid = request.REQUEST['postid']
-    #return HttpResponse(postid)
-    
-    try:
-        entry = Post.objects.get(pk=int(postid))
-        #if entry.date_time < timezone.now():
-            #return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  #"text":'<p>Trip has already started, cannot cancel now.</p>\
-                                                                                      #<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-        if entry.owner.user.pk == user.pk:
-			print "LOL"
+	retval = check(request)
+	if retval <> None:
+		return retval
+	#using get for now.
+	user = request.user
+
+	#Not allowed to delete if user is not logged in. Not called, but to take edge cases into consideration.
+
+	postid = request.REQUEST['postid']
+	#return HttpResponse(postid)
+
+	try:
+		entry = Post.objects.get(pk=int(postid))
+		#if entry.date_time < timezone.now():
+			#return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+																					#"text":'<p>Trip has already started, cannot cancel now.</p>\
+																						#<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+		if entry.owner.user.pk == user.pk:
 			if entry.reserved_set.aggregate(Sum('status'))['status__sum'] > 0:
 				owner=entry.owner
-				owner.neg_flags += 1
+				if owner.neg_flags<5:
+					owner.neg_flags += 1
+					owner.save()
+			entry.status = 2
+			entry.save()
 			
-                
-            #set status to canceled
-				entry.status = 2
-				owner.save()
-				owner.save()
-            
-            #Delete all reserved entries for that post too
-            #for y in entry.reserved_set.all():
-                #SMS notification
-                #y.delete()
-            #entry.delete()
-        else:
-			print "LOL"
+			#Delete all reserved entries for that post too
+			#for y in entry.reserved_set.all():
+				#SMS notification
+				#y.delete()
+			#entry.delete()
+
+		else:
 			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>Not enough permissions.</p>\
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-    except Exception as e:
-        return HttpResponse(e)
+																				"text":'<p>Not enough permissions.</p>\
+																					<p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+	except Exception as e:
+		return HttpResponse(e)
     #+ "<a href="/"> Click here to go to Home Page </a>")
     
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+	return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Post Cancelled successfully. Please go back or click <a href="/">here</a> to go to the homepage'}))
 
 @csrf_exempt
@@ -1050,11 +1054,18 @@ def edit_post(request):
                                                                               "text":'The trip has started, cannot edit post anymore. Please go back or click <a href="/">here</a> to go to the homepage'}))
     #owner = request.user.rider
     car_number = request.REQUEST['car_number']
+    if car_number.strip() == '':
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'Invalid Car number. Please go back or click <a href="/">here</a> to go to the homepage'}))
     total_seats = int(request.REQUEST['total_seats'])
     phone = request.REQUEST['phone']
     #fro = request.REQUEST['fro']
     #to = request.REQUEST['to']
-    autoaccept = request.REQUEST['autoaccept']
+    autoaccept = 0
+    try:
+        autoaccept += int(request.REQUEST['autoaccept'])
+    except:
+        pass
     
     date_time=request.REQUEST['date_time']
     date_time=date_time.split(' ')
@@ -1316,6 +1327,7 @@ def report_user(request):
     retval = check(request)
     if retval <> None:
         return retval
+        
     if 'user' not in request.REQUEST.keys():
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Invalid user.</p>\
@@ -1324,14 +1336,24 @@ def report_user(request):
     if len(user)==0:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Invalid user.</p>\
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-    user = user[0]
-    user.rider.user_rating += 1
-    user.rider.save()
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))    
     
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+    user = user[0]
+    flag=Rating.objects.filter(rated=user.rider, rater=request.user.rider)
+    
+    if len(flag) == 0 and len(flag) <5:
+        user.rider.user_rating += 1
+        user.rider.save()
+        rateobj=Rating(rated=user.rider, rater=request.user.rider)
+        rateobj.save()
+    
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'<p>User reported successfully.</p>\
                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    else:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                          "text":'<p>You have already reported this user and can\'t report again. </p>\
+                                                                          <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
 
 #Testing functions:
 def tempage(request):

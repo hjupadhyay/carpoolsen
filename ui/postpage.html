@@ -176,7 +176,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 <!--<div class="col-sm-2 col-md-3 user-details">-->
             <div class="user-image">
-                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQoAjhBuCjGc3JJb0HLIKePs15GE09p8_wfy7BW2LtoeuTSo-eQKg" class="column" style="height:140px; width:140px; align:center;">
+                <img src="{{post.owner.image}}" class="column" style="height:140px; width:140px; align:center;">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
@@ -192,7 +192,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 				{% for i in range(1,post.owner.neg_flags+1) %}  				
 				<image height=20px width=20px src="http://www.qwanz.com/images/redFlag.gif"/>
 				{% endfor %}
-				{% endif %}				
+				{% endif %}
 				</h5>
 <h5><a href="/faq#Q8">User Reports: </a> 
 		{% if post.owner.user_rating == 0 %}
@@ -326,7 +326,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	            {%endif%}
             {%endfor%}
             <!-- Modal -->
-              
+
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -359,12 +359,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
     <p>You are already reserved on this post and confirmed.</p>
     <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
   {% endif %}
-{% endif %}
-    
- 	
-
-
-
+  {%endif%}
 
 </div>
 </div>  

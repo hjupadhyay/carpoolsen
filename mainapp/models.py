@@ -18,7 +18,6 @@ from django.contrib.auth.models import User
     #def __unicode__(self):  # Python 3: def __str__(self):
         #return self.choice_text
 
-
 class Rider(models.Model):
     
     #current_post = models.ForeignKey(Post)
@@ -33,7 +32,7 @@ class Rider(models.Model):
     car_number = models.CharField(max_length=20)
     
     #path to image
-    image = models.CharField(max_length=300, default="http://1.gravatar.com/avatar/7381ac88cc1a7fb5d0756e9698bf9b14?s=1024&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D1024&r=G")
+    image = models.CharField(max_length=300, default="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQoAjhBuCjGc3JJb0HLIKePs15GE09p8_wfy7BW2LtoeuTSo-eQKg")
     
     #1 - unverified
     #any other number = verification code
@@ -55,7 +54,17 @@ class Rider(models.Model):
     def __unicode__(self):
         return self.user.username
 
+class Rating(models.Model):
+    
+    #Change primary key to combination of everything to prevent duplicates.
+    
+    rated = models.ForeignKey(Rider, related_name = 'rated')
+    rater = models.ForeignKey(Rider, related_name = 'rater')
+    
+    def __unicode__(self):
+		return self.user.username
 
+    
 class Post(models.Model):
     
     owner = models.ForeignKey(Rider, null=False, related_name='owner')
@@ -136,7 +145,6 @@ class Message(models.Model):
     
     
 #Here there also exists another table called 'User', provided by Django. It has username, email and password attributes.
-
 
 #Temp check form
 class UploadFileForm(forms.Form):
