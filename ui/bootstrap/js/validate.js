@@ -284,9 +284,8 @@ $(document).ready(function(){
             var patt = /(^\s|\s{2,}|\s$)/i;
 
             if(ele.val().length == 0) {
-                jVal.errors = true;
-                    carno.removeClass('correct').addClass('error').html('&larr; Input Something').show();
-                    ele.removeClass('normal').addClass('wrong');
+                    carno.removeClass('correct').addClass('error').html('&larr; Input Something').hide();
+                    ele.removeClass('wrong').addClass('normal');
             } else {
                 if(patt.test(ele.val())) {
                 jVal.errors = true;
