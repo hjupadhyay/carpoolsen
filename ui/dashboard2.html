@@ -38,10 +38,6 @@
   
           {% include "header.html" %}
         <!-- Main jumbotron for a primary marketing message or call to action -->
-         
-      
-        
-        
           
         <div class="jumbotron2">
           <div class="container">
@@ -53,8 +49,22 @@
         <br>
         
        {% if rider.auth_token == "0" %}
-
-        <div class="container">
+       <div class="row">
+            <div class="col-md-12">
+                <div class="progress">
+                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="10" style="width: 100%">
+                    <span>
+                    <!-- <div class="text-center"> -->
+                        Your Account has not been authenticated.
+                            <a href="/profile/?id={{rider.pk}}" style="color: #FFFFFF"><b><u>Authenticate Now</u></b></a>
+                        
+                    <!-- </div> -->
+                    </span>
+                </div>
+            </div>
+            </div>
+       </div>
+        <!-- <div class="container">
           <div class="progress">
             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 
@@ -62,7 +72,7 @@
             <span class="progress-type" align="center"><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Account has not been authenticated.
             <a href="/profile/?id={{rider.pk}}" style="color: #FFFFFF"><b><u>Authenticate Now</u></b></a></h5> </span>
         </div>
-	</div>
+	   </div> -->
      {% endif %}
           
               
@@ -119,7 +129,7 @@
                         
                         {% if not post_list %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
-                        There are no ACTIVE posts by you.
+                        There are no posts by you so far
                         </div>
                         {% endif %}
                         
@@ -136,7 +146,7 @@
                         
                         {% if not reserved_list %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
-                        There are no ACTIVE reservations by you.
+                        There are no reservations by you so far
                         </div>
                         {% endif %}
                             
@@ -158,7 +168,7 @@
                         <div class="tab-pane fade" id="inbox">
                         {% if messages %}
                         {% for message in messages %}
-                            <ul>
+                            <ol>
                             <li><p><h5 id="{{message.id}}">{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
                             <script>
                                 var message = document.getElementById("{{message.id}}");
@@ -167,7 +177,7 @@
                                 if (message.innerHTML.length > 40)
                                     message.innerHTML = message.innerHTML.substring(0,40) + "...";
                             </script>
-                            </ul>  
+                            </ol>  
                             <div>
                             </div>
                         {% endfor %}
@@ -175,7 +185,7 @@
         
                         {% elif not messages %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
-                        No Messages in Inbox at present.
+                        No Messages in Inbox so far.
 						<button type="button" onclick = 'window.location="/inbox/"' class="btn btn-primary btn-sm center-block">Inbox</button>
         
                         </div>
@@ -197,7 +207,7 @@
               <h2 class="reserveAlign">Search</h2>
             <br>
      <div class ="form-group">    
-      <form class="form-horizontal" role="form" action="/search_do/" method="GET">
+      <form class="form-horizontal" role="form" action="/search_do/" method="POST">
      
                     <div class="col-md-3" align="right">FROM </div>
                     <div class="col-md-9">

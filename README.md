@@ -49,7 +49,7 @@ Bugs found by me(Abhishek Kumar){
 (* 	edit profile not working *)
 	footer is playing hide and seek
 	header dropdown not working on invite_page
-	if logged in a user should not be able to open signup_page
+(*	if logged in a user should not be able to open signup_page *)
 	after editing my post on edit_post_page, submitting throws an error (DATE TIME FORMAT FIXING, VINODH is DOING THAT)
 	@iphone there are no checks on post_form for total_seats, car_type , when submitting without changing these values throws server error
 
@@ -60,5 +60,6 @@ Bugs found by me(Abhishek Kumar){
 
 	question:
 (* 		I could not delete a trip that has started. When will it get deleted?? After an hour *)
+
 }
  
