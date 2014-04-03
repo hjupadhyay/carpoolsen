@@ -4514,7 +4514,7 @@ a.thumbnail.active {
   }
 }
 .progress {
-  height: 20px;
+  height: 23px;
   margin-bottom: 20px;
   overflow: hidden;
   background-color: #f5f5f5;
@@ -4526,7 +4526,7 @@ a.thumbnail.active {
   float: left;
   width: 0;
   height: 100%;
-  font-size: 12px;
+  font-size: 18px;
   line-height: 20px;
   color: #fff;
   text-align: center;
