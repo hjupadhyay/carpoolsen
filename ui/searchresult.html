@@ -96,13 +96,47 @@
         </tr>
 
       {% endfor %}
-        
-        
-            
+        <tr>
+        <td class="text-center">
+            {% if batch > 0 %}
+            <h5><a id="prevbut">Previous</a></h5>
+            <script>
+                var url = document.URL.replace("&batch={{batch}}","");
+                url = url.replace("batch={{batch}}","");
+                url = url.replace("&batchlen={{batchlen}}","");
+                url = url.replace("batchlen={{batchlen}}","");
+                url = url + "&batch={{batch-1}}&batchlen={{batchlen}}";
+                url = url.replace("?&","?");
+                document.getElementById("prevbut").href=url;
+            </script>
+            {% endif %}
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-center">
+            {% if result_list|length == batchlen %}
+            <h5><a id="nextbut">Next</a></h5>
+            <script>
+                var url = document.URL.replace("&batch={{batch}}","");
+                url = url.replace("batch={{batch}}","");
+                url = url.replace("&batchlen={{batchlen}}","");
+                url = url.replace("batchlen={{batchlen}}","");
+                url = url + "&batch={{batch+1}}&batchlen={{batchlen}}";
+                url = url.replace("?&","?");
+                document.getElementById("nextbut").href=url;
+            </script>
+            {% endif %}
+        </td>
+        </tr>
     </table>
     </div>
 </div>
-
 </div> <!-- /container -->
 
  {% include "footer.html" %}
