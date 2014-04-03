@@ -34,6 +34,9 @@ class Rider(models.Model):
     #path to image
     image = models.CharField(max_length=300, default="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQoAjhBuCjGc3JJb0HLIKePs15GE09p8_wfy7BW2LtoeuTSo-eQKg")
     
+    #image
+    imageobj = models.ImageField(upload_to='/home/rishav/Desktop/')
+    
     #1 - unverified
     #any other number = verification code
     verified = models.CharField(max_length=5)
@@ -62,7 +65,7 @@ class Rating(models.Model):
     rater = models.ForeignKey(Rider, related_name = 'rater')
     
     def __unicode__(self):
-		return self.user.username
+		return self.rater.user.username + '->' + self.rated.user.username
 
     
 class Post(models.Model):
