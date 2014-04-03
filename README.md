@@ -1,5 +1,5 @@
 (* carpoolsen *)
-==========
+
 To Do:
 
 1. Implement remaining views. check views.py for more info.
@@ -12,15 +12,15 @@ To Do:
 NEW_TODO
 
 formatting
+User reports only ONCE.
 (* New columns Sort *)
-UTC issue
-Footers are now screwed.
+UTC issue: INSTALL PYTZ PACKAGE
+(*Footers are now screwed.*)
 (* NegFlags arent getting set *)
 (* Reserve confirm updates are coming twice (or not), pata nai *)
 (* Make Mesage list on dashboard unordered *)
 header dropdown not working on invite_page
 after editing my post on edit_post_page, submitting throws an error (TIMEZONE FIXING, VINODH is DOING THAT)
-User reports only ONCE.
 (* None Reserved (random) users arent able to send message from postpage. *)
 (* <!-- REPORT USER --> *)
 (* <!-- TEll user about neg flags warning --> *)
