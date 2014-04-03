@@ -82,7 +82,14 @@
             </ul>
         </div>
         
+
+
 		<div class="col-md-9 well admin-content" id="edit">
+<div class="control-group">
+                    <h2 align="center">{{ rider.user.username }}</h2>
+                                </div>
+
+
         <center>     <div class="row marketing">
 	  	<div class="user-image">
             <img src= "{{ rider.image }}" alt="Profile Photo here" height="150" width="150">
@@ -96,19 +103,16 @@
 		 <form id="profileform" class="form-horizontal" action="/edit_profile/" method="POST">
 <!--             <fieldset> -->
                 
+		
+
                 <div class="control-group">
                     <label class="control-label">Change Profile Photo:</label>
                     <br>
                     <input type="file" name="image">
-                    <button type="submit">Upload</button>
+		    <br>
+                    <button type="submit" type = "submit" class="btn btn-xs btn-primary">Upload</button>
                 </div>
-                <div class="control-group">
-                    <label class="control-label col-xs-3">Username</label>
-                    <div class="col-xs-9">
-                    
-                    <h5>{{ rider.user.username }}</h5>
-                    </div>
-                </div>
+             <br>
                 <div class="control-group">
                     <label class="control-label col-xs-3">First Name</label>
                     <div class="controls col-xs-9">
@@ -167,7 +171,7 @@
                 </div>&nbsp
 				
 				<div class="control-group">
-                    <label class="control-label col-xs-3">Authentication</label>
+                    <label class="control-label col-xs-3">Authentication Type</label>
                     <div class="controls col-xs-9">
 						<select id="auth_type" name="auth_type" class="form-control">
                             <option id="None" value="None" >Please select a type</option>
@@ -180,11 +184,14 @@
                             var element = document.getElementById('auth_type');
                             var valueToSelect = document.getElementById('{{ rider.auth_type }}');
                             element.value = valueToSelect.value;
-                        </script>
-                        <input id="id_no" name="auth_token" type="text" placeholder="ID No."class="form-control" value = "{{ rider.auth_token }}">
-                    </div>
+                        </script></div>
+			<label class="control-label col-xs-3">ID</label> 
+			<div class="controls col-xs-9">                       
+			<input id="id_no" name="auth_token" type="text" placeholder="ID No."class="form-control" value = "{{ rider.auth_token }}">
+                    </div></div>
                 </div>
                 &nbsp
+		<br>
             <button id = "editprofile" type = "submit" class="btn btn-success">Done</button>
 <!--             </fieldset> -->
         </form>
