@@ -149,9 +149,10 @@
                         </div>  
                         </div>
                         <div class="tab-pane fade" id="inbox">
-                        
+
+                         <ul>
                         {% for message in messages %}
-                            <ul>
+
                             <li><p><h5 id="{{message.id}}">{{message.sender.user.first_name}} says "{{message.message}}"</h5></p></li>
                             <script>
                                 var message = document.getElementById("{{message.id}}");
@@ -160,9 +161,9 @@
                                 if (message.innerHTML.length > 40)
                                     message.innerHTML = message.innerHTML.substring(0,40) + "...";
                             </script>
-                            </ul>  
                             
                         {% endfor %}
+                            </ul>                          
                         
                         {% if not messages %}
                         <div style="display: block; height: 25px; text-align:center; line-height:200px;">
