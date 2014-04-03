@@ -35,10 +35,16 @@
   </head>
 
   <body>
+  
 
     {% include "header.html" %}
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <!-- Main jumbotron for a primary marketing message 
+    or call to action -->
+    <div class="wrapper">
+        <!--    <p>Your website content here.</p>-->
+          
+       
     <div class="jumbotron2">
       <div class="container">
 	<div class="row">
@@ -119,8 +125,9 @@
 			
     </div> <!-- /container -->
     </div>
-    
-    {% include "footer.html" %}
+      <div class="push"></div>
+    </div>
+   
     
     
     <!-- Bootstrap core JavaScript
@@ -146,6 +153,6 @@
     });
     
     </script>
-		
+ {% include "footer.html" %}		
   </body>
 </html>
