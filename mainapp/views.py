@@ -84,12 +84,15 @@ def index(request):
     return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 def signup_page(request):
 	if request.user.is_authenticated():
-		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                              "text":'You are already logged in. You don\'t need to signup now.\
-                                                                               Please go back or click <a href="/">here</a> to go to the homepage'}))
+		logout(request)
+		redirect_url = "/"
+		if 'redirect_url' in request.REQUEST.keys():
+			redirect_url = request.REQUEST['redirect_url']
+		return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":redirect_url}))
+
 	else:
 		return HttpResponse(jinja_environ.get_template('signup.html').render({"rider":None}))
-		
+
 def login_page(request):
     return HttpResponse(jinja_environ.get_template('login.html').render({"rider":None}))
 def contactus(request):
@@ -441,7 +444,11 @@ def signup_do(request):
         #return HttpResponse('invalid request')
 
     if request.user.is_authenticated():
-		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,"text":'You are already logged in. You don\'t need to signup now.Please don\'t manipulate our URLs.<p>Click <a href="/">here</a> to go back to signup page.</p>'}))
+		logout(request)
+		redirect_url = "/"
+		if 'redirect_url' in request.REQUEST.keys():
+			redirect_url = request.REQUEST['redirect_url']
+		return HttpResponse(jinja_environ.get_template('redirect.html').render({"rider":None,"redirect_url":redirect_url}))
     
     username = request.REQUEST['username']
     password = request.REQUEST['password']
@@ -457,7 +464,7 @@ def signup_do(request):
     phone = request.REQUEST['phone']
     email = request.REQUEST['email']
     gender = request.REQUEST['gender']
-    
+
     try:
         if len(User.objects.get(email=email))<>0:
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
