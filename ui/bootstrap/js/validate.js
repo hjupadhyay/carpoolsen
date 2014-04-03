@@ -98,6 +98,7 @@ $(document).ready(function(){
 					ele.removeClass('normal').addClass('wrong');
 			} else {
                 if(space.test(ele.val())){
+                    jVal.errors = true;
                     fname.removeClass('correct').addClass('error').html('No spaces allowed &rarr;').show();
                     ele.removeClass('normal').addClass('wrong');
                 } else {
@@ -212,6 +213,8 @@ $(document).ready(function(){
 			});
 
 			var patt = /^.+@.+[.].{2,}$/i;
+            var space = /\s/g;
+            
             var xmlhttp = new XMLHttpRequest();
             var data = new FormData();
             data.append("email",ele.val());
@@ -224,14 +227,20 @@ $(document).ready(function(){
 					emailInfo.removeClass('correct').addClass('error').html('&larr; Wrong format').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
+                if(space.test(ele.val())) {
+                    jVal.errors = true;
+                    emailInfo.removeClass('correct').addClass('error').html('&larr; wrong use of spaces').show();
+                    ele.removeClass('normal').addClass('wrong');
+                } else {
                 if(xmlhttp.responseText=="1") {
                     jVal.errors = true;
                         emailInfo.removeClass('correct').addClass('error').html('&larr; already registered').show();
                         ele.removeClass('normal').addClass('wrong');
-                } else{
-					emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').hide();
-					ele.removeClass('wrong').addClass('normal');
-			}
+                    } else{
+                        emailInfo.removeClass('error').addClass('correct').html('&radic; Alright!').hide();
+                        ele.removeClass('wrong').addClass('normal');
+                    }
+                }
             }
             }
 		},
