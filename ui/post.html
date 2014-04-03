@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 
-<<<<<<< HEAD
 
 <!-- for google maps -->
  <link type="text/css" href="gmap/styles/main.css" rel="stylesheet" />
@@ -32,8 +31,7 @@
   <!-- till here -->
 
 
-=======
->>>>>>> parent of 3bf71d1... google maps autocomplete feature added
+
 <style>
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
@@ -130,9 +128,9 @@
 <div class="col-md-4">
 <label for="">CAR TYPE  </label>
  <select class="form-control" name="ac" required>
-  <option selected="selected">---</option>
+  <!-- <option selected="selected">---</option> -->
   <option  value="1">AC</option>
-  <option value="0">Non-AC</option>
+  <option value="0" selected>Non-AC</option>
 </select>
                     </div>
                 </div>
@@ -145,10 +143,10 @@
                 <label for="men_women">
                             CAN BE RESERVED BY </label>
                     <select class="form-control" name="men_women" >
-  <option selected="selected ">---</option>
+  <!-- <option selected="selected ">---</option> -->
   <option value="2">Men</option>
   <option value="1">Women</option>
-  <option value="0">Both</option>
+  <option value="0" selected>Both</option>
   
 </select>
                 </div>
@@ -157,8 +155,8 @@
 				<label for="available_to">
                             CAN BE VIEWED BY  </label>
                    <select class="form-control" name="available_to">
-  <option selected="selected">---</option>
-  <option value="0" >All</option>
+  <!-- <option selected="selected">---</option> -->
+  <option value="0" selected>All</option>
   <option value="1">Facebook Friends Only</option>
 </select>
 </div>                                         
@@ -277,8 +275,8 @@
 				<label for="total_seats">
                             SEATS AVAILABLE  </label>
 				<select class="form-control" name="total_seats" >
-  <option selected="selected">---</option>
-  <option value="1">1</option>
+  <!-- <option selected="selected">---</option> -->
+  <option value="1" selected>1</option>
   <option value="2">2</option>
   <option value="3">3</option>
   <option value="4">4</option>
