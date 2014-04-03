@@ -167,7 +167,7 @@ def invite_page(request):
     if retval <> None:
         return retval
     
-    message = "Hey! Check out this amazing site, we can travel together now !!"
+    message = "Hey! Check out this amazing site, we can travel together now!"
 
     try :
       request.user.rider
@@ -432,7 +432,7 @@ def edit_profile(request):
     request.user.rider.save()
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
+                                                                          "text":'Profile edit successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
     
 
 @csrf_exempt
