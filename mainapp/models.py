@@ -55,7 +55,17 @@ class Rider(models.Model):
     def __unicode__(self):
         return self.user.username
 
+class Rating(models.Model):
+    
+    #Change primary key to combination of everything to prevent duplicates.
+    
+    rated = models.ForeignKey(Rider, related_name = 'rated')
+    rater = models.ForeignKey(Rider, related_name = 'rater')
+    
+    def __unicode__(self):
+		return self.user.username
 
+    
 class Post(models.Model):
     
     owner = models.ForeignKey(Rider, null=False, related_name='owner')
@@ -136,7 +146,6 @@ class Message(models.Model):
     
     
 #Here there also exists another table called 'User', provided by Django. It has username, email and password attributes.
-
 
 #Temp check form
 class UploadFileForm(forms.Form):

@@ -1320,6 +1320,7 @@ def report_user(request):
     retval = check(request)
     if retval <> None:
         return retval
+        
     if 'user' not in request.REQUEST.keys():
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Invalid user.</p>\
@@ -1328,14 +1329,24 @@ def report_user(request):
     if len(user)==0:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>Invalid user.</p>\
-                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-    user = user[0]
-    user.rider.user_rating += 1
-    user.rider.save()
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))    
     
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+    user = user[0]
+    flag=Rating.objects.filter(rated=user.rider, rater=request.user.rider)
+    
+    if len(flag) == 0 and len(flag) <5:
+        user.rider.user_rating += 1
+        user.rider.save()
+        rateobj=Rating(rated=user.rider, rater=request.user.rider)
+        rateobj.save()
+    
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'<p>User reported successfully.</p>\
                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+    else:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                          "text":'<p>You have already reported this user and can\'t report again. </p>\
+                                                                          <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
 
 #Testing functions:
 def tempage(request):
