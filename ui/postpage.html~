@@ -53,13 +53,13 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
       <div class="container" >
         
         <div class="row">
-	<div class="container drop-shadow" style="background-color:#fff">
+	<div class="container" style="background-color:#eee">
 	<div class="centered">
         <h2>Post Details</h2>
         {% if post.autoaccept == 1 %}
-        <h5 style="color: blue;">All reservations on this post will be automatically accepted</h5>
+        <h5 style="color:#449cde;">All reservations on this post will be automatically accepted</h5>
         {% else %}
-        <h5 style="color:red;">All reservations on this post will be confirmed by the owner</h5>
+        <h5 style="color:#D9534F;">All reservations on this post will be confirmed by the owner</h5>
         {% endif %}
             <br>
             <br>
@@ -170,7 +170,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
     
     
     <div class="col-md-6"> 
-<div class="contain col-xs-12"  style="background-color:#fff">
+<div class="contain col-xs-12"  style="background-color:#eee">
     
 <div class="centered" style="padding:5px">
 
@@ -181,11 +181,28 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <div class="user-info-block">
                 <div class="user-heading">
                     <h4>{{post.owner.user.first_name}} {{post.owner.user.last_name}}</h4>
-                    <h4><a href="/profile/?id={{post.owner.id}}">Username: {{post.owner.user.username}}</a></h4>
+                    <h4>Username: <a href="/profile/?id={{post.owner.id}}">{{post.owner.user.username}}</a></h4>
 <!--                    <span class="help-block">Sydney, Australia</span>-->
                 </div>
                 <div class="centered">      
- <h5><a href="/faq#Q7">Negative flags: {{post.owner.neg_flags}}</a></h5>
+	<h5><a href="/faq#Q7">Negative Flags:</a>				
+				{% if post.owner.neg_flags == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,post.owner.neg_flags+1) %}  				
+				<image height=20px width=20px src="http://www.qwanz.com/images/redFlag.gif"/>
+				{% endfor %}
+				{% endif %}				
+				</h5>
+<h5>User Reports: 
+		{% if post.owner.user_rating == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,post.owner.user_rating+1) %}  				
+				<image height=20px width=20px src="http://emojisaurus.com/images/emoji/expressionless.png"/>
+				{% endfor %}
+				{% endif %}				
+				</h5>
  {% if post.owner.auth_token=="0" %}
  <h5>*Non-Authenticated user*</h5>
  {% endif %}
@@ -269,23 +286,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 	            {%endif%}
             {%endfor%}
     <p><button class="btn btn-warning" onclick="window.location.href='/reserve/?postid={{post.id}}'">Reserve</button></p>
-  
-{% else %}
-<!--    <button class="btn btn-primary">Rate</button>-->
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>
-			         <h4>Accepted Requests</h4>
-				{% for reserved in reserved_list %}
-                {%if reserved_obj.status==1 %}       
-                
-		              <ul>
-			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
-		              </ul>
-<!--	               </div>-->
-	            {%endif%}
-            {%endfor%}
-            <!-- Modal -->
-            
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -308,7 +310,23 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
       </div>
   </div>
   </div>
+
   
+{% else %}
+<!--    <button class="btn btn-primary">Rate</button>-->
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>
+			         <h4>Accepted Requests</h4>
+				{% for reserved in reserved_list %}
+                {%if reserved_obj.status==1 %}       
+                
+		              <ul>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
+		              </ul>
+<!--	               </div>-->
+	            {%endif%}
+            {%endfor%}
+            <!-- Modal -->
+              
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

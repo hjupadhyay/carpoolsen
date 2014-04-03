@@ -68,8 +68,8 @@
 		
 	<div class="jumbotron2" >
 	  <div class="container" align = "center">    
-	    <div class="col-lg-6 col-lg-offset-3"><div class="conatiner drop-shadow">
-		<div class="jumbotron extra" align = "center" style= "margin-left:400">
+	    <div class="col-lg-6 col-lg-offset-3"><div>
+		<div class="jumbotron2 extra" align = "center" style="background-color:#eee"">
 		  <div class="row marketing">
 		     <h3 style="font-family:arial;font-size:45px;" class="text-center" >{{profiler.user.first_name}}'s Profile</h3>
 			<div id="inner" class="user-image">
@@ -78,7 +78,27 @@
 			<div class="user-info-block">
 			  <div class="user-heading">
 			    <h3>&nbsp{{profiler.user.first_name}}&nbsp{{profiler.user.last_name}}</h3>
-			    <h5>Negative flags: {{profiler.neg_flags}}, User reports: {{profiler.user_rating}}</h5>
+				<h5><a href="/faq#Q7">Negative Flags:</a>				
+				{% if profiler.neg_flags == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,profiler.neg_flags+1) %}  				
+				<image src="http://www.qwanz.com/images/redFlag.gif"/>
+				{% endfor %}
+				{% endif %}				
+				</h5>
+				
+				<h5><a href="/faq#Q8">User Reports:</a> 
+				{% if profiler.user_rating == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,profiler.user_rating+1) %}  				
+				<image height=20px width=20px src="http://emojisaurus.com/images/emoji/expressionless.png"/>
+				{% endfor %}
+				{% endif %}				
+				</h5>
+				
+		
 					<TABLE>
 					<TR>
 						<TD><b><font color="black">Username</font></b></TD>
