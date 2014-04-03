@@ -1089,7 +1089,7 @@ def send_message(request):
 		message = request.REQUEST['message']
         
 		if sender==receiver:
-			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":rider.user.rider, "text": 'Sending messages to self is a sign of narcissism. Click <a href="/">here</a> to go back to homepage.'}))
+			return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider, "text": 'Sending messages to self is a sign of narcissism. Click <a href="/">here</a> to go back to homepage.'}))
 
 		else:
 			entry = Message(sender = sender, receiver = receiver, message = message)
