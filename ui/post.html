@@ -13,7 +13,13 @@
   <!-- google maps -->
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-  <!-- jquery -->
+<!--   <!-- jquery 
+  <script type="text/javascript" src="gmap/styles/jquery-ui/jquery.min.js"></script>
+
+  <!-- jquery UI 
+  <script type="text/javascript" src="gmap/styles/jquery-ui/jquery-ui.min.js"></script> -->
+  
+    <!-- jquery -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <!-- jquery UI -->
@@ -23,6 +29,7 @@
   <script type="text/javascript" src="gmap/js/gmaps.js"></script>
   
   <!-- till here -->
+
 
 
 <style>
@@ -42,18 +49,12 @@
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="./bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<link href="jumbotron.css" rel="stylesheet">
-    
-			
+	
 
     
 </head>
-
-
 <body>
 {%include "header.html" %}
-
-
    <!-- <div class="container" style=" background-color:E1E1E8; padding-left: 90px; padding-bottom: 30px; width:50%; margin:0 auto; border-radius:4px;">-->
         <br>
 
@@ -73,16 +74,13 @@
                 <div class="col-md-4">
                 <label for="fro">
                             FROM  </label>
-<!-- 					<input id='gmaps-input-address' class="form-control" name="fro" placeholder='Start typing a place name...' type="text" required autofocus />
- -->					
-				      <input class="form-control" name="fro" id='gmaps-input-address fro' placeholder='Start typing a place name...' type='text' />
-					<div id='gmaps-canvas' style="height:0px; width:0px;"></div>
+                    <input class="form-control" name="fro" id="fro" placeholder="From Location" type="text"
+                        required autofocus />
                 </div>
                 <div class="col-md-4">
                 <label for="to">
                             TO  </label>
-                    <input class="form-control" name="to" id="gmaps-input-address to" placeholder='Start typing a place name...' type='text' required />
-					<div id='gmaps-canvas' style="height:0px; width:0px;"></div>
+                    <input class="form-control" name="to" id="to" placeholder="To Location" type="text" required />
                 </div>
            
 			
@@ -130,9 +128,9 @@
 <div class="col-md-4">
 <label for="">CAR TYPE  </label>
  <select class="form-control" name="ac" required>
-  <option selected="selected">---</option>
+  <!-- <option selected="selected">---</option> -->
   <option  value="1">AC</option>
-  <option value="0">Non-AC</option>
+  <option value="0" selected>Non-AC</option>
 </select>
                     </div>
                 </div>
@@ -145,10 +143,10 @@
                 <label for="men_women">
                             CAN BE RESERVED BY </label>
                     <select class="form-control" name="men_women" >
-  <option selected="selected ">---</option>
+  <!-- <option selected="selected ">---</option> -->
   <option value="2">Men</option>
   <option value="1">Women</option>
-  <option value="0">Both</option>
+  <option value="0" selected>Both</option>
   
 </select>
                 </div>
@@ -157,8 +155,8 @@
 				<label for="available_to">
                             CAN BE VIEWED BY  </label>
                    <select class="form-control" name="available_to">
-  <option selected="selected">---</option>
-  <option value="0" >All</option>
+  <!-- <option selected="selected">---</option> -->
+  <option value="0" selected>All</option>
   <option value="1">Facebook Friends Only</option>
 </select>
 </div>                                         
@@ -277,8 +275,8 @@
 				<label for="total_seats">
                             SEATS AVAILABLE  </label>
 				<select class="form-control" name="total_seats" >
-  <option selected="selected">---</option>
-  <option value="1">1</option>
+  <!-- <option selected="selected">---</option> -->
+  <option value="1" selected>1</option>
   <option value="2">2</option>
   <option value="3">3</option>
   <option value="4">4</option>
@@ -335,11 +333,14 @@
     </div>
      
 
-	<script type="text/javascript">
-            {% include "bootstrap/js/jquery-1.8.3.min.js"%}
-{% include  "bootstrap/js/bootstrap.min.js" %}
-{% include "bootstrap/js/bootstrap-datetimepicker.js" %}
-{% include "/bootstrap/js/validate.js" %}
+<script type="text/javascript">
+
+	{% include "bootstrap/js/jquery-1.8.3.min.js"%}
+	{% include  "bootstrap/js/bootstrap.min.js" %}
+	{% include "bootstrap/js/bootstrap-datetimepicker.js" %}
+	{% include "/bootstrap/js/validate.js" %}
+	{% include "gmap/styles/jquery-ui/jquery.min.js" %}
+	{% include "gmap/styles/jquery-ui/jquery-ui.min.js" %}
 
 </script>
 <script type="text/javascript">  $('.form_datetime').datetimepicker({

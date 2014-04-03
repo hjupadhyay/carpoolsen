@@ -104,22 +104,27 @@
 <!--             <fieldset> -->
                 
 		
-
+&nbsp
                 <div class="control-group">
-                    <label class="control-label">Change Profile Photo:</label>
-                    <br>
+                    <label class="control-label col-xs-3">Change Profile Photo</label>
+                    <div class="col-xs-4">
                     <input type="file" name="image">
-		    <br>
-                    <button type="submit" type = "submit" class="btn btn-xs btn-primary">Upload</button>
-                </div>
-             <br>
+                    </div>
+					<div class="col-xs-3 offset-2">
+					<button type="submit" type = "submit" class="btn btn-primary">Upload</button>
+					</div>
+					</div>
+             &nbsp
+			 <br></br>
                 <div class="control-group">
                     <label class="control-label col-xs-3">First Name</label>
                     <div class="controls col-xs-9">
                     
                     <input id="first_name" name="first_name" type="text" placeholder="First name" class="form-control" value="{{ rider.user.first_name }}">
                     </div>
-                </div>&nbsp
+                </div>
+				
+				&nbsp
 				<div class="control-group">
                     <label class="control-label col-xs-3">Last Name</label>
                     <div class="col-xs-9">
@@ -185,6 +190,7 @@
                             var valueToSelect = document.getElementById('{{ rider.auth_type }}');
                             element.value = valueToSelect.value;
                         </script></div>
+						&nbsp
 			<label class="control-label col-xs-3">ID</label> 
 			<div class="controls col-xs-9">                       
 			<input id="id_no" name="auth_token" type="text" placeholder="ID No."class="form-control" value = "{{ rider.auth_token }}">
@@ -202,7 +208,7 @@
 				</div>
 		</div>
 		</center>
-        </div>
+        <!-- </div> -->
         <div class="col-md-9 well admin-content" id="Password">
             <div align="center">
 					<form action="/change_pass/" method="POST">
