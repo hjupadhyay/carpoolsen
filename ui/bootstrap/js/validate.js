@@ -55,7 +55,7 @@ $(document).ready(function(){
                 } else {
                     if(!patt.test(ele.val())) {
                         jVal.errors = true;
-                        uname.removeClass('correct').addClass('error').html('&larr; Only alpha-numeric username allowed').show();
+                        uname.removeClass('correct').addClass('error').html('&larr; Only alpha-numeric username without spaces allowed').show();
                         ele.removeClass('normal').addClass('wrong');
                     } else {
                         if(!pat.test(ele.val())) {
@@ -89,15 +89,22 @@ $(document).ready(function(){
 				top: pos.top+1,
 				left: pos.left+ele.outerWidth()-315
 			});
+            
+            var space = /(^\s|\s{2,}|\s$)/i;
 
 			if(ele.val().length == 0) {
 				jVal.errors = true;
 					fname.removeClass('correct').addClass('error').html('Input Something &rarr;').show();
 					ele.removeClass('normal').addClass('wrong');
 			} else {
+                if(space.test(ele.val())){
+                    fname.removeClass('correct').addClass('error').html('No spaces allowed &rarr;').show();
+                    ele.removeClass('normal').addClass('wrong');
+                } else {
 					fname.hide();
 					ele.removeClass('wrong').addClass('normal');
-			}
+                }
+            }
 		},
 		
 		'passwd' : function() {
