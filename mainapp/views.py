@@ -440,10 +440,13 @@ def signup_do(request):
     #if request.method == 'GET':
         #return HttpResponse('invalid request')
 
+    if request.user.is_authenticated():
+		return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,"text":'You are already logged in. You don\'t need to signup now.Please don\'t manipulate our URLs.<p>Click <a href="/">here</a> to go back to signup page.</p>'}))
+    
     username = request.REQUEST['username']
     password = request.REQUEST['password']
     confirmpassword = request.REQUEST['confirmpassword']
-    
+        
     if password <> confirmpassword:
       return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":None,
                                                                             "text":"""<p>Passwords don\'t match. Please Enter again.</p>
