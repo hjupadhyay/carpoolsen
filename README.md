@@ -15,8 +15,7 @@ NEW_TODO
 
 CHECK EDIT POST
 Receipt shows footer text
-New post CSS
-LoginVerify CSS, Validate
+LoginVerify Validate
 Gmaps
 Edit_post date-time issue
 Dropdown not working on settings page
