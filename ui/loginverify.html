@@ -10,8 +10,8 @@
 <style>
 {% include "bootstrap/css/backgrnd.css" %}
 {% include "bootstrap/css/bootstrap.min.css" %}
-{% include "bootstrap-theme.css" %}
-{% include "bootstrap.css" %}
+{% include "bootstrap/css/bootstrap-theme.css" %}
+{% include "bootstrap/css/bootstrap.css" %}
 </style>
 
 </head>
@@ -55,7 +55,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <br>
                 <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" name="password" placeholder="password" type="text" required>
+                    <input class="form-control" name="password" placeholder="password" type="password" required>
                 </div>
                 <div>
                     <label class="checkbox"><input name = "code" type="checkbox" value="{{ code }}" checked style="opacity:0; position:absolute; left:9999px;"></label>
