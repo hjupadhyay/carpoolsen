@@ -523,7 +523,7 @@ def verify(request):
         
     #check for user login
     if not request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"rider":None,
+        return HttpResponse(jinja_environ.get_template('loginverify.html').render({"rider":1,
                                                                                    "code":request.REQUEST['code']}))
     try:
         request.user.rider

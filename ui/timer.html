@@ -19,7 +19,7 @@ console.log({{date_time1}});
 <h4 id="countdown-holder1"></h4>  
 <script>  
     var clock = document.getElementById("countdown-holder1")  
-    , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour+5}}, {{date_time1.minute+30}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
+    , targetDate = new Date({{date_time1.year}}, {{date_time1.month-1}}, {{date_time1.day}}, {{date_time1.hour}}, {{date_time1.minute}}, {{date_time1.second}}, {{date_time1.microsecond}}); // Jan 1, 2050;  
     clock.innerHTML = countdown(targetDate).toString();  
     setInterval(function(){  
     

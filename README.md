@@ -13,7 +13,7 @@ inside paths.py, paste  (WITH THE SLASH)
 
 for example
 if my carpoolsen folder is here
-    /home/rishav/carpoolsen
+    /home/rishav/carpoolsen/
 
 then path.py should contain
     cpspath='/home/rishav/'
@@ -25,6 +25,10 @@ for example
     mkdir /home/rishav/media/
     mkdir /home/rishav/media/propics/
     
+then change permissions of these created folders by running (for example)
+
+    chmod 777 /home/rishav/media/
+    chmod 777 /home/rishav/media/propics/
     
 =======================
 =======================
