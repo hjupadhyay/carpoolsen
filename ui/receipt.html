@@ -11,9 +11,11 @@
     {
         document.getElementById("print").style.display="none";
         document.getElementById("b2dash").style.display="none";
+        document.getElementById("footer").style.display="none";
         window.print();
         document.getElementById("print").style.display="block";
         document.getElementById("b2dash").style.display="block";
+        document.getElementById("footer").style.display="block";
     }
     </script>
     <title>Receipt</title>
@@ -41,7 +43,7 @@
                     <thead>
                         <tr>
                             <th>Owner Details</th>
-                            <th>Total&nbspseats</th>
+                            <th>Total&nbspfree&nbspseats</th>
                             <th class="text-center">Date</th>
                             <th class="text-center">Time</th>
 							<th> Cost</th>
@@ -79,9 +81,9 @@
     </div>
 
 	</div>
-
-<!--     {% include "footer.html" %} -->
-
+<a id="footer">
+    {% include "footer.html" %}
+</a>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
