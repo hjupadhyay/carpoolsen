@@ -18,7 +18,7 @@ from mainapp.checker import check
 import thread
 from jinja2.ext import loopcontrols
 import os
-jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols]);
+jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/carpoolsen/ui']), extensions=[loopcontrols]);
 #Dummy request object
 #class Dum:
     #REQUEST = {}

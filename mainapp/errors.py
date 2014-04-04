@@ -13,7 +13,7 @@ import uuid
 import jinja2
 import smtplib
 from mainapp.checker import check
-jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
+jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/carpoolsen/ui']));
 
 def err404(request):
     rider = None

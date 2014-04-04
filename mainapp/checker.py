@@ -12,7 +12,7 @@ from django.db.models import Count, Min, Sum, Avg
 import uuid
 import jinja2
 import smtplib
-jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']));
+jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/carpoolsen/ui']));
 
 def check(request):
     
