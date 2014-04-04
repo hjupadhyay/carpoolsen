@@ -357,6 +357,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
     
   {% else %}
     <p>You are already reserved on this post and confirmed.</p>
+    <p>Generate your receipt for this trip <a href='/receipt/?key={{post.id}}'>here</a></p>
     <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
   {% endif %}
   {%endif%}
