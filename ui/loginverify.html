@@ -12,6 +12,7 @@
 {% include "bootstrap/css/bootstrap.min.css" %}
 {% include "bootstrap/css/bootstrap-theme.css" %}
 {% include "bootstrap/css/bootstrap.css" %}
+{% include "bootstrap/css/checks.css" %}
 </style>
 
 </head>
@@ -48,14 +49,14 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
             <form action="/login_do/" method="post" class="form" role="form">
             <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" name="username" placeholder="username" type="text"
+                    <input class="form-control" name="username" id="loginusername" placeholder="username" type="text"
                         required autofocus />
                 </div>
             </div>
 <br>
                 <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" name="password" placeholder="password" type="password" required>
+                    <input class="form-control" name="password" id="loginpassword" placeholder="password" type="password" required>
                 </div>
                 <div>
                     <label class="checkbox"><input name = "code" type="checkbox" value="{{ code }}" checked style="opacity:0; position:absolute; left:9999px;"></label>
@@ -64,7 +65,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
                 <div class="col-md-6 col-md-offset-3">
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</button>
+    <button id="login" name="singlebutton" class="btn btn-success btn-block btn-lg">Login</button>
   </div>
 </div>
        
@@ -91,6 +92,8 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 
 
 <script>
+{% include "bootstrap/js/jquery.min1.js" %}
+{% include "bootstrap/js/login_check.js" %}
 </script>
 </body>
 </html>
