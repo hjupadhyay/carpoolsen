@@ -2,3 +2,4 @@
 mainapp/*.pyc
 carpoolsen/*.pyc
 database.sqlite
+paths.py

@@ -1,5 +1,36 @@
 (* carpoolsen *)
 
+VERY IMPORTANT
+EVERYONE DO THIS
+ASAP
+RIGHT NOW
+
+make a file "paths.py" in your carpoolsen folder (besides settings.py)
+inside paths.py, paste  (WITH THE SLASH)
+
+    cpspath=/path-to-the-folder-parent-to-your-carpoolsen-folder/'
+
+
+for example
+if my carpoolsen folder is here
+    /home/rishav/carpoolsen
+
+then path.py should contain
+    cpspath='/home/rishav/'
+    
+Then create /media/propics in the folder which cpspath points to.
+
+for example
+
+    mkdir /home/rishav/media/
+    mkdir /home/rishav/media/propics/
+    
+    
+=======================
+=======================
+
+
+
 To Do:
 
 1. Implement remaining views. check views.py for more info.

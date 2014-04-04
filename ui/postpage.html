@@ -244,6 +244,7 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
 <br>
 {% if post.date_time >= nowtime %}
 <button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
+{% endif %}
 <button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
 {% for reserved in reserved_list %}
     {% if reserved.status==1 %}
@@ -254,7 +255,6 @@ document.getElementById("hr").innerHTML = "Pressed O.K";
         {% break %}
     {% endif %}
 {% endfor %}
-{% endif %}
      
 <!--{% if rider.user.username!=post.owner.user.username %}
 <button class="btn btn-primary">Rate</button>

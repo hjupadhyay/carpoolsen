@@ -1,3 +1,4 @@
+from paths import cpspath
 # Django settings for carpoolsen project.
 
 DEBUG = True
@@ -50,7 +51,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/home/rishav/Documents/SEN/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -72,8 +73,8 @@ STATICFILES_DIRS = (
     #'/home/tanmay/Documents/SEN/carpoolsen/ui/bootstrap',
     #'/home/tanmay/Documents/SEN/carpoolsen/ui/images',
     #'/home/tanmay/Documents/SEN/carpoolsen/ui/bootstrap/fonts',
-    '/home/vandit/carpoolsen/ui/bootstrap/fonts/',
-    '/home/rishav/Documents/SEN/carpoolsen/ui/bootstrap/fonts',
+    cpspath + 'carpoolsen/ui/bootstrap/fonts',
+    cpspath + 'media/propics/',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

@@ -1,4 +1,5 @@
 # Create your views here.
+from paths import cpspath
 from facebook import GraphAPI
 import json
 from django.http import HttpResponse
@@ -16,6 +17,7 @@ import smtplib
 from mainapp.checker import check
 import thread
 from jinja2.ext import loopcontrols
+import os
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols]);
 #Dummy request object
 #class Dum:
@@ -28,9 +30,12 @@ def remove_old_posts(user):
     for x in Post.objects.filter(owner=user.rider):
         if (timezone.now() - x.date_time).total_seconds() > 3600:
             for y in x.reserved_set.all():
+                if y.changed == 0:
+                    if y.reserved_set.all().aggregate(Sum('edited'))['edited__sum'] == 0:
+                        if user.rider.neg_flags > 0:
+                            user.rider.neg_flags -= 1
                 y.delete()
             x.delete()
-    print "LOL"
 #send email function
 
 month=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -417,10 +422,15 @@ def edit_profile(request):
                                                                                   <p>No Rider associated!.</p>
                                                                                   <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
     
-    #if 'image' in request.FILES.keys():
-        #request.user.rider.imageobj = request.FILES['image']
-        #request.user.rider.save()
-        #return HttpResponse('0')
+    if 'image' in request.FILES.keys():
+        #delete old file
+        if str(request.user.rider.imageobj) <> '':
+            path = cpspath + 'media/propics/' + request.user.username + request.user.rider.imageobj.url[request.user.rider.imageobj.url.rfind('.'):]
+            if os.path.isfile(path):
+                os.remove(path)
+        request.user.rider.imageobj = request.FILES['image']
+        request.user.rider.image = '/fonts/' + request.user.username + request.user.rider.imageobj.url[request.user.rider.imageobj.url.rfind('.'):]
+        #request.user.rider.image = "{0}{1}".format(MEDIA_URL, request.rider.imageobj.url)
     
     
     request.user.first_name = request.REQUEST['first_name']
@@ -702,6 +712,7 @@ def cancel_post(request):
 					owner.neg_flags += 1
 					owner.save()
 			entry.status = 2
+			entry.changed = 1
 			entry.save()
 			
 			#Delete all reserved entries for that post too

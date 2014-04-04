@@ -162,7 +162,7 @@
                             {% elif reserved.edited == 1 %}
                             <li>
                                 <p><h5>Your <a href="/post_page/?key={{reserved.post.id}}">trip</a> from <font color="green">{{ reserved.post.fro }}</font> to <font color="green">{{ reserved.post.to }}</font> with <a href="/profile?id={{reserved.post.owner.id}}">{{reserved.post.owner.user.first_name}}</a> on {{reserved.post.date_time.date()}} at {{reserved.post.date_time.time()}} has been Edited.</h5><p>
-                                <p><h5><a href="/search_do?fro={{reserved.post.fro}}&to={{reserved.post.to}}&men_women={{reserved.post.men_women}}&start_date_time=&end_date_time=">Search&nbspfor&nbspsimilar&nbsptrips</a>&nbsp&nbsp&nbsp<a href="#" onclick="okay({{reserved.id}})">Okay</a></h5></p>
+                                <p><h5><a href="/search_do?fro={{reserved.post.fro}}&to={{reserved.post.to}}&men_women={{reserved.post.men_women}}&start_date_time=&end_date_time=">Search&nbspfor&nbspsimilar&nbsptrips</a>&nbsp&nbsp&nbsp<a href="#" onclick="okay({{reserved.id}})">I'm okay with this post</a></h5></p>
                                 <p><h6>Have to go through a lot of trouble due to this change? You can <a href=/report_user?user={{reserved.post.owner.user.username}}">report</a> the user in that case.</h6></p>
                             </li>
                             {% else %}

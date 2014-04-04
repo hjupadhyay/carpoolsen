@@ -1,7 +1,10 @@
+from paths import cpspath
 from django import forms
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+import os
+from uuid import uuid4
 ## Create your models here.
 #class Poll(models.Model):
     #question = models.CharField(max_length=200)
@@ -17,6 +20,13 @@ from django.contrib.auth.models import User
     #votes = models.IntegerField(default=0)
     #def __unicode__(self):  # Python 3: def __str__(self):
         #return self.choice_text
+        
+
+
+def update_filename(instance, filename):
+    path = cpspath + 'media/propics/'
+    format = instance.user.username + filename[filename.rfind('.'):]
+    return os.path.join(path, format)
 
 class Rider(models.Model):
     
@@ -35,7 +45,8 @@ class Rider(models.Model):
     image = models.CharField(max_length=300, default="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQoAjhBuCjGc3JJb0HLIKePs15GE09p8_wfy7BW2LtoeuTSo-eQKg")
     
     #image
-    imageobj = models.ImageField(upload_to='/home/rishav/Desktop/')
+    imageobj = models.ImageField(upload_to=update_filename)
+    #pass function here
     
     #1 - unverified
     #any other number = verification code
@@ -87,7 +98,7 @@ class Post(models.Model):
     #1 - ongoing -> yet to be implemented
     #2 - cancelled
     status = models.IntegerField(default=0)
-    
+    changed = models.IntegerField(default=0)
     #0 - No
     #1 - Yes
     ac = models.IntegerField(default=0)
