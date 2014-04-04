@@ -77,8 +77,38 @@
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
                 <script type="text/javascript">
-                
-                        document.getElementById("datetime").value="{{post.date_time}}";
+                var s="{{post.date_time}}";
+                var t1=s.substring(0,4);
+                var t2=s.substring(5,7);
+                var t21=s.charAt(6);
+                var p1=s.substring(11,16);
+                // console.log(t21);
+                // console.log(t2);
+                // console.log(t1);
+               
+                var s1=["10","11","12"];
+                var flag;
+                var months= ["","January","February","March","April","June","May","July","August","September","October","November","December"];
+               for (var i=0;i<s1.length;i++){
+                 var n = t2.localeCompare(s1[i]);
+                   if(n==0){
+                    flag=1;
+                    t2=months[parseInt(s1[i])];
+                    break;
+                   }
+                }
+                if(flag!=1){
+                        t2=months[parseInt(t21)];
+                        }
+                       
+                  var t3=s.substring(8,10);
+                  var x=" ";
+                  var t1=t1.concat(x);
+                  var t2=t2.concat(x)
+                  var t3=t3.concat(x)
+                  var x1="- "
+                  var s=t3.concat(t2,t1,x1,p1);
+                  document.getElementById("datetime").value=s;
                 </script>
             </div>
 			</div>
