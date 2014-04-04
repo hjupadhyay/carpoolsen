@@ -3,68 +3,31 @@
 <title>Post New Trip</title>
 <!-- A small change to check git on windows-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
-
-
-<!-- for google maps -->
- <link type="text/css" href="gmap/styles/main.css" rel="stylesheet" />
-  <link type="text/css" href="gmap/styles/jquery-ui/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-
-  <!--   <!-- jquery 
-  <script type="text/javascript" src="gmap/styles/jquery-ui/jquery.min.js"></script>
-
-  <!-- jquery UI 
-  <script type="text/javascript" src="gmap/styles/jquery-ui/jquery-ui.min.js"></script> -->
-  
-    <!-- jquery -->
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-  <!-- jquery UI -->
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-
-  <!-- our javascript -->
-  <script type="text/javascript" src="gmap/js/gmaps.js"></script>
-  
-  <!-- till here -->
-  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-  <script type="text/javascript" src="ui/js/autocomplete_maps.js"></script>
+    <!-- Gmaps -->
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 
 <style>
-
     {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/style.css" %}
-    {% include "bootstrap/css/bootstrap.min.css" %}
     {% include "bootstrap/css/bootstrap-datetimepicker.min.css"%}
     {% include "bootstrap/css/checks.css" %}
     {% include "bootstrap/css/backgrnd.css" %}
-    {% include "gmap/styles/main.css" %}
-    {% include "gmap/styles/jquery-ui/jquery-ui-1.8.16.custom.css" %}
 </style>
     
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/style.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="./bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 	<script>
   function initialize() {
-  var autocomplete,autocomplete1;
-  // Create the autocomplete object, restricting the search
-  // to geographical location types.
-  autocomplete = new google.maps.places.Autocomplete(
-      /** @type {HTMLInputElement} */(document.getElementById('fro')),
-      { types: ['geocode'] });
-  autocomplete1 = new google.maps.places.Autocomplete(
-      /** @type {HTMLInputElement} */(document.getElementById('to')),
-      { types: ['geocode'] });
-  // When the user selects an address from the dropdown,
-  // populate the address fields in the form.
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    fillInAddress();
-  });
-}
+    var autocomplete,autocomplete1;
+    // Create the autocomplete object, restricting the search
+    // to geographical location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {HTMLInputElement} */(document.getElementById('fro')),
+        { types: ['geocode'] });
+    autocomplete1 = new google.maps.places.Autocomplete(
+        /** @type {HTMLInputElement} */(document.getElementById('to')),
+        { types: ['geocode'] });
+    }
   </script>
     
 </head>
@@ -78,7 +41,7 @@
     <div class="row">
         <div align="center">
         <br> <br> <br>
-            <legend><span class="glyphicon glyphicon-arrow-th"><h2>Post Your Trip!</h2></span></legend>
+            <h2>Post Your Trip!</h2>
             </div>
             <form action="/post_new/" method="post" class="form" role="form">
             <div align="center">
@@ -352,24 +315,21 @@
     <br>
 {% include "footer.html" %}
 
-<script type="text/javascript">
-{% include "bootstrap/js/jquery-1.8.3.min.js" %}
-{% include  "bootstrap/js/bootstrap.min.js" %}
-{% include "bootstrap/js/bootstrap-datetimepicker.js" %}
-{% include "/bootstrap/js/validate.js" %}
-  
-
-</script>
-<script type="text/javascript">  $('.form_datetime').datetimepicker({
-        format:"dd MM yyyy - hh:ii",
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-    });
-
-  </script>
+    <script type="text/javascript">
+        {% include "bootstrap/js/jquery-1.8.3.min.js" %}
+        {% include  "bootstrap/js/bootstrap.min.js" %}
+        {% include "bootstrap/js/bootstrap-datetimepicker.js" %}
+        {% include "/bootstrap/js/validate.js" %}
+    </script>
+    <script type="text/javascript">  $('.form_datetime').datetimepicker({
+            format:"dd MM yyyy - hh:ii",
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+        });
+    </script>
 </body>
 </html>

@@ -31,10 +31,30 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="./bootstrap/css/dashboard.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+         
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+         
+         
+         
+<script>
+  function initialize() {
+  var autocomplete,autocomplete1;
+  // Create the autocomplete object, restricting the search
+  // to geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {HTMLInputElement} */(document.getElementById('fro')),
+      { types: ['geocode'] });
+  autocomplete1 = new google.maps.places.Autocomplete(
+      /** @type {HTMLInputElement} */(document.getElementById('to')),
+      { types: ['geocode'] });
+}
+  </script>     
+         
       </head>
 
-      <body>
+      <body onload="initialize()">
 
         
   
@@ -197,13 +217,13 @@
 				<div class="form-group">
                     <div class="col-sm-2 control-label">From</div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Location" name="fro">
+                        <input type="text" id='fro' class="form-control" placeholder="Location" name="fro">
                     </div>
                 </div>	
                 <div class="form-group">
                     <div class="col-sm-2 control-label">To</div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Location" name="to">
+                        <input type="text" id='to' class="form-control" placeholder="Location" name="to">
                     </div>
                 </div>
                 <!--<div class="form-group">
