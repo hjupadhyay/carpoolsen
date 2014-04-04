@@ -5,7 +5,7 @@ EVERYONE DO THIS
 ASAP
 RIGHT NOW
 
-make a file "paths.py" in your carpoolsen folder (besides settings.py)
+make a file "paths.py" in your carpoolsen folder (besides manage.py)
 inside paths.py, paste  (WITH THE SLASH)
 
     cpspath=/path-to-the-folder-parent-to-your-carpoolsen-folder/'
