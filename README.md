@@ -44,13 +44,13 @@ To Do:
 (* <!-- Dashboard list in decreasing order. --> *)
 NEW_TODO
 
-CHECK EDIT POST
-Receipt shows footer text
-LoginVerify Validate
-Gmaps
-Edit_post date-time issue
-Dropdown not working on settings page
-Photos and links in footer
+<!-- CHECK EDIT POST -->
+<!-- Receipt shows footer text -->
+<!-- LoginVerify Validate -->
+<!-- Gmaps -->
+<!-- Edit_post date-time issue -->
+<!-- Dropdown not working on settings page -->
+<!-- Photos and links in footer -->
 Install pytz package
 //Outbox
 
