@@ -13,45 +13,22 @@ To Do:
 (* <!-- Dashboard list in decreasing order. --> *)
 NEW_TODO
 
-formatting
-GMaps
-(* User reports only ONCE. *)
-(* New columns Sort *)
-UTC issue: INSTALL PYTZ PACKAGE
-(*Footers are now screwed.*)
-(* NegFlags arent getting set *)
-(* Reserve confirm updates are coming twice (or not), pata nai *)
-(* Make Mesage list on dashboard unordered *)
-//header dropdown not working on settings_page
-after editing my post on edit_post_page, submitting throws an error (TIMEZONE FIXING, VINODH is DOING THAT)
-(* None Reserved (random) users arent able to send message from postpage. *)
-(* <!-- REPORT USER --> *)
-(* <!-- TEll user about neg flags warning --> *)
+CHECK EDIT POST
+Receipt shows footer text
+New post CSS
+LoginVerify CSS, Validate
+Gmaps
+Edit_post date-time issue
+Dropdown not working on settings page
+Photos and links in footer
+Install pytz package
+//Outbox
 
-
-(* <!-- EDIT_POST_PAGE --> *)
-(* POST_PAGE -> Message form popup *)
-(* MESSAGE_DELETE *)
-(* forgot password buttons *)-
-
-(* Settings page *)
-(* change password *)
-
-
-
-
-(* Notif to reserver on post cancel/edit *)
-Outbox
-(* Remove Driver field in search *)
-(* *Post page -> Auto accept *)
-(* *wish to cancel -> cancel *)
-(* *bold username *)
-(* <!-- Old posts = not changable --> *)
 
 Bugs found by me(Abhishek Kumar){
 (* 	edit profile not working *)
-	footer is playing hide and seek
-	header dropdown not working on invite_page
+(* 	footer is playing hide and seek *)
+(* 	header dropdown not working on invite_page *)
 (*	if logged in a user should not be able to open signup_page *)
 (* 	if logged in a user should not be able to open signup_page *)
 	after editing my post on edit_post_page, submitting throws an error (DATE TIME FORMAT FIXING, VINODH is DOING THAT)
