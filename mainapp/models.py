@@ -54,6 +54,9 @@ class Rider(models.Model):
     #for reset_password
     reset_pass = models.CharField(default="",max_length=32)
     
+    #Facebook ID
+    facebook_id = models.CharField(default="",max_length=200)
+    
     def __unicode__(self):
         return self.user.username
 
@@ -127,6 +130,12 @@ class Reserved(models.Model):
     #0 - pending
     #1 - accepted
     status = models.IntegerField(default=0)
+    
+    
+    #If post has been edited after reservation
+    #0 - reserver is fine with edit
+    #1 - reserver has not acknowledged edit
+    edited = models.IntegerField(default=0)
     
 class Message(models.Model):
     

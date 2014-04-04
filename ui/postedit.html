@@ -205,7 +205,16 @@
   <label class="control-label" for="singlebutton"></label>
   <div class="controls">
   &nbsp &nbsp 
-<button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg"> Submit Post </span></button>
+    {% for reserved in reserved_list %}
+    {% if reserved.status==1 %}
+        <div style="color:red">
+        <p><h5>You have accepted passengers.</p>
+        <p><h5>Cancelling/Editing this post now may result in a <a href="/faq#Q7">negative flag</a>.</h5></p>
+        </div>
+        {% break %}
+    {% endif %}
+    {% endfor %}
+  <button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg"> Submit Post </span></button>
   </div>
 </div>
 

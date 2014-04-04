@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^forgot_pass/', views.forgot_pass, name = 'forgot_pass'),
     url(r'^invite/', views.invite, name='invite'),
     url(r'^delete_account/', views.delete_account, name='delete_account'),
+    url(r'^reset_edited/', views.reset_edited, name='reset_edited'),
 
     
     #Pages

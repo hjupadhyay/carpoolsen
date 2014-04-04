@@ -135,7 +135,7 @@ def edit_post_page(request):
 		rider=request.user.rider
 		key=request.REQUEST['key']
 		postobj=Post.objects.get(id=key)
-		return HttpResponse(jinja_environ.get_template('postedit.html').render({"rider":request.user.rider, 'post':postobj}))
+		return HttpResponse(jinja_environ.get_template('postedit.html').render({"rider":request.user.rider, 'post':postobj, 'reserved_list':postobj.reserved_set.all()}))
 	except Exception as e:
 		return HttpResponse(e)
 		
@@ -330,6 +330,7 @@ def post_page(request):
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
 		       'reserved_list': postobj.reserved_set.all(),
+		       "nowtime":timezone.now(),
 	              }
 	              
     else: 
@@ -340,6 +341,7 @@ def post_page(request):
 		       'rider':request.user.rider,
 		       'reserved_obj': reserved_obj,
 		       'reserved_list': postobj.reserved_set.all(),
+		       "nowtime":timezone.now(),
 	              }
               
     return HttpResponse(jinja_environ.get_template('postpage.html').render(template_values))
@@ -1048,7 +1050,7 @@ def edit_post(request):
     #Get new details.
     
     if postobj.owner.user.username <> owner.user.username:
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider, 
                                                                               "text":'Invalid User. Please go back or click <a href="/">here</a> to go to the homepage'}))
     if postobj.date_time < timezone.now():
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
@@ -1102,9 +1104,30 @@ def edit_post(request):
     postobj.autoaccept = autoaccept
     
     postobj.save()
+    neg = 0
+    for x in postobj.reserved_set.all():
+        if x.edited == 0:
+            if x.status == 1:
+                neg = 1
+        x.edited = 1
+        x.save()
+    postobj.owner.neg_flags += neg
+    postobj.owner.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Post edited successfully. Click <a href="/">here</a> to the post details page'}))
-
+@csrf_exempt
+def reset_edited(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    resobj = Reserved.objects.filter(pk=request.REQUEST['resid'])
+    if len(resobj) == 0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                              "text":'Invalid Request. Click <a href="/">here</a> to the post details page'}))
+    resobj[0].edited = 0
+    resobj[0].save()
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                          "text":'Done. Click <a href="/">here</a> to the post details page'}))
 @csrf_exempt
 def send_message(request):
     #if request.method == 'GET':
