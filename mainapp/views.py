@@ -17,7 +17,7 @@ import jinja2
 import smtplib
 from mainapp.checker import check
 import thread
-from django.http import Http404
+from django.http import *
 from jinja2.ext import loopcontrols
 import os
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/carpoolsen/ui']), extensions=[loopcontrols]);
@@ -27,7 +27,7 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/c
 #Perform basic checks on user
 
 def errview(request):
-	return HttpResponse(render('404.html'))
+	return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
 
 #Function to remove old posts of user
 def remove_old_posts(user):
