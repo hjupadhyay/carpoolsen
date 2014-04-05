@@ -1,0 +1,154 @@
+
+<html>
+<head>
+    <title>Search Results</title>
+<!--	    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="bootstrap/css/style.css" rel="stylesheet">-->
+        <style>
+            {% include "bootstrap/css/bootstrap.min.css" %}
+            {% include "bootstrap/css/style.css" %}
+			{% include "bootstrap/css/backgrnd.css" %}
+        </style>
+        <script type="text/javascript" src="bootstrap/js/searchresults.js"></script>
+        <script type="text/javascript">
+        <!--
+        var TSort_Data = new Array ('block_main', 'i','s','s','s','d', 's','i', 'i','s' );
+                                                // id,driver,from,to,date,time,cost,neg,auth
+        tsRegister();
+        // -->
+        </script>
+</head>
+<body>
+
+    {% include "header.html" %}
+
+<div class="jumbotron2">
+
+<div class="container reserveAlign">
+        <h2>Search Results</h2>
+			<p><h4>Here are the search results from {{ searched.fro }} to {{ searched.to }}</h4></p>
+			<p><h4> Click on the Show Details button to view details about a trip</h4></p>
+						 
+                <!-- <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-xl">Sort By</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-xl" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#block_main">Time</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#block_main">Cost</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#block_main">Negative Flags</a></li>
+                   </ul>
+                </div> -->
+                
+</div>
+      
+</div>
+
+<div class="container">
+    <div class="row col-md-10 col-md-offset-1 custyle">
+    
+    <table class="table table-striped custab" id="block_main">
+    <thead>
+        <tr>
+            <th>ID</th>
+            {% if not rider == None %}
+            <th>Posted by</th>
+            {% endif %}
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Cost(INR)</th>
+            <th>Negative Flags</th>
+            <th>Authentication</th>
+            <th class="text-center">Action</th>
+            
+        </tr>
+    </thead>
+        {% for post in result_list %}
+        <tr>
+                <td>1</td>
+                {% if not rider == None %}
+                <td>{{ post.owner.user.first_name }} </td>
+                {% endif %}
+                <td>{{ post.fro }}</td>
+                <td>{{ post.to }}</td>
+                <td>{{ post.date_time.date() }}</td>
+                <td>{{ post.date_time.time() }}</td>
+                <td>{{ post.cost }}</td>
+                <td><center>{{ post.owner.neg_flags }}</td>
+                {% if post.owner.auth_token == 0 %}
+                <td><center>Yes</td>
+                {% else %}
+                <td><center>No</td>
+                {% endif %}
+                
+                {% if not rider == None %}
+                <td class="text-center"><a class='btn btn-info btn-xs' href="/post_page/?key={{ post.id }}"><span class="glyphicon glyphicon-hand-up"></span> Show Details</a> </td>
+                {% else %}
+		<td><font size=2><center>Login to view details of this post</center></font></td>
+                {% endif %}
+                
+        </tr>
+
+      {% endfor %}
+        <tr>
+        <td class="text-center">
+            {% if batch > 0 %}
+            <h5><a id="prevbut">Previous</a></h5>
+            <script>
+                var url = document.URL.replace("&batch={{batch}}","");
+                url = url.replace("batch={{batch}}","");
+                url = url.replace("&batchlen={{batchlen}}","");
+                url = url.replace("batchlen={{batchlen}}","");
+                url = url + "&batch={{batch-1}}&batchlen={{batchlen}}";
+                url = url.replace("?&","?");
+                document.getElementById("prevbut").href=url;
+            </script>
+            {% endif %}
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-center">
+            {% if result_list|length == batchlen %}
+            <h5><a id="nextbut">Next</a></h5>
+            <script>
+                var url = document.URL.replace("&batch={{batch}}","");
+                url = url.replace("batch={{batch}}","");
+                url = url.replace("&batchlen={{batchlen}}","");
+                url = url.replace("batchlen={{batchlen}}","");
+                url = url + "&batch={{batch+1}}&batchlen={{batchlen}}";
+                url = url.replace("?&","?");
+                document.getElementById("nextbut").href=url;
+            </script>
+            {% endif %}
+        </td>
+        </tr>
+    </table>
+    </div>
+</div>
+</div> <!-- /container -->
+
+ {% include "footer.html" %}
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+    {% include "bootstrap/js/bootstrap.min.js" %}
+    {% include "bootstrap/js/searchresult.js" %}
+    </script>
+
+</body>
+</html>

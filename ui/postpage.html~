@@ -1,0 +1,388 @@
+<html>
+<head>
+<title>Post Details</title>
+ 
+ <style>
+    {% include "bootstrap/css/bootstrap.min.css" %}
+    {% include "bootstrap/css/bootstrap.css" %}
+    {% include "bootstrap/css/star-rating.css" %}
+    {% include "bootstrap/css/star-rating.min.css" %}
+    {% include "bootstrap/css/extra.css" %}
+    {% include "bootstrap/css/bootstrap-theme.css" %}
+    {% include "bootstrap/css/backgrnd.css" %}
+   </style>
+<!-- CSS dependencies -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="admin" >
+<!--     <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+
+     
+ 
+    <!-- Bootstrap core CSS -->
+<!--     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+<!--     <link href="jumbotron.css" rel="stylesheet"> -->
+<!--     <link href="sticky-footer.css" rel="stylesheet"> -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+  </head>
+<body>
+{% include "header.html" %}
+    
+<script>
+
+function onClick(){
+bootbox.confirm("<br>Are you sure to cancel?", function(result) {
+if (result === false) {
+document.getElementById("hr").innerHTML = "You pressed Cancel"
+} else {
+document.getElementById("hr").innerHTML = "Pressed O.K";
+}
+})
+};
+
+</script>
+{% include "header.html" %}
+<div class="jumbotron2" style="background-image: url('http://www.brewsterwallcovering.com/data/default/images/catalog/original/420-87111.jpg')"> <br>
+      <div class="container" >
+        <br>
+        <div class="row">
+	<div class="container" style="background-color:#eee">
+	<div class="centered">
+        <h2>Post Details</h2>
+        {% if post.autoaccept == 1 %}
+        <h5 style="color:#449cde;">All reservations on this post will be automatically accepted</h5>
+        {% else %}
+        <h5 style="color:#D9534F;">All reservations on this post will be confirmed by the owner</h5>
+        {% endif %}
+        {% if post.date_time < nowtime %}
+        <h5 style="color:red;">This trip has started. You cannot make any changes now. </h5>
+        {% endif %}
+            <br>
+            <br>
+	</div>
+        
+        <div class="col-md-3">
+            <div class="blockquote-box blockquote-info clearfix">
+                <div class="square pull-left">
+                <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
+                  
+                </div>
+                <h4>
+                    From Location</h4>
+                <p>
+                   {{post.fro}} 
+                   <!--Maninagar, Ahmedabad, Gujarat-->
+                </p>
+            </div>
+            <div class="blockquote-box blockquote-warning clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon-warning-sign glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Date of Travel</h4>
+                <p>
+            {{date}}
+              <!--   21st January 2014 -->
+                </p>
+            </div>
+            <div class="blockquote-box blockquote-danger clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Seats Available</h4>
+                <p>
+                    {{minus}} Remaining
+                </p>
+            </div>
+
+            
+            <div class="blockquote-box blockquote-primary clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon glyphicon-flag glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Car Type</h4>
+                <p>
+					AC
+                </p>
+            </div> 
+            
+	    </div>
+        <div class="col-md-3 col-xs-3">
+            <div class="blockquote-box blockquote-info clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
+                </div>
+                <h4>
+                     To Location</h4>
+                <p>
+             {{post.to}} 
+                     <!--DA-IICT, Gandhinagar-->
+                </p>
+            </div>
+            <div class="blockquote-box blockquote-warning clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon-warning-sign glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Time </h4>
+                <p>
+            {{time}}
+                    <!-- 11:00 AM -->
+                </p>
+            </div>
+            <div class="blockquote-box blockquote-danger clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Cost</h4>
+                <p>
+                    {{post.cost}} per person
+                </p>
+            </div>
+            <div class="blockquote-box blockquote-primary clearfix">
+                <div class="square pull-left">
+                    <span class="glyphicon glyphicon glyphicon-flag glyphicon-lg"></span>
+                </div>
+                <h4>
+                    Available To</h4>
+                <p>
+					{% if post.men_women == 0 %}
+                        Both
+                    {% elif post.men_women == 1 %}
+                        Women Only
+                    {% else %}
+                        Men Only
+                    {% endif %}
+                </p>
+            </div>
+           
+            
+          
+   </div>
+
+    
+    
+    <div class="col-md-6"> 
+<div class="contain col-xs-12"  style="background-color:#eee">
+    
+<div class="centered" style="padding:5px">
+
+<!--<div class="col-sm-2 col-md-3 user-details">-->
+            <div class="user-image">
+                <img src="{{post.owner.image}}" class="column" style="height:140px; width:140px; align:center;">
+            </div>
+            <div class="user-info-block">
+                <div class="user-heading">
+                    <h4><a href="/profile/?id={{post.owner.id}}">{{post.owner.user.first_name}} {{post.owner.user.last_name}}</a></h4>
+                    <h4>Username: {{post.owner.user.username}}</a></h4>
+<!--                    <span class="help-block">Sydney, Australia</span>-->
+                </div>
+                <div class="centered">      
+	<h5><a href="/faq#Q7">Negative Flags:</a>				
+				{% if post.owner.neg_flags == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,post.owner.neg_flags+1) %}  				
+				<image height=20px width=20px src="http://www.qwanz.com/images/redFlag.gif"/>
+				{% endfor %}
+				{% endif %}
+				</h5>
+<h5><a href="/faq#Q8">User Reports: </a> 
+		{% if post.owner.user_rating == 0 %}
+				0								
+				{% else %}
+				{% for i in range(1,post.owner.user_rating+1) %}  				
+				<image height=20px width=20px src="http://emojisaurus.com/images/emoji/expressionless.png"/>
+				{% endfor %}
+				{% endif %}				
+				</h5>
+ {% if post.owner.auth_token=="0" %}
+ <h5>*Non-Authenticated user*</h5>
+ {% endif %}
+<!-- <input id="input-21" type="number" class="rating" min="1" max="5" step="1" value="{{ rider.user_rating/2 }}"> -->
+                    
+<!-- put rating system here -->                    
+                    
+                    
+    {% if rider.user.username==post.owner.user.username %}
+        <script>
+            console.log({{reserved_list|length}});
+        </script>
+        {% for reserved in reserved_list %}
+		      {%if reserved.status==0 %}          
+                    
+			        
+		          <h4>Reserve Requests</h4>
+<!-- 		          <ul> -->
+			     <p><li>Reserve Request by <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></p>
+			     <button id="button1" class="btn btn-xs btn-primary inline" onclick="window.location.href='/accept/?resid={{reserved.id}}'">Accept</button>
+			     <button id="button1" class="btn btn-xs btn-primary inline" onclick="window.location.href='/revoke/?resid={{reserved.id}}'">Cancel</button>
+<!-- 		          </ul> -->
+	          {%endif%}
+	      {%endfor%}
+			<h4><align='center'>Accepted Requests<align='center'></h4>
+            {% for reserved in reserved_list %}
+                {% if reserved.status==1 %}       
+<!--
+                    <div class="blockquote-box blockquote-danger clearfix">
+-->
+		              <ul>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
+		              </ul>
+<!--	               </div>-->
+	            {% endif %}
+            {% endfor %}
+<br>
+{% if post.date_time >= nowtime %}
+<button class="btn btn-primary" type="" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit Post</button>
+{% endif %}
+<button class="btn btn-primary" type="" onclick="window.location.href='/cancel_post/?postid={{post.id}}'">Cancel Post</button>
+{% for reserved in reserved_list %}
+    {% if reserved.status==1 %}
+        <div style="color:red">
+        <p><h5>You have accepted passengers.</p>
+        <p><h5>Cancelling/Editing this post now may result in a <a href="/faq#Q7">negative flag</a>.</h5></p>
+        </div>
+        {% break %}
+    {% endif %}
+{% endfor %}
+     
+<!--{% if rider.user.username!=post.owner.user.username %}
+<button class="btn btn-primary">Rate</button>
+<button class="btn btn-primary" type="reset">Message Me</button>
+{% endif %}-->
+
+<p></p>
+</div>      
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+<br> 
+
+{% elif reserved_obj==None %}
+<!--     <br><br>         -->
+    <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#Modal">Message the Driver</button>            
+   <h4>Accepted Requests</h4> 
+<!--    <p><button class="btn btn-primary">Rate</button></p>-->
+       {% for reserved in reserved_list %}
+                {%if reserved.status==1 %}       
+<!--
+                    <div class="blockquote-box blockquote-danger clearfix">
+-->
+		              <ul>
+			             <li>User <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a> is accepted.</li>
+		              </ul>
+<!--	               </div>-->
+	            {%endif%}
+            {%endfor%}
+    <p><button class="btn btn-warning" onclick="window.location.href='/reserve/?postid={{post.id}}'">Reserve</button></p>
+    
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="container"> -->
+		<!-- <div class="row"> -->
+		<div class="span4 well" style="padding-bottom:0">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
+                <textarea class="span4" id="message" name="message"
+                placeholder="Type in your message" rows="5" cols="60"></textarea>
+                <br>
+                <button class="btn btn-info" type="submit" onclick="window.location.href='/send_message/?to=post.owner.user.username'">Send New Message</button>
+            </form>
+        </div>
+		<!-- </div> -->
+		<!-- </div> -->
+      </div>
+      </div>
+  </div>
+  </div>
+
+  
+{% else %}
+<!--    <button class="btn btn-primary">Rate</button>-->
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Message the Driver</button>
+			         <h4>Accepted Requests</h4>
+				{% for reserved in reserved_list %}
+                {%if reserved_obj.status==1 %}       
+                
+		              <ul>
+			             <li>Accepted user <a href="/profile/?id={{reserved.reserver.pk}}">{{reserved.reserver.user.first_name}} {{reserved.reserver.user.last_name}}</a></li>
+		              </ul>
+<!--	               </div>-->
+	            {%endif%}
+            {%endfor%}
+            <!-- Modal -->
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="container"> -->
+		<!-- <div class="row"> -->
+		<div class="span4 well" style="padding-bottom:0">
+            <form accept-charset="UTF-8" action="/send_message/?to={{post.owner.user.username}}" method="POST">
+                <textarea class="span4" id="message" name="message"
+                placeholder="Type in your message" rows="5" cols="60"></textarea>
+                <br>
+                <button class="btn btn-info" type="submit" onclick="window.location.href='/send_message/?to=post.owner.user.username'">Send New Message</button>
+            </form>
+        </div>
+		<!-- </div> -->
+		<!-- </div> -->
+      </div>
+      </div>
+  </div>
+</div>
+
+  {% if reserved_obj.status==0 %}
+    <p> You have already sent a reservation request which is pending approval.</p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
+    
+  {% else %}
+    <p>You are already reserved on this post and confirmed.</p>
+    <p>Generate your receipt for this trip <a href='/receipt/?key={{post.id}}'>here</a></p>
+    <button class="btn btn-primary inline" onclick="window.location.href='/cancel_res/?resid={{reserved_obj.id}}'">Cancel Reservation</button>
+  {% endif %}
+  {%endif%}
+
+</div>
+</div>  
+</div>
+</div> 
+</div>
+</div>
+</div>
+</div>   <br><br>
+{% include "footer.html" %}
+
+<!-- JS dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script> {% include "bootstrap/js/bootstrap.min.js" %}</script>
+<!-- bootbox code -->
+<script> {% include "bootstrap/js/bootbox.js" %}</script>
+<!--  -->
+<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="bootstrap/js/bootstrap.js"></script> -->
+  
+</body>
+</html>
