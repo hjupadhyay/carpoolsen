@@ -2,7 +2,6 @@
 
 Formatting of search results
 Footer screwed on some pages.
-404 Page
 
 
 VERY IMPORTANT
