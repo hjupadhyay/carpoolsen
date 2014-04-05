@@ -26,8 +26,8 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/c
     #REQUEST = {}
 #Perform basic checks on user
 
-def errview(request):
-	return HttpResponse(jinja_environ.get_template('index.html').render({"rider":None}))
+#def errview(request):
+	#return HttpResponse(jinja_environ.get_template('404.html').render({"rider":request.user.rider}))
 
 #Function to remove old posts of user
 def remove_old_posts(user):

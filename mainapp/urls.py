@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 #from django.conf.urls.defaults import handler404, handler500
 
 from mainapp import views, errors
-
+from django.http import *
 
 urlpatterns = patterns('',
     #Actions
@@ -63,3 +63,6 @@ urlpatterns = patterns('',
     url(r'^tempage/', views.tempage, name='tempage'),
     
 )
+
+#handler404 = 'carpoolsen.carpoolsen.views.errview',
+#handler500 = 'carpoolsen.carpoolsen.views.errview',

@@ -19,5 +19,5 @@ urlpatterns = patterns('',
     url(r'^', include('mainapp.urls')),
 )
 
-handler404 = 'views.errview',
-handler500 = 'views.errview',
+#handler404 = 'carpoolsen.carpoolsen.views.errview',
+#handler500 = 'carpoolsen.carpoolsen.views.errview',
