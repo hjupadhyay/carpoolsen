@@ -954,7 +954,7 @@ def cancel_res(request):
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'<p>Reservation cancelled successfully.</p>\
                                                                               <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
-    
+        
 @csrf_exempt
 def search_do(request):
     global month
@@ -1016,29 +1016,82 @@ def search_do(request):
                                           second=0, 
                                           microsecond=0,)
     
+    #[batch*batchlen:(batch+1)*batchlen]
     men_women=request.REQUEST['men_women']
     results = []
-    if men_women <> "0":
-        if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)[batch*batchlen:(batch+1)*batchlen]
-        else:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)[batch*batchlen:(batch+1)*batchlen]
-    else:
-        if end_date_time==None or start_date_time==None:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, status__lte=1)[batch*batchlen:(batch+1)*batchlen]
-        else:
-            results = Post.objects.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)[batch*batchlen:(batch+1)*batchlen]
+    
+    def iterate(fro,to,men_women,start_date_time,end_date_time,pobject):
+		if men_women <> "0":
+			if end_date_time==None and start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)
+			elif end_date_time==None and not start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
+			elif (not end_date_time==None) and start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, men_women=int(men_women), status__lte=1)
+			else:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, men_women=int(men_women), status__lte=1)
+		else:
+			if end_date_time==None and start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, status__lte=1)
+			elif end_date_time==None and not start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__gte=start_date_time, status__lte=1)
+			elif (not end_date_time==None) and start_date_time==None:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, status__lte=1)
+			else:
+				results = pobject.filter(fro__icontains=fro, to__icontains=to, date_time__lte=end_date_time, date_time__gte=start_date_time, status__lte=1)
+		return results
+
+    resultlist=[]
+    resultlist+=iterate(fro,to,men_women,start_date_time,end_date_time,Post.objects)
+    fro1=fro.split(', ')
+    to1=to.split(', ')
+    if len(fro1) <3 or len(to1) <3 :
+		return HttpResponse(jinja_environ.get_template('notice.html').render({'rider':request.user.rider, 'text':"Please be more specific in your search. Click <a href=\"/\">here</a> to go back to homepage"}))
+
+    fro2=fro1[-3] +", "+ fro1[-2] +", "+ fro1[-1]
+    to2=to1[-3] +", "+ to1[-2] +", "+ to1[-1]
+    #return HttpResponse(fro2 + to2)
+    pobject=iterate(fro2,to2,men_women,start_date_time,end_date_time,Post.objects)
+    #return HttpResponse(len(pobject))
+    #temp2=[]
+    
+    if len(fro1)>3 and len(to1)>3:
+		print "x"
+		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)>3 and len(to1)<3:
+		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)<3 and len(to1)>3:
+		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
+		
+    if len(fro1)>4 and len(to1)>4:
+		print "y"
+		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)>4 and len(to1)<4:
+		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)<4 and len(to1)>4:
+		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
+		
+    if len(fro1)>5 and len(to1)>5:
+		print "z"
+		resultlist+=iterate(fro1[2],to1[2],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)>5 and len(to1)<5:
+		resultlist+=iterate(fro1[2],to1[2],men_women,start_date_time,end_date_time,pobject)
+    elif len(fro1)<5 and len(to1)>5:
+		resultlist+=iterate(fro1[2],to1[2],men_women,start_date_time,end_date_time,pobject)
+    
+    resultlist+=pobject
+    resultlist=list(set(resultlist))
     template_values = {
-        "rider":rider,
-        'result_list':results,
-        'searched':Post(to=to, fro=fro),
-        'batch':batch,
-        'batchlen':batchlen,
-        }
+    "rider":rider,
+    'result_list':resultlist[batch*batchlen:(batch+1)*batchlen],
+    'searched':Post(to=to, fro=fro),
+    'batch':batch,
+    'batchlen':batchlen,
+    }
     
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
     #return HttpResponse(len(results))
-    
+     
 @csrf_exempt
 def edit_post(request):
     #if request.method == 'GET':
@@ -1334,7 +1387,7 @@ def invite(request):
     try:
         email=request.REQUEST['email_id']
         email=email.split(',')
-        email = set(email)[0]
+        email = list(set(email))
         for i in range(0,len(email)):
             email[i]=email[i].strip();
             

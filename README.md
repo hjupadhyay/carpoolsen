@@ -1,5 +1,10 @@
 (* carpoolsen *)
 
+Formatting of search results
+Footer screwed on some pages.
+404 Page
+
+
 VERY IMPORTANT
 EVERYONE DO THIS
 ASAP
@@ -65,7 +70,7 @@ Bugs found by me(Abhishek Kumar){
 (* 	header dropdown not working on invite_page *)
 (*	if logged in a user should not be able to open signup_page *)
 (* 	if logged in a user should not be able to open signup_page *)
-	after editing my post on edit_post_page, submitting throws an error (DATE TIME FORMAT FIXING, VINODH is DOING THAT)
+(* 	after editing my post on edit_post_page, submitting throws an error (DATE TIME FORMAT FIXING, VINODH is DOING THAT) *)
 (* 	@iphone there are no checks on post_form for total_seats, car_type , when submitting without changing these values throws server error *)
 
 	sugestions:
