@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.http import Http404
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -18,5 +19,5 @@ urlpatterns = patterns('',
     url(r'^', include('mainapp.urls')),
 )
 
-handler404 = errors.err404
-handler500 = errors.err404
+handler404 = 'views.errview',
+handler500 = 'views.errview',
