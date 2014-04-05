@@ -1,4 +1,5 @@
 # Create your views here.
+import math
 from paths import cpspath
 from facebook import GraphAPI
 import json
@@ -791,6 +792,17 @@ def post_new(request):
     if car_number.strip() == '':
         return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                               "text":'Invalid Car number. Please go back or click <a href="/">here</a> to go to the homepage'}))
+    
+    tempres = Post.objects.filter(owner=owner)
+    for x in tempres:
+        if math.fabs((x.date_time.replace(tzinfo=None)-date_time.replace(tzinfo=None)).total_seconds()) < 1800:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":"""
+                                                                                      <p>You already have a post within 30 minutes of this post.</p>
+                                                                                      <p>The only way you can take care of both posts is by driving too fast</p>
+                                                                                      <p>And we do not promote that.</p>
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
+    
     entry = Post(owner=owner, 
                  car_number=car_number, 
                  total_seats=total_seats,
@@ -805,7 +817,6 @@ def post_new(request):
                  cost=cost,
                  sms_noti=sms_noti,
                  )
-    
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'Post successful. Please go back or click <a href="/">here</a> to go to the homepage'}))
@@ -837,6 +848,13 @@ def reserve(request):
         if (reserver.gender=='m' and postobj.men_women==1) or (reserver.gender=='f' and postobj.men_women==2):
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'<p>You are not allowed to reserve this post due to gender preferences of the owner.</p>\
+                                                                                      <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
+        
+        tempres = Reserved.objects.filter(owner=owner)
+        for x in tempres:
+            if math.fabs((x.post.date_time.replace(tzinfo=None)-postobj.date_time.replace(tzinfo=None)).total_seconds()) < 1800:
+                return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
+                                                                                  "text":'<p>You already have a reservation within 15 minutes of this request.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         entry = Reserved(post = postobj, reserver = reserver)
         
