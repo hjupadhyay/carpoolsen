@@ -14,6 +14,13 @@ framework.
 
 """
 import os
+import sys
+
+apache_dir = os.path.dirname(__file__)
+project = os.path.dirname(apache_dir)
+workspace = os.path.dirname(project)
+if workspace not in sys.path:
+    sys.path.append(workspace)
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
