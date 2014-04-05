@@ -26,8 +26,8 @@ jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader([cpspath + '/c
     #REQUEST = {}
 #Perform basic checks on user
 
-def errview(request):
-	return HttpResponse(jinja_environ.get_template('404.html').render({"rider":request.user.rider}))
+#def errview(request):
+	#return HttpResponse(jinja_environ.get_template('404.html').render({"rider":request.user.rider}))
 
 #Function to remove old posts of user
 def remove_old_posts(user):
@@ -853,11 +853,11 @@ def reserve(request):
                                                                                   "text":'<p>You are not allowed to reserve this post due to gender preferences of the owner.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         
-        tempres = Reserved.objects.filter(owner=owner)
+        tempres = Reserved.objects.filter(reserver=reserver)
         for x in tempres:
             if math.fabs((x.post.date_time.replace(tzinfo=None)-postobj.date_time.replace(tzinfo=None)).total_seconds()) < 1800:
                 return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                                  "text":'<p>You already have a reservation within 15 minutes of this request.</p>\
+                                                                                      "text":'<p>You already have a reservation within 15 minutes of this request.</p>\
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>'}))
         entry = Reserved(post = postobj, reserver = reserver)
         
@@ -883,10 +883,10 @@ def accept(request):
     retval = check(request)
     if retval <> None:
         return retval
-    
+    resid = request.REQUEST['resid']
     try:
         owner = request.user.rider
-        resid = request.REQUEST['resid']
+        #resid = request.REQUEST['resid']
         try:
             Reserved.objects.get(pk=resid)
         except Exception as e:
@@ -901,9 +901,11 @@ def accept(request):
             return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                                   "text":'Seats full. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
-        return HttpResponse(e)
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
-                                                                          "text":'Accepted request. Click <a href="/">here</a> to go back to the post.'}))
+        return HttpResponse(e)    
+        
+    resobj = Reserved.objects.get(pk=resid)
+    postobj = resobj.post
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider, "text":'Accepted request. Click <a href="/post_page/?key={{postobj.pk}}">here</a> to go back to homepage.'}))
 
 def revoke(request):
     #if request.method == 'GET':
@@ -940,9 +942,12 @@ def revoke(request):
                                                                                   #"text":'Request already revoked/pending. Please go back or click <a href="/">here</a> to go to the homepage'}))
     except Exception as e:
         return HttpResponse(e)
+        resobj = Reserved.objects.get(pk=resid)
+    postobj = resobj.post
+
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,
                                                                           "text":'<p>Cancelled reservation successfully.</p>\
-                                                                              <p>Click <a href="/">here</a> to go back to the post</p>'}))
+                                                                              <p>Click <a href="/post_page/?key=resobj.post.pk">here</a> to go back to the post</p>'}))
 
 def cancel_res(request):
     #if request.method == 'GET':
@@ -1039,9 +1044,9 @@ def search_do(request):
     
     #[batch*batchlen:(batch+1)*batchlen]
     men_women=request.REQUEST['men_women']
-    results = []
     
     def iterate(fro,to,men_women,start_date_time,end_date_time,pobject):
+		results=[]
 		if men_women <> "0":
 			if end_date_time==None and start_date_time==None:
 				results = pobject.filter(fro__icontains=fro, to__icontains=to, men_women=int(men_women), status__lte=1)
@@ -1077,7 +1082,6 @@ def search_do(request):
     #temp2=[]
     
     if len(fro1)>3 and len(to1)>3:
-		print "x"
 		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
     elif len(fro1)>3 and len(to1)<3:
 		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
@@ -1085,7 +1089,6 @@ def search_do(request):
 		resultlist+=iterate(fro1[0],to1[0],men_women,start_date_time,end_date_time,pobject)
 		
     if len(fro1)>4 and len(to1)>4:
-		print "y"
 		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
     elif len(fro1)>4 and len(to1)<4:
 		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
@@ -1093,7 +1096,6 @@ def search_do(request):
 		resultlist+=iterate(fro1[1],to1[1],men_women,start_date_time,end_date_time,pobject)
 		
     if len(fro1)>5 and len(to1)>5:
-		print "z"
 		resultlist+=iterate(fro1[2],to1[2],men_women,start_date_time,end_date_time,pobject)
     elif len(fro1)>5 and len(to1)<5:
 		resultlist+=iterate(fro1[2],to1[2],men_women,start_date_time,end_date_time,pobject)
@@ -1111,7 +1113,7 @@ def search_do(request):
     }
     
     return HttpResponse(jinja_environ.get_template('searchresult.html').render(template_values))
-    #return HttpResponse(len(results))
+    #return HttpResponse(len(resultlist))
      
 @csrf_exempt
 def edit_post(request):
