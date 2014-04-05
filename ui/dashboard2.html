@@ -136,7 +136,7 @@
                         
                         {% for post,a,b in post_list %}
                         <ul>
-                            <li><p><h5>You have a <a href="/post_page?key={{post.id}}">trip</a> from <font color="green">{{ post.fro }}</font> to <font color="green">{{ post.to }}</font> at on {{post.date_time.date() }} at {{ post.date_time.time() }} <b>({{a}} reservations, {{b}} confirmed)</b></h5></p></li>
+                            <li><p><h5>You have a <a href="/post_page?key={{post.id}}">trip</a> from <font color="green">{{ post.fro }}</font> to <font color="green">{{ post.to }}</font> on {{post.date_time.date() }} at {{ post.date_time.time() }} <b>({{a}} reservations, {{b}} confirmed)</b></h5></p></li>
                         
                         </ul>
                         {% endfor %}
@@ -336,7 +336,6 @@
     </body>
 	  
     </html>
->
     </body>
 	  
     </html>
