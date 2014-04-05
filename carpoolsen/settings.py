@@ -2,7 +2,7 @@ from paths import cpspath
 import pytz
 # Django settings for carpoolsen project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -11,7 +11,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-#ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost']
 
 DATABASES = {
     'default': {
