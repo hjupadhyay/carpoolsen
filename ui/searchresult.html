@@ -71,7 +71,7 @@
     </thead>
         {% for post in result_list %}
         <tr>
-                <td>1</td>
+                <td>{{ loop.index }}</td>
                 {% if not rider == None %}
                 <td>{{ post.owner.user.first_name }} </td>
                 {% endif %}
