@@ -1,3 +1,7 @@
+install pytz package before running:(use following commmand if you have pip)
+    sudo pip install pytz
+
+Please update readme if you change anything, I could not run the server and had to check all changes
 (* carpoolsen *)
 
 Formatting of search results
