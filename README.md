@@ -5,7 +5,6 @@ Please update readme if you change anything, I could not run the server and had 
 (* carpoolsen *)
 
 Formatting of search results
-Footer screwed on some pages.
 
 
 VERY IMPORTANT

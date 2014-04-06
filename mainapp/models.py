@@ -127,6 +127,7 @@ class Post(models.Model):
     #0 - Doesn't want notifications
     #1 - Wants Notifications
     sms_noti = models.IntegerField(default=1)
+    remarks = models.CharField(default="",max_length=100)
     
     def __unicode__(self):
         return self.owner.user.username

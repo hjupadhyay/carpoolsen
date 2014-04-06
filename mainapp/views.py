@@ -805,7 +805,13 @@ def post_new(request):
                                                                                       <p>The only way you can take care of both posts is by driving too fast</p>
                                                                                       <p>And we do not promote that.</p>
                                                                                       <p>Please go back or click <a href="/">here</a> to go to the homepage</p>"""}))
-    
+                                                                                      
+    temp=request.REQUEST['remarks']
+    if temp <> None:
+        remarks=temp
+    else:
+        remarks=""
+        
     entry = Post(owner=owner, 
                  car_number=car_number, 
                  total_seats=total_seats,
@@ -819,6 +825,7 @@ def post_new(request):
                  autoaccept=autoaccept,
                  cost=cost,
                  sms_noti=sms_noti,
+                 remarks=remarks,
                  )
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"rider":request.user.rider,

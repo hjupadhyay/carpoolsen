@@ -2,6 +2,7 @@ from paths import cpspath
 import pytz
 # Django settings for carpoolsen project.
 
+#DEBUG=True
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
